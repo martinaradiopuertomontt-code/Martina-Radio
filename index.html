@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Martina Radio Siempre Para Ti</title>
+
+  <meta name="theme-color" content="#111a3a">
+  <meta name="description" content="Martina Radio Siempre Para Ti — Enamórate del recuerdo.">
+
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(145deg, #080d22, #17245a);
+      color: white;
+      padding: 25px;
+    }
+
+    .contenedor {
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    .logo {
+      width: 145px;
+      height: 145px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 22px;
+      box-shadow: 0 0 30px rgba(255, 105, 180, 0.45);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 30px;
+      letter-spacing: 1px;
+    }
+
+    .slogan {
+      margin: 10px 0 30px;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    .tarjeta {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 22px;
+      padding: 28px 22px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    .tarjeta h2 {
+      margin: 0 0 10px;
+      font-size: 24px;
+    }
+
+    .tarjeta p {
+      line-height: 1.5;
+      margin: 0 0 24px;
+      color: #eeeeee;
+    }
+
+    button, .escuchar {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 50px;
+      padding: 16px 20px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 12px;
+    }
+
+    #instalar {
+      background: linear-gradient(90deg, #ff6fae, #ff9ac7);
+      color: white;
+      box-shadow: 0 8px 25px rgba(255,105,180,0.35);
+    }
+
+    .escuchar {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .ayuda {
+      margin-top: 22px;
+      font-size: 13px;
+      line-height: 1.5;
+      opacity: 0.7;
+    }
+
+    #mensaje {
+      margin-top: 18px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pie {
+      margin-top: 25px;
+      font-size: 13px;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="contenedor">
+
+    <img
+      class="logo"
+      src="https://streaming04.xhost.cl/static/uploads/martinaradio/album_art.1788300867.png"
+      alt="Martina Radio">
+
+    <h1>Martina Radio</h1>
+
+    <div class="slogan">
+      Siempre Para Ti ❤️
+    </div>
+
+    <section class="tarjeta">
+
+      <h2>¡Lleva a Martina contigo!</h2>
+
+      <p>
+        Instala Martina Radio en tu dispositivo
+        para que esté siempre para ti,
+        donde estés.
+      </p>
+
+      <button id="instalar" hidden>
+        📲 INSTALAR MARTINA RADIO
+      </button>
+
+      <a
+        class="escuchar"
+        href="https://streaming04.xhost.cl/public/martinaradio"
+        target="_blank">
+        🎵 ESCUCHAR MARTINA RADIO
+      </a>
+
+      <div id="mensaje"></div>
+
+      <div class="ayuda">
+        Si el botón de instalación no aparece,
+        tu navegador puede ofrecer la opción
+        <strong>“Instalar aplicación”</strong>
+        desde su menú.
+      </div>
+
+    </section>
+
+    <div class="pie">
+      Martina Radio Siempre Para Ti ❤️
+    </div>
+
+  </main>
+
+  <script>
+    let instalacionPendiente = null;
+
+    const boton = document.getElementById("instalar");
+    const mensaje = document.getElementById("mensaje");
+
+    window.addEventListener("beforeinstallprompt", (evento) => {
+
+      evento.preventDefault();
+
+      instalacionPendiente = evento;
+
+      boton.hidden = false;
+
+    });
+
+    boton.addEventListener("click", async () => {
+
+      if (!instalacionPendiente) {
+        mensaje.textContent =
+          "La instalación no está disponible en este momento. Revisa el menú de tu navegador.";
+        return;
+      }
+
+      instalacionPendiente.prompt();
+
+      const resultado = await instalacionPendiente.userChoice;
+
+      if (resultado.outcome === "accepted") {
+        mensaje.textContent =
+          "¡Martina Radio se está instalando! ❤️";
+      }
+
+      instalacionPendiente = null;
+
+      boton.hidden = true;
+
+    });
+
+    window.addEventListener("appinstalled", () => {
+
+      mensaje.textContent =
+        "¡Listo! Martina Radio ya está instalada en tu dispositivo. ❤️";
+
+    });
+
+    if ("serviceWorker" in navigator) {
+
+      window.addEventListener("load", () => {
+
+        navigator.serviceWorker.register("sw.js")
+          .catch(() => {
+            console.log("Service Worker pendiente de configuración.");
+          });
+
+      });
+
+    }
+  </script>
+
+</body>
+</html>

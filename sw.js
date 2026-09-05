@@ -1,4 +1,4 @@
-const CACHE_NAME = "martina-radio-v1";
+const CACHE_NAME = "martina-radio-v2";
 
 const ARCHIVOS = [
   "./",

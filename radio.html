@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#18264b">
+<title>Martina Radio — Siempre Para Ti</title>
+<meta name="description" content="Martina Radio, Siempre Para Ti. Música y recuerdos del sur de Chile.">
+
+<style>
+:root {
+  --azul: #17264b;
+  --rosa: #f5a0bd;
+  --crema: #fff2d7;
+  --madera: #744222;
+}
+* { box-sizing: border-box; }
+
+html { min-height: 100%; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 24px 16px 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  text-align: center;
+  background:
+    linear-gradient(rgba(12, 24, 52, .25), rgba(12, 24, 52, .58)),
+    linear-gradient(145deg, #243b62, #d38ca2);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.pagina {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.marca {
+  margin: 0 auto 22px;
+}
+
+.marca h1 {
+  margin: 0;
+  color: var(--crema);
+  font-size: clamp(27px, 6vw, 42px);
+  letter-spacing: 1px;
+  text-shadow: 0 3px 12px #111b35;
+}
+
+.marca p {
+  margin: 8px 0 0;
+  color: #ffe0eb;
+  font-size: clamp(14px, 3.5vw, 19px);
+  letter-spacing: 2px;
+}
+
+.radio {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(14px, 4vw, 25px);
+  border: 3px solid #d9ad70;
+  border-radius: 22px;
+  background:
+    repeating-linear-gradient(
+      95deg,
+      rgba(255,255,255,.025) 0px,
+      rgba(255,255,255,.025) 2px,
+      transparent 2px,
+      transparent 7px
+    ),
+    linear-gradient(135deg, #925d35, #4e2b19 45%, #8a532c);
+  box-shadow:
+    0 18px 38px rgba(0,0,0,.45),
+    inset 0 0 0 3px rgba(255,220,157,.14);
+}
+
+.panel {
+  padding: 16px;
+  border: 2px solid #cba46a;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #17202b, #080e18);
+  box-shadow: inset 0 0 18px #000;
+}
+
+.etiqueta {
+  margin-bottom: 12px;
+  color: #f4c9d8;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.cancion {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  min-width: 0;
+}
+
+.carátula {
+  flex: 0 0 92px;
+  width: 92px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 6px;
+  color: #ffe3ee;
+  background: linear-gradient(145deg, #344c78, #a9587b);
+  border: 1px solid #e6b6c8;
+  font-size: 30px;
+}
+
+.carátula img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.datos { min-width: 0; }
+
+.datos .artista {
+  color: #f6b0c9;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.datos h2 {
+  margin: 7px 0 0;
+  color: #fff5df;
+  font-size: clamp(17px, 4.2vw, 23px);
+  overflow-wrap: anywhere;
+}
+
+.estado {
+  margin: 16px 0 0;
+  color: #d4d9e4;
+  font-size: 12px;
+}
+
+.controles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.control {
+  min-width: 58px;
+  min-height: 48px;
+  border: 1px solid #d5b17a;
+  border-radius: 50px;
+  color: #fff2d7;
+  background: #49301f;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.control.principal {
+  min-width: 116px;
+  color: #192345;
+  background: linear-gradient(100deg, #ffd6e4, #f4a0bf);
+  border: 0;
+  font-weight: bold;
+}
+
+.control:focus-visible,
+.web:focus-visible {
+  outline: 3px solid white;
+  outline-offset: 4px;
+}
+
+.volumen {
+  width: min(180px, 70%);
+  margin-top: 17px;
+  accent-color: var(--rosa);
+}
+
+.nota {
+  margin: 12px 0 0;
+  color: #d9deea;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.web {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: min(100%, 340px);
+  min-height: 54px;
+  margin: 24px auto 0;
+  padding: 15px 24px;
+  border-radius: 50px;
+  color: #182344;
+  background: linear-gradient(100deg, #ffd4e2, #f39abb);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  letter-spacing: .7px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
+}
+
+footer {
+  margin-top: 22px;
+  color: #fff0e6;
+  font-size: 12px;
+  text-shadow: 0 2px 8px #17213a;
+}
+
+@media (max-width: 390px) {
+  body { padding: 18px 10px 24px; }
+  .radio { padding: 11px; border-radius: 17px; }
+  .panel { padding: 12px; }
+  .carátula { flex-basis: 76px; width: 76px; }
+  .cancion { gap: 10px; }
+  .controles { gap: 8px; }
+  .control { min-width: 52px; }
+  .control.principal { min-width: 105px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto; }
+}
+</style>
+</head>
+
+<body>
+<main class="pagina">
+  <header class="marca">
+    <h1>Martina Radio</h1>
+    <p>SIEMPRE PARA TI ❤️</p>
+  </header>
+
+  <section class="radio" aria-label="Reproductor de Martina Radio">
+    <div class="panel">
+      <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
+
+      <div class="cancion">
+        <div class="carátula" aria-label="Carátula de la canción">♫</div>
+        <div class="datos">
+          <div class="artista">Bienvenidos</div>
+          <h2>Siempre Para Ti</h2>
+        </div>
+      </div>
+
+      <p class="estado" id="estado" aria-live="polite">
+        Tu radio de siempre, muy pronto aquí.
+      </p>
+
+      <div class="controles">
+        <button class="control" id="detener" type="button">■ Parar</button>
+        <button class="control principal" id="play" type="button">▶ Escuchar</button>
+      </div>
+
+      <input class="volumen" id="volumen" type="range"
+        min="0" max="100" value="80" aria-label="Volumen">
+
+      <p class="nota">
+        Los controles se conectarán al audio real en el siguiente paso.
+      </p>
+    </div>
+  </section>
+
+  <a class="web"
+    href="https://sites.google.com/view/martinaradio/inicio"
+    target="_blank" rel="noopener noreferrer">
+    🌐 ENTRAR A LA WEB ↗
+  </a>
+
+  <footer>Martina Radio · Siempre Para Ti ❤️</footer>
+</main>
+
+<script>
+const estado = document.getElementById("estado");
+document.getElementById("play").addEventListener("click", () => {
+  estado.textContent = "El reproductor todavía no está conectado al audio.";
+});
+document.getElementById("detener").addEventListener("click", () => {
+  estado.textContent = "La reproducción aún no está conectada.";
+});
+document.getElementById("volumen").addEventListener("input", (evento) => {
+  estado.textContent = "Volumen elegido: " + evento.target.value +
+    "%. El control se activará al conectar el audio.";
+});
+</script>
+</body>
+</html>

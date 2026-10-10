@@ -2,451 +2,373 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102b4e">
-  <meta name="description" content="Martina Radio, Siempre Para Ti. Música y recuerdos para acompañarte.">
-  <title>Martina Radio — Siempre Para Ti ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123f83">
+<title>Martina Radio — Siempre Para Ti</title>
 
-  <style>
-    :root {
-      --azul: #12365c;
-      --azul-oscuro: #091b30;
-      --rosa: #f5a1c4;
-      --blanco: #ffffff;
-    }
+<style>
+:root {
+  --azul: #123f83;
+  --rosa: #ff78b7;
+}
+* { box-sizing: border-box; }
 
-    * {
-      box-sizing: border-box;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  color: white;
+  background:
+    linear-gradient(#071d43a8, #071d43a8),
+    url("BANNER.png") center / cover fixed no-repeat,
+    #102d56;
+}
 
-    html {
-      min-height: 100%;
-    }
+.panel {
+  width: min(740px, 100%);
+  padding: clamp(18px, 4vw, 32px);
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid #ffffff45;
+  background: linear-gradient(145deg, #164b96f5, #092654f5);
+  box-shadow: 0 15px 40px #0006;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      min-height: 100dvh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--blanco);
-      background-color: var(--azul-oscuro);
-      background-image:
-        linear-gradient(
-          180deg,
-          rgba(7, 22, 40, 0.45),
-          rgba(7, 22, 40, 0.78)
-        ),
-        url("BANNER.png");
-      background-position: center;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
+.logo {
+  width: 125px;
+  max-width: 45%;
+  height: auto;
+  object-fit: contain;
+}
 
-    .pagina {
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 35px 20px 24px;
-      text-align: center;
-    }
+h1 {
+  font-size: clamp(27px, 5vw, 38px);
+  margin: 8px 0 3px;
+}
 
-    .marca {
-      margin-bottom: 28px;
-    }
+.lema {
+  color: #ffd3e8;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0 0 22px;
+}
 
-    .icono-martina {
-      display: block;
-      width: 82px;
-      height: 82px;
-      object-fit: contain;
-      margin: 0 auto 13px;
-      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
-    }
+.etiqueta {
+  display: inline-block;
+  background: #ffffff20;
+  border-radius: 30px;
+  padding: 8px 13px;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
 
-    h1 {
-      margin: 0;
-      font-size: clamp(2.1rem, 7vw, 3.4rem);
-      line-height: 1.1;
-      font-weight: 800;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
-    }
+.video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #061a36;
+}
 
-    .eslogan {
-      margin: 12px 0 0;
-      color: #ffd2e4;
-      font-size: clamp(0.9rem, 3vw, 1.2rem);
-      font-weight: bold;
-      letter-spacing: 3px;
-      text-shadow: 0 2px 8px #000;
-    }
+#player, #player iframe {
+  width: 100%;
+  height: 100%;
+}
 
-    .panel {
-      width: 100%;
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.27);
-      border-radius: 24px;
-      background: rgba(8, 26, 47, 0.94);
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
-      backdrop-filter: blur(9px);
-      -webkit-backdrop-filter: blur(9px);
-    }
+.controles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 9px;
+  margin: 16px 0;
+}
 
-    .etiqueta {
-      color: var(--rosa);
-      font-size: 0.76rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      line-height: 1.7;
-    }
+button {
+  border: 0;
+  border-radius: 25px;
+  padding: 12px 16px;
+  min-height: 43px;
+  background: var(--rosa);
+  color: #17233b;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    .separador {
-      width: 70px;
-      height: 3px;
-      margin: 19px auto 23px;
-      border-radius: 5px;
-      background: var(--rosa);
-    }
+button.secundario {
+  background: #ffffff20;
+  border: 1px solid #ffffff55;
+  color: white;
+}
 
-    .cancion {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-align: left;
-      margin: 0 0 20px;
-      padding: 18px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.07);
-      border: 1px solid rgba(255, 255, 255, 0.09);
-    }
+.programacion {
+  text-align: left;
+  margin: 18px auto 0;
+}
 
-    .caratula {
-      display: grid;
-      flex: 0 0 66px;
-      width: 66px;
-      height: 66px;
-      place-items: center;
-      border-radius: 14px;
-      color: var(--blanco);
-      font-size: 2.4rem;
-      background: linear-gradient(145deg, #e98bb4, #355f94);
-    }
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
 
-    .artista {
-      margin-bottom: 6px;
-      color: #f6c6dc;
-      font-size: 0.9rem;
-    }
+select {
+  width: 100%;
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  background: white;
+  color: #17345e;
+  font-size: 16px;
+}
 
-    .datos h2 {
-      margin: 0;
-      font-size: clamp(1.15rem, 4vw, 1.55rem);
-    }
+#estado {
+  min-height: 2.8em;
+  line-height: 1.45;
+  font-size: 14px;
+  margin: 15px 0 0;
+}
 
-    .descripcion {
-      margin: 0 0 22px;
-      color: #e1e9f3;
-      font-size: 0.96rem;
-      line-height: 1.6;
-    }
+.nota, footer {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d9e6ff;
+}
 
-    .estado {
-      min-height: 24px;
-      margin: 18px 0;
-      color: #f4f6fb;
-      font-size: 0.92rem;
-      line-height: 1.5;
-    }
+footer { margin-top: 15px; }
 
-    .controles {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin: 22px 0;
-    }
-
-    .control {
-      min-height: 48px;
-      padding: 12px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.09);
-      color: var(--blanco);
-      font-size: 0.96rem;
-      font-weight: bold;
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease;
-    }
-
-    .control:hover {
-      background: rgba(255, 255, 255, 0.19);
-    }
-
-    .control:active {
-      transform: scale(0.97);
-    }
-
-    .control:focus-visible,
-    .web:focus-visible {
-      outline: 3px solid #ffd2e4;
-      outline-offset: 4px;
-    }
-
-    .control.principal {
-      border-color: var(--rosa);
-      background: var(--rosa);
-      color: #19283b;
-    }
-
-    .control.principal:hover {
-      background: #ffc1d9;
-    }
-
-    .rotulo-volumen {
-      display: block;
-      margin-top: 25px;
-      color: #f6c6dc;
-      font-size: 0.76rem;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-align: left;
-    }
-
-    .volumen {
-      display: block;
-      width: 100%;
-      margin: 14px 0 0;
-      accent-color: var(--rosa);
-      cursor: pointer;
-    }
-
-    .web {
-      display: inline-block;
-      max-width: 100%;
-      margin: 24px auto 0;
-      padding: 14px 23px;
-      border: 1px solid rgba(255, 255, 255, 0.65);
-      border-radius: 999px;
-      background: rgba(10, 33, 57, 0.88);
-      color: var(--blanco);
-      font-size: 0.94rem;
-      font-weight: bold;
-      text-decoration: none;
-      transition: background 0.15s ease;
-    }
-
-    .web:hover {
-      background: rgba(245, 161, 196, 0.25);
-    }
-
-    footer {
-      margin-top: 25px;
-      color: #fff;
-      font-size: 0.85rem;
-      line-height: 1.6;
-      text-shadow: 0 2px 7px #000;
-    }
-
-    @media (max-width: 600px) {
-      body {
-        background-attachment: scroll;
-      }
-
-      .pagina {
-        padding: 25px 15px 22px;
-      }
-
-      .marca {
-        margin-bottom: 22px;
-      }
-
-      .icono-martina {
-        width: 70px;
-        height: 70px;
-      }
-
-      .eslogan {
-        letter-spacing: 2px;
-      }
-
-      .panel {
-        padding: 24px 18px;
-        border-radius: 20px;
-      }
-
-      .cancion {
-        gap: 12px;
-        padding: 14px 12px;
-      }
-
-      .caratula {
-        flex-basis: 56px;
-        width: 56px;
-        height: 56px;
-      }
-
-      .control {
-        padding: 12px 16px;
-      }
-
-      .controles {
-        gap: 9px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        transition: none !important;
-      }
-    }
-  </style>
+@media (max-width: 480px) {
+  body { padding: 10px 7px; background-attachment: scroll; }
+  .panel { padding: 18px 12px; border-radius: 16px; }
+  .controles { display: grid; grid-template-columns: 1fr 1fr; }
+  button { width: 100%; padding: 11px 7px; }
+}
+</style>
 </head>
 
 <body>
-  <main class="pagina">
+<main class="panel">
+  <img class="logo" src="descarga.jpg"
+       alt="Martina Radio"
+       onerror="this.style.display='none'">
 
-    <header class="marca">
-      <img
-        class="icono-martina"
-        src="descarga.jpg"
-        alt="Logo de Martina Radio"
-      >
+  <h1>Martina Radio</h1>
+  <p class="lema">SIEMPRE PARA TI ❤️</p>
 
-      <h1>Martina Radio</h1>
-      <p class="eslogan">SIEMPRE PARA TI ❤️</p>
-    </header>
+  <div class="etiqueta">🎵 TU RADIO, TUS RECUERDOS</div>
 
-    <section class="panel" aria-label="Reproductor de Martina Radio">
+  <div class="video">
+    <div id="player"></div>
+  </div>
 
-      <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
-      <div class="separador"></div>
+  <div class="controles">
+    <button id="reproducir">▶ Reproducir</button>
+    <button id="pausar" class="secundario">Ⅱ Pausar</button>
+    <button id="siguiente" class="secundario">⏭ Siguiente</button>
+    <button id="silenciar" class="secundario">🔊 Silenciar</button>
+  </div>
 
-      <div class="cancion">
-        <div class="caratula" aria-hidden="true">♫</div>
-        <div class="datos">
-          <div class="artista">Tu compañía de siempre</div>
-          <h2>Música y recuerdos</h2>
-        </div>
-      </div>
+  <div class="programacion">
+    <label for="listas">CAMBIAR PROGRAMACIÓN</label>
+    <select id="listas" disabled>
+      <option>Cargando programaciones...</option>
+    </select>
+  </div>
 
-      <p class="descripcion">
-        Las canciones que marcaron tu vida,
-        los recuerdos que llevas en el corazón.
-        Gracias por acompañarnos.
-      </p>
+  <p id="estado" role="status">
+    Preparando Martina Radio...
+  </p>
 
-      <p class="estado" id="estado" aria-live="polite">
-        Enciende la radio y disfruta de la música ❤️
-      </p>
+  <p class="nota">
+    La reproducción puede requerir que pulses Reproducir.
+    Se necesita conexión a internet.
+  </p>
+</main>
 
-      <div class="controles">
-        <button class="control principal" id="play" type="button">
-          ▶ Escuchar en vivo
-        </button>
+<footer>Martina Radio · Siempre Para Ti ❤️</footer>
 
-        <button class="control" id="detener" type="button">
-          ■ Detener
-        </button>
-      </div>
+<script>
+let reproductor;
+let listo = false;
+let programaciones = [];
+let indice = 0;
+let silenciado = false;
 
-      <label class="rotulo-volumen" for="volumen">
-        🔊 VOLUMEN
-      </label>
+const listas = document.getElementById("listas");
+const estado = document.getElementById("estado");
 
-      <input
-        class="volumen"
-        id="volumen"
-        type="range"
-        min="0"
-        max="100"
-        value="80"
-        aria-label="Volumen de la radio"
-      >
+function informar(mensaje) {
+  estado.textContent = mensaje;
+}
 
-      <audio
-        id="audio"
-        preload="none"
-        src="https://streaming04.xhost.cl/listen/martinaradio/radio.mp3">
-      </audio>
+function idValido(id) {
+  return typeof id === "string" &&
+    /^[A-Za-z0-9_-]{10,}$/.test(id) &&
+    !/PON_AQUI|REEMPLAZAR|EJEMPLO/i.test(id);
+}
 
-    </section>
+async function cargarProgramaciones() {
+  try {
+    const respuesta = await fetch("playlist.json?actualizar=" + Date.now());
 
-    <a
-      class="web"
-      href="https://sites.google.com/view/martinaradio/inicio"
-      target="_blank"
-      rel="noopener noreferrer">
-      🌐 VISITAR NUESTRA WEB ↗
-    </a>
+    if (!respuesta.ok) {
+      throw new Error("No se encontró playlist.json");
+    }
 
-    <footer>
-      Martina Radio · Siempre Para Ti ❤️
-    </footer>
+    const datos = await respuesta.json();
 
-  </main>
+    programaciones = Array.isArray(datos.programaciones)
+      ? datos.programaciones
+      : [];
 
-  <script>
-    const audio = document.getElementById("audio");
-    const estado = document.getElementById("estado");
-    const play = document.getElementById("play");
-    const detener = document.getElementById("detener");
-    const volumen = document.getElementById("volumen");
+    listas.innerHTML = "";
 
-    audio.volume = Number(volumen.value) / 100;
+    programaciones.forEach((p, i) => {
+      const opcion = document.createElement("option");
+      opcion.value = i;
+      opcion.textContent = p.nombre;
+      listas.appendChild(opcion);
+    });
 
-    play.addEventListener("click", async () => {
-      estado.textContent = "Conectando con Martina Radio...";
-      audio.volume = Number(volumen.value) / 100;
+    if (!programaciones.some(p => idValido(p.playlistId))) {
+      listas.disabled = true;
+      listas.innerHTML =
+        '<option>Faltan los ID de YouTube</option>';
 
-      try {
-        await audio.play();
-        estado.textContent =
-          "Estás escuchando Martina Radio en vivo ❤️";
-        play.textContent = "♫ Escuchando";
-      } catch (error) {
-        estado.textContent =
-          "No se pudo conectar. Comprueba tu conexión e inténtalo de nuevo.";
-        play.textContent = "▶ Intentar nuevamente";
+      informar("La página está preparada. Falta introducir los ID reales de tus playlists en playlist.json.");
+      return;
+    }
+
+    indice = Math.max(
+      0,
+      Math.min(datos.programacionInicial || 0,
+               programaciones.length - 1)
+    );
+
+    listas.value = indice;
+    listas.disabled = false;
+
+    if (listo) seleccionarLista(false);
+
+  } catch (error) {
+    listas.innerHTML =
+      '<option>No se pudo cargar la programación</option>';
+
+    informar("No se pudo leer playlist.json. Comprueba que esté junto a radio.html en GitHub.");
+  }
+}
+
+function seleccionarLista(reproducir) {
+  const p = programaciones[indice];
+
+  if (!listo || !p || !idValido(p.playlistId)) {
+    informar("Esta programación necesita un ID válido de YouTube.");
+    return;
+  }
+
+  reproductor.loadPlaylist({
+    listType: "playlist",
+    list: p.playlistId,
+    index: 0
+  });
+
+  if (reproducir) reproductor.playVideo();
+
+  informar("Programación: " + p.nombre +
+           ". Pulsa Reproducir para escuchar.");
+}
+
+window.onYouTubeIframeAPIReady = function() {
+  reproductor = new YT.Player("player", {
+    width: "100%",
+    height: "100%",
+    playerVars: {
+      playsinline: 1,
+      rel: 0
+    },
+    events: {
+      onReady: function() {
+        listo = true;
+
+        if (programaciones.length) {
+          seleccionarLista(false);
+        } else {
+          informar("Reproductor listo. Configura tus playlists.");
+        }
+      },
+      onStateChange: function(evento) {
+        if (evento.data === YT.PlayerState.PLAYING) {
+          informar("Sonando en Martina Radio: " +
+            (programaciones[indice]?.nombre || "Música"));
+        }
+      },
+      onError: function(evento) {
+        informar("YouTube no pudo reproducir esta playlist. Revisa su ID y que permita reproducción incrustada. Código: " + evento.data);
       }
-    });
+    }
+  });
+};
 
-    detener.addEventListener("click", () => {
-      audio.pause();
-      audio.currentTime = 0;
-      play.textContent = "▶ Escuchar en vivo";
-      estado.textContent =
-        "Reproducción detenida. Vuelve cuando quieras ❤️";
-    });
+listas.addEventListener("change", function() {
+  indice = Number(this.value);
+  seleccionarLista(false);
+});
 
-    volumen.addEventListener("input", () => {
-      audio.volume = Number(volumen.value) / 100;
-    });
+document.getElementById("reproducir").onclick = function() {
+  if (!listo) {
+    informar("El reproductor aún está cargando. Intenta nuevamente.");
+    return;
+  }
 
-    audio.addEventListener("playing", () => {
-      estado.textContent =
-        "Estás escuchando Martina Radio en vivo ❤️";
-      play.textContent = "♫ Escuchando";
-    });
+  const p = programaciones[indice];
 
-    audio.addEventListener("waiting", () => {
-      estado.textContent = "Conectando con la señal... un momento.";
-    });
+  if (!p || !idValido(p.playlistId)) {
+    informar("Primero configura una playlist real de YouTube.");
+    return;
+  }
 
-    audio.addEventListener("error", () => {
-      estado.textContent =
-        "No se pudo cargar la señal. Pulsa Escuchar para intentarlo de nuevo.";
-      play.textContent = "▶ Intentar nuevamente";
-    });
+  const actual = reproductor.getPlaylist();
 
-    audio.addEventListener("pause", () => {
-      if (audio.currentTime > 0 && !audio.ended) {
-        play.textContent = "▶ Escuchar en vivo";
-      }
-    });
-  </script>
+  if (actual && actual.length) {
+    reproductor.playVideo();
+  } else {
+    seleccionarLista(true);
+  }
+};
+
+document.getElementById("pausar").onclick = function() {
+  if (listo) reproductor.pauseVideo();
+};
+
+document.getElementById("siguiente").onclick = function() {
+  if (listo) reproductor.nextVideo();
+};
+
+document.getElementById("silenciar").onclick = function() {
+  if (!listo) return;
+
+  silenciado = !silenciado;
+
+  if (silenciado) {
+    reproductor.mute();
+  } else {
+    reproductor.unMute();
+  }
+
+  this.textContent = silenciado
+    ? "🔇 Activar sonido"
+    : "🔊 Silenciar";
+};
+
+cargarProgramaciones();
+
+const api = document.createElement("script");
+api.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(api);
+</script>
 </body>
 </html>

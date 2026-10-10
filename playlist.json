@@ -3,19 +3,23 @@
   "programaciones": [
     {
       "nombre": "Generación Dorada",
-      "playlistId": "PON_AQUI_ID_PLAYLIST_50S"
+      "playlistId": "PON_AQUI_ID_GENERACION_DORADA"
     },
     {
       "nombre": "Nueva Ola",
-      "playlistId": "PON_AQUI_ID_PLAYLIST_NUEVA_OLA"
+      "playlistId": "PON_AQUI_ID_NUEVA_OLA"
     },
     {
       "nombre": "Románticos de Siempre",
-      "playlistId": "PON_AQUI_ID_PLAYLIST_ROMANTICOS"
+      "playlistId": "PON_AQUI_ID_ROMANTICOS"
+    },
+    {
+      "nombre": "Anglo 80s",
+      "playlistId": "PON_AQUI_ID_ANGLO_80S"
     },
     {
       "nombre": "Especiales",
-      "playlistId": "PON_AQUI_ID_PLAYLIST_ESPECIALES"
+      "playlistId": "PON_AQUI_ID_ESPECIALES"
     }
   ],
   "programacionInicial": 0

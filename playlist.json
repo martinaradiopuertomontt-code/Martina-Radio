@@ -2,8 +2,8 @@
 {
   "programaciones": [
     {
-      "nombre": "Generación Dorada",
-      "playlistId": "PON_AQUI_ID_GENERACION_DORADA"
+      "nombre": "Mi playlist principal",
+      "playlistId": "PL0xxFhOF9Vh8SFFTGPqvqk7jFBAMGAmYQ"
     },
     {
       "nombre": "Nueva Ola",
@@ -15,7 +15,7 @@
     },
     {
       "nombre": "Anglo 80s",
-      "playlistId": "PL0xxFhOF9Vh8SFFTGPqvqk7jFBAMGAmYQ"
+      "playlistId": "PON_AQUI_ID_ANGLO_80S"
     },
     {
       "nombre": "Especiales",

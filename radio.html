@@ -1,298 +1,456 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#18264b">
-<title>Martina Radio — Siempre Para Ti</title>
-<meta name="description" content="Martina Radio, Siempre Para Ti. Música y recuerdos del sur de Chile.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102b4e">
+  <meta name="description" content="Martina Radio, Siempre Para Ti. Música y recuerdos para acompañarte.">
 
-<style>
-:root {
-  --azul: #17264b;
-  --rosa: #f5a0bd;
-  --crema: #fff2d7;
-  --madera: #744222;
-}
-* { box-sizing: border-box; }
+  <title>Martina Radio — Siempre Para Ti ❤️</title>
 
-html { min-height: 100%; }
+  <style>
+    :root {
+      --azul: #12365c;
+      --azul-oscuro: #091b30;
+      --rosa: #f5a1c4;
+      --blanco: #ffffff;
+    }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  min-height: 100svh;
-  padding: 24px 16px 30px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: white;
-  text-align: center;
-  background:
-    linear-gradient(rgba(12, 24, 52, .25), rgba(12, 24, 52, .58)),
-    linear-gradient(145deg, #243b62, #d38ca2);
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-.pagina {
-  width: 100%;
-  max-width: 680px;
-  margin: 0 auto;
-}
+    html {
+      min-height: 100%;
+    }
 
-.marca {
-  margin: 0 auto 22px;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--blanco);
+      background-color: var(--azul-oscuro);
+      background-image:
+        linear-gradient(
+          180deg,
+          rgba(7, 22, 40, 0.48),
+          rgba(7, 22, 40, 0.78)
+        ),
+        url("BANNER.png");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
 
-.marca h1 {
-  margin: 0;
-  color: var(--crema);
-  font-size: clamp(27px, 6vw, 42px);
-  letter-spacing: 1px;
-  text-shadow: 0 3px 12px #111b35;
-}
+    .pagina {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 20px 22px;
+      text-align: center;
+    }
 
-.marca p {
-  margin: 8px 0 0;
-  color: #ffe0eb;
-  font-size: clamp(14px, 3.5vw, 19px);
-  letter-spacing: 2px;
-}
+    .marca {
+      margin-bottom: 24px;
+    }
 
-.radio {
-  width: 100%;
-  max-width: 520px;
-  margin: 0 auto;
-  padding: clamp(14px, 4vw, 25px);
-  border: 3px solid #d9ad70;
-  border-radius: 22px;
-  background:
-    repeating-linear-gradient(
-      95deg,
-      rgba(255,255,255,.025) 0px,
-      rgba(255,255,255,.025) 2px,
-      transparent 2px,
-      transparent 7px
-    ),
-    linear-gradient(135deg, #925d35, #4e2b19 45%, #8a532c);
-  box-shadow:
-    0 18px 38px rgba(0,0,0,.45),
-    inset 0 0 0 3px rgba(255,220,157,.14);
-}
+    .icono-martina {
+      display: block;
+      width: 78px;
+      height: 78px;
+      object-fit: contain;
+      margin: 0 auto 10px;
+      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.3));
+    }
 
-.panel {
-  padding: 16px;
-  border: 2px solid #cba46a;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #17202b, #080e18);
-  box-shadow: inset 0 0 18px #000;
-}
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.4rem);
+      line-height: 1.1;
+      font-weight: 800;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.55);
+    }
 
-.etiqueta {
-  margin-bottom: 12px;
-  color: #f4c9d8;
-  font-size: 12px;
-  letter-spacing: 3px;
-}
+    .marca p {
+      margin: 10px 0 0;
+      color: #ffd2e4;
+      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 8px #000;
+    }
 
-.cancion {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-align: left;
-  min-width: 0;
-}
+    .radio {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      width: 100%;
+    }
 
-.carátula {
-  flex: 0 0 92px;
-  width: 92px;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  border-radius: 6px;
-  color: #ffe3ee;
-  background: linear-gradient(145deg, #344c78, #a9587b);
-  border: 1px solid #e6b6c8;
-  font-size: 30px;
-}
+    .radio-antigua {
+      display: block;
+      width: min(100%, 410px);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.4));
+    }
 
-.carátula img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .panel {
+      width: 100%;
+      max-width: 540px;
+      padding: 26px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 22px;
+      background: rgba(8, 26, 47, 0.88);
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
 
-.datos { min-width: 0; }
+    .etiqueta {
+      color: var(--rosa);
+      font-size: 0.76rem;
+      font-weight: bold;
+      letter-spacing: 1.6px;
+      line-height: 1.6;
+    }
 
-.datos .artista {
-  color: #f6b0c9;
-  font-size: 12px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
+    .cancion {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-align: left;
+      margin: 23px 0 18px;
+    }
 
-.datos h2 {
-  margin: 7px 0 0;
-  color: #fff5df;
-  font-size: clamp(17px, 4.2vw, 23px);
-  overflow-wrap: anywhere;
-}
+    .caratula {
+      display: grid;
+      flex: 0 0 68px;
+      width: 68px;
+      height: 68px;
+      place-items: center;
+      border-radius: 14px;
+      color: var(--blanco);
+      font-size: 2.4rem;
+      background: linear-gradient(145deg, #e98bb4, #355f94);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
 
-.estado {
-  margin: 16px 0 0;
-  color: #d4d9e4;
-  font-size: 12px;
-}
+    .artista {
+      margin-bottom: 5px;
+      color: #f6c6dc;
+      font-size: 0.92rem;
+    }
 
-.controles {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  margin-top: 18px;
-}
+    .datos h2 {
+      margin: 0;
+      font-size: clamp(1.2rem, 4vw, 1.65rem);
+    }
 
-.control {
-  min-width: 58px;
-  min-height: 48px;
-  border: 1px solid #d5b17a;
-  border-radius: 50px;
-  color: #fff2d7;
-  background: #49301f;
-  font-size: 15px;
-  cursor: pointer;
-}
+    .estado {
+      min-height: 24px;
+      margin: 18px 0;
+      color: #f4f6fb;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
 
-.control.principal {
-  min-width: 116px;
-  color: #192345;
-  background: linear-gradient(100deg, #ffd6e4, #f4a0bf);
-  border: 0;
-  font-weight: bold;
-}
+    .controles {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 20px 0;
+    }
 
-.control:focus-visible,
-.web:focus-visible {
-  outline: 3px solid white;
-  outline-offset: 4px;
-}
+    .control {
+      min-height: 48px;
+      padding: 12px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--blanco);
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
 
-.volumen {
-  width: min(180px, 70%);
-  margin-top: 17px;
-  accent-color: var(--rosa);
-}
+    .control:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-.nota {
-  margin: 12px 0 0;
-  color: #d9deea;
-  font-size: 11px;
-  line-height: 1.5;
-}
+    .control:active {
+      transform: scale(0.97);
+    }
 
-.web {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: min(100%, 340px);
-  min-height: 54px;
-  margin: 24px auto 0;
-  padding: 15px 24px;
-  border-radius: 50px;
-  color: #182344;
-  background: linear-gradient(100deg, #ffd4e2, #f39abb);
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: bold;
-  letter-spacing: .7px;
-  box-shadow: 0 8px 22px rgba(0,0,0,.22);
-}
+    .control:focus-visible,
+    .web:focus-visible {
+      outline: 3px solid #ffd2e4;
+      outline-offset: 4px;
+    }
 
-footer {
-  margin-top: 22px;
-  color: #fff0e6;
-  font-size: 12px;
-  text-shadow: 0 2px 8px #17213a;
-}
+    .control.principal {
+      border-color: var(--rosa);
+      background: var(--rosa);
+      color: #19283b;
+    }
 
-@media (max-width: 390px) {
-  body { padding: 18px 10px 24px; }
-  .radio { padding: 11px; border-radius: 17px; }
-  .panel { padding: 12px; }
-  .carátula { flex-basis: 76px; width: 76px; }
-  .cancion { gap: 10px; }
-  .controles { gap: 8px; }
-  .control { min-width: 52px; }
-  .control.principal { min-width: 105px; }
-}
+    .control.principal:hover {
+      background: #ffc1d9;
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  * { scroll-behavior: auto; }
-}
-</style>
+    .rotulo-volumen {
+      display: block;
+      margin-top: 22px;
+      color: #f6c6dc;
+      font-size: 0.78rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-align: left;
+    }
+
+    .volumen {
+      display: block;
+      width: 100%;
+      margin: 13px 0 0;
+      accent-color: var(--rosa);
+      cursor: pointer;
+    }
+
+    .web {
+      display: inline-block;
+      max-width: 100%;
+      margin: 25px auto 0;
+      padding: 14px 23px;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      border-radius: 999px;
+      background: rgba(10, 33, 57, 0.75);
+      color: var(--blanco);
+      font-size: 0.94rem;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .web:hover {
+      background: rgba(245, 161, 196, 0.25);
+    }
+
+    footer {
+      margin-top: 28px;
+      color: #ffffff;
+      font-size: 0.88rem;
+      text-shadow: 0 2px 7px #000;
+    }
+
+    @media (min-width: 760px) {
+      .pagina {
+        padding-top: 36px;
+      }
+
+      .radio {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 28px;
+      }
+
+      .radio-antigua {
+        width: 42%;
+        max-width: 390px;
+      }
+
+      .panel {
+        flex: 1;
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      .pagina {
+        padding: 22px 15px 20px;
+      }
+
+      .icono-martina {
+        width: 66px;
+        height: 66px;
+      }
+
+      .marca p {
+        letter-spacing: 2px;
+      }
+
+      .radio-antigua {
+        width: min(92%, 340px);
+      }
+
+      .panel {
+        padding: 22px 18px;
+        border-radius: 18px;
+      }
+
+      .control {
+        padding: 12px 16px;
+      }
+
+      .controles {
+        gap: 9px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        transition: none !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<main class="pagina">
-  <header class="marca">
-    <h1>Martina Radio</h1>
-    <p>SIEMPRE PARA TI ❤️</p>
-  </header>
+  <main class="pagina">
 
-  <section class="radio" aria-label="Reproductor de Martina Radio">
-    <div class="panel">
-      <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
+    <header class="marca">
+      <img
+        class="icono-martina"
+        src="descarga.jpg"
+        alt="Logo de Martina Radio"
+      >
 
-      <div class="cancion">
-        <div class="carátula" aria-label="Carátula de la canción">♫</div>
-        <div class="datos">
-          <div class="artista">Bienvenidos</div>
-          <h2>Siempre Para Ti</h2>
+      <h1>Martina Radio</h1>
+      <p>SIEMPRE PARA TI ❤️</p>
+    </header>
+
+    <section class="radio" aria-label="Reproductor de Martina Radio">
+
+      <img
+        class="radio-antigua"
+        src="be599127-6850-4bc5-9c95-e4b3fe142a10.png"
+        alt="Radio antigua de madera con su mesita"
+      >
+
+      <div class="panel">
+        <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
+
+        <div class="cancion">
+          <div class="caratula" aria-hidden="true">♫</div>
+
+          <div class="datos">
+            <div class="artista">Tu compañía de siempre</div>
+            <h2>Siempre Para Ti</h2>
+          </div>
         </div>
+
+        <p class="estado" id="estado" aria-live="polite">
+          Enciende la radio y disfruta de la música ❤️
+        </p>
+
+        <div class="controles">
+          <button class="control principal" id="play" type="button">
+            ▶ Escuchar en vivo
+          </button>
+
+          <button class="control" id="detener" type="button">
+            ■ Parar
+          </button>
+        </div>
+
+        <label class="rotulo-volumen" for="volumen">VOLUMEN</label>
+
+        <input
+          class="volumen"
+          id="volumen"
+          type="range"
+          min="0"
+          max="100"
+          value="80"
+          aria-label="Volumen de la radio"
+        >
+
+        <audio
+          id="audio"
+          preload="none"
+          src="https://streaming04.xhost.cl/listen/martinaradio/radio.mp3">
+        </audio>
       </div>
 
-      <p class="estado" id="estado" aria-live="polite">
-        Tu radio de siempre, muy pronto aquí.
-      </p>
+    </section>
 
-      <div class="controles">
-        <button class="control" id="detener" type="button">■ Parar</button>
-        <button class="control principal" id="play" type="button">▶ Escuchar</button>
-      </div>
+    <a
+      class="web"
+      href="https://sites.google.com/view/martinaradio/inicio"
+      target="_blank"
+      rel="noopener noreferrer">
+      🌐 ENTRAR A LA WEB ↗
+    </a>
 
-      <input class="volumen" id="volumen" type="range"
-        min="0" max="100" value="80" aria-label="Volumen">
+    <footer>Martina Radio · Siempre Para Ti ❤️</footer>
 
-      <p class="nota">
-        Los controles se conectarán al audio real en el siguiente paso.
-      </p>
-    </div>
-  </section>
+  </main>
 
-  <a class="web"
-    href="https://sites.google.com/view/martinaradio/inicio"
-    target="_blank" rel="noopener noreferrer">
-    🌐 ENTRAR A LA WEB ↗
-  </a>
+  <script>
+    const audio = document.getElementById("audio");
+    const estado = document.getElementById("estado");
+    const play = document.getElementById("play");
+    const detener = document.getElementById("detener");
+    const volumen = document.getElementById("volumen");
 
-  <footer>Martina Radio · Siempre Para Ti ❤️</footer>
-</main>
+    audio.volume = Number(volumen.value) / 100;
 
-<script>
-const estado = document.getElementById("estado");
-document.getElementById("play").addEventListener("click", () => {
-  estado.textContent = "El reproductor todavía no está conectado al audio.";
-});
-document.getElementById("detener").addEventListener("click", () => {
-  estado.textContent = "La reproducción aún no está conectada.";
-});
-document.getElementById("volumen").addEventListener("input", (evento) => {
-  estado.textContent = "Volumen elegido: " + evento.target.value +
-    "%. El control se activará al conectar el audio.";
-});
-</script>
+    play.addEventListener("click", async () => {
+      estado.textContent = "Conectando con Martina Radio...";
+      audio.volume = Number(volumen.value) / 100;
+
+      try {
+        await audio.play();
+        estado.textContent = "Estás escuchando Martina Radio en vivo ❤️";
+        play.textContent = "♫ Escuchando";
+      } catch (error) {
+        estado.textContent =
+          "No se pudo conectar. Comprueba tu conexión e inténtalo de nuevo.";
+        play.textContent = "▶ Intentar nuevamente";
+      }
+    });
+
+    detener.addEventListener("click", () => {
+      audio.pause();
+      audio.currentTime = 0;
+      play.textContent = "▶ Escuchar en vivo";
+      estado.textContent = "Reproducción detenida. Vuelve cuando quieras ❤️";
+    });
+
+    volumen.addEventListener("input", () => {
+      audio.volume = Number(volumen.value) / 100;
+    });
+
+    audio.addEventListener("playing", () => {
+      estado.textContent = "Estás escuchando Martina Radio en vivo ❤️";
+      play.textContent = "♫ Escuchando";
+    });
+
+    audio.addEventListener("waiting", () => {
+      estado.textContent = "Conectando con la señal... un momento.";
+    });
+
+    audio.addEventListener("error", () => {
+      estado.textContent =
+        "No se pudo cargar la señal. Pulsa Escuchar para intentarlo de nuevo.";
+      play.textContent = "▶ Intentar nuevamente";
+    });
+
+    audio.addEventListener("pause", () => {
+      if (audio.currentTime > 0 && !audio.ended) {
+        play.textContent = "▶ Escuchar en vivo";
+      }
+    });
+  </script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#102b4e">
   <meta name="description" content="Martina Radio, Siempre Para Ti. Música y recuerdos para acompañarte.">
-
   <title>Martina Radio — Siempre Para Ti ❤️</title>
 
   <style>
@@ -27,13 +27,14 @@
     body {
       margin: 0;
       min-height: 100vh;
+      min-height: 100dvh;
       font-family: Arial, Helvetica, sans-serif;
       color: var(--blanco);
       background-color: var(--azul-oscuro);
       background-image:
         linear-gradient(
           180deg,
-          rgba(7, 22, 40, 0.48),
+          rgba(7, 22, 40, 0.45),
           rgba(7, 22, 40, 0.78)
         ),
         url("BANNER.png");
@@ -45,115 +46,116 @@
 
     .pagina {
       width: 100%;
-      max-width: 960px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 28px 20px 22px;
+      padding: 35px 20px 24px;
       text-align: center;
     }
 
     .marca {
-      margin-bottom: 24px;
+      margin-bottom: 28px;
     }
 
     .icono-martina {
       display: block;
-      width: 78px;
-      height: 78px;
+      width: 82px;
+      height: 82px;
       object-fit: contain;
-      margin: 0 auto 10px;
-      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.3));
+      margin: 0 auto 13px;
+      filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.4));
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 3.4rem);
+      font-size: clamp(2.1rem, 7vw, 3.4rem);
       line-height: 1.1;
       font-weight: 800;
-      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.55);
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.6);
     }
 
-    .marca p {
-      margin: 10px 0 0;
+    .eslogan {
+      margin: 12px 0 0;
       color: #ffd2e4;
-      font-size: clamp(0.95rem, 2.5vw, 1.25rem);
+      font-size: clamp(0.9rem, 3vw, 1.2rem);
       font-weight: bold;
       letter-spacing: 3px;
       text-shadow: 0 2px 8px #000;
     }
 
-    .radio {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 20px;
-      width: 100%;
-    }
-
-    .radio-antigua {
-      display: block;
-      width: min(100%, 410px);
-      height: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.4));
-    }
-
     .panel {
       width: 100%;
-      max-width: 540px;
-      padding: 26px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 22px;
-      background: rgba(8, 26, 47, 0.88);
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.28);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.27);
+      border-radius: 24px;
+      background: rgba(8, 26, 47, 0.94);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
     }
 
     .etiqueta {
       color: var(--rosa);
       font-size: 0.76rem;
       font-weight: bold;
-      letter-spacing: 1.6px;
-      line-height: 1.6;
+      letter-spacing: 2px;
+      line-height: 1.7;
+    }
+
+    .separador {
+      width: 70px;
+      height: 3px;
+      margin: 19px auto 23px;
+      border-radius: 5px;
+      background: var(--rosa);
     }
 
     .cancion {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 16px;
       text-align: left;
-      margin: 23px 0 18px;
+      margin: 0 0 20px;
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.09);
     }
 
     .caratula {
       display: grid;
-      flex: 0 0 68px;
-      width: 68px;
-      height: 68px;
+      flex: 0 0 66px;
+      width: 66px;
+      height: 66px;
       place-items: center;
       border-radius: 14px;
       color: var(--blanco);
       font-size: 2.4rem;
       background: linear-gradient(145deg, #e98bb4, #355f94);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     }
 
     .artista {
-      margin-bottom: 5px;
+      margin-bottom: 6px;
       color: #f6c6dc;
-      font-size: 0.92rem;
+      font-size: 0.9rem;
     }
 
     .datos h2 {
       margin: 0;
-      font-size: clamp(1.2rem, 4vw, 1.65rem);
+      font-size: clamp(1.15rem, 4vw, 1.55rem);
+    }
+
+    .descripcion {
+      margin: 0 0 22px;
+      color: #e1e9f3;
+      font-size: 0.96rem;
+      line-height: 1.6;
     }
 
     .estado {
       min-height: 24px;
       margin: 18px 0;
       color: #f4f6fb;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       line-height: 1.5;
     }
 
@@ -162,24 +164,24 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 12px;
-      margin: 20px 0;
+      margin: 22px 0;
     }
 
     .control {
       min-height: 48px;
       padding: 12px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.38);
+      border: 1px solid rgba(255, 255, 255, 0.4);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.09);
       color: var(--blanco);
-      font-size: 1rem;
+      font-size: 0.96rem;
       font-weight: bold;
       cursor: pointer;
       transition: transform 0.15s ease, background 0.15s ease;
     }
 
     .control:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.19);
     }
 
     .control:active {
@@ -204,9 +206,9 @@
 
     .rotulo-volumen {
       display: block;
-      margin-top: 22px;
+      margin-top: 25px;
       color: #f6c6dc;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: bold;
       letter-spacing: 2px;
       text-align: left;
@@ -215,7 +217,7 @@
     .volumen {
       display: block;
       width: 100%;
-      margin: 13px 0 0;
+      margin: 14px 0 0;
       accent-color: var(--rosa);
       cursor: pointer;
     }
@@ -223,11 +225,11 @@
     .web {
       display: inline-block;
       max-width: 100%;
-      margin: 25px auto 0;
+      margin: 24px auto 0;
       padding: 14px 23px;
-      border: 1px solid rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.65);
       border-radius: 999px;
-      background: rgba(10, 33, 57, 0.75);
+      background: rgba(10, 33, 57, 0.88);
       color: var(--blanco);
       font-size: 0.94rem;
       font-weight: bold;
@@ -240,33 +242,11 @@
     }
 
     footer {
-      margin-top: 28px;
-      color: #ffffff;
-      font-size: 0.88rem;
+      margin-top: 25px;
+      color: #fff;
+      font-size: 0.85rem;
+      line-height: 1.6;
       text-shadow: 0 2px 7px #000;
-    }
-
-    @media (min-width: 760px) {
-      .pagina {
-        padding-top: 36px;
-      }
-
-      .radio {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        gap: 28px;
-      }
-
-      .radio-antigua {
-        width: 42%;
-        max-width: 390px;
-      }
-
-      .panel {
-        flex: 1;
-        max-width: 500px;
-      }
     }
 
     @media (max-width: 600px) {
@@ -275,25 +255,36 @@
       }
 
       .pagina {
-        padding: 22px 15px 20px;
+        padding: 25px 15px 22px;
+      }
+
+      .marca {
+        margin-bottom: 22px;
       }
 
       .icono-martina {
-        width: 66px;
-        height: 66px;
+        width: 70px;
+        height: 70px;
       }
 
-      .marca p {
+      .eslogan {
         letter-spacing: 2px;
       }
 
-      .radio-antigua {
-        width: min(92%, 340px);
+      .panel {
+        padding: 24px 18px;
+        border-radius: 20px;
       }
 
-      .panel {
-        padding: 22px 18px;
-        border-radius: 18px;
+      .cancion {
+        gap: 12px;
+        padding: 14px 12px;
+      }
+
+      .caratula {
+        flex-basis: 56px;
+        width: 56px;
+        height: 56px;
       }
 
       .control {
@@ -326,61 +317,61 @@
       >
 
       <h1>Martina Radio</h1>
-      <p>SIEMPRE PARA TI ❤️</p>
+      <p class="eslogan">SIEMPRE PARA TI ❤️</p>
     </header>
 
-    <section class="radio" aria-label="Reproductor de Martina Radio">
+    <section class="panel" aria-label="Reproductor de Martina Radio">
 
-      <img
-        class="radio-antigua"
-        src="be599127-6850-4bc5-9c95-e4b3fe142a10.png"
-        alt="Radio antigua de madera con su mesita"
+      <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
+      <div class="separador"></div>
+
+      <div class="cancion">
+        <div class="caratula" aria-hidden="true">♫</div>
+        <div class="datos">
+          <div class="artista">Tu compañía de siempre</div>
+          <h2>Música y recuerdos</h2>
+        </div>
+      </div>
+
+      <p class="descripcion">
+        Las canciones que marcaron tu vida,
+        los recuerdos que llevas en el corazón.
+        Gracias por acompañarnos.
+      </p>
+
+      <p class="estado" id="estado" aria-live="polite">
+        Enciende la radio y disfruta de la música ❤️
+      </p>
+
+      <div class="controles">
+        <button class="control principal" id="play" type="button">
+          ▶ Escuchar en vivo
+        </button>
+
+        <button class="control" id="detener" type="button">
+          ■ Detener
+        </button>
+      </div>
+
+      <label class="rotulo-volumen" for="volumen">
+        🔊 VOLUMEN
+      </label>
+
+      <input
+        class="volumen"
+        id="volumen"
+        type="range"
+        min="0"
+        max="100"
+        value="80"
+        aria-label="Volumen de la radio"
       >
 
-      <div class="panel">
-        <div class="etiqueta">MARTINA RADIO · LOS LAGOS, CHILE</div>
-
-        <div class="cancion">
-          <div class="caratula" aria-hidden="true">♫</div>
-
-          <div class="datos">
-            <div class="artista">Tu compañía de siempre</div>
-            <h2>Siempre Para Ti</h2>
-          </div>
-        </div>
-
-        <p class="estado" id="estado" aria-live="polite">
-          Enciende la radio y disfruta de la música ❤️
-        </p>
-
-        <div class="controles">
-          <button class="control principal" id="play" type="button">
-            ▶ Escuchar en vivo
-          </button>
-
-          <button class="control" id="detener" type="button">
-            ■ Parar
-          </button>
-        </div>
-
-        <label class="rotulo-volumen" for="volumen">VOLUMEN</label>
-
-        <input
-          class="volumen"
-          id="volumen"
-          type="range"
-          min="0"
-          max="100"
-          value="80"
-          aria-label="Volumen de la radio"
-        >
-
-        <audio
-          id="audio"
-          preload="none"
-          src="https://streaming04.xhost.cl/listen/martinaradio/radio.mp3">
-        </audio>
-      </div>
+      <audio
+        id="audio"
+        preload="none"
+        src="https://streaming04.xhost.cl/listen/martinaradio/radio.mp3">
+      </audio>
 
     </section>
 
@@ -389,10 +380,12 @@
       href="https://sites.google.com/view/martinaradio/inicio"
       target="_blank"
       rel="noopener noreferrer">
-      🌐 ENTRAR A LA WEB ↗
+      🌐 VISITAR NUESTRA WEB ↗
     </a>
 
-    <footer>Martina Radio · Siempre Para Ti ❤️</footer>
+    <footer>
+      Martina Radio · Siempre Para Ti ❤️
+    </footer>
 
   </main>
 
@@ -411,7 +404,8 @@
 
       try {
         await audio.play();
-        estado.textContent = "Estás escuchando Martina Radio en vivo ❤️";
+        estado.textContent =
+          "Estás escuchando Martina Radio en vivo ❤️";
         play.textContent = "♫ Escuchando";
       } catch (error) {
         estado.textContent =
@@ -424,7 +418,8 @@
       audio.pause();
       audio.currentTime = 0;
       play.textContent = "▶ Escuchar en vivo";
-      estado.textContent = "Reproducción detenida. Vuelve cuando quieras ❤️";
+      estado.textContent =
+        "Reproducción detenida. Vuelve cuando quieras ❤️";
     });
 
     volumen.addEventListener("input", () => {
@@ -432,7 +427,8 @@
     });
 
     audio.addEventListener("playing", () => {
-      estado.textContent = "Estás escuchando Martina Radio en vivo ❤️";
+      estado.textContent =
+        "Estás escuchando Martina Radio en vivo ❤️";
       play.textContent = "♫ Escuchando";
     });
 

@@ -5,7 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#123f83">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Martina Radio — Siempre Para Ti</title>
+
 <style>
 :root {
   --blue: #123f83;
@@ -18,6 +20,7 @@ body {
   min-height: 100vh;
   padding: 18px 10px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   font-family: Arial, sans-serif;
@@ -89,6 +92,7 @@ h1 {
   inset: 12%;
   border-radius: 50%;
   border: 1px solid #ffffff16;
+  pointer-events: none;
 }
 
 .vinyl.playing {
@@ -109,6 +113,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 }
 
 .record-label img {
@@ -121,6 +126,7 @@ h1 {
 .track-title {
   font-weight: bold;
   margin: 8px 0 14px;
+  overflow-wrap: anywhere;
 }
 
 .controls {
@@ -149,6 +155,12 @@ button.secondary {
   border: 1px solid #ffffff45;
 }
 
+button:focus-visible, select:focus-visible,
+input:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+
 .progress-row {
   display: flex;
   align-items: center;
@@ -160,6 +172,7 @@ button.secondary {
 
 input[type="range"] {
   width: 100%;
+  min-width: 0;
   accent-color: var(--pink);
   cursor: pointer;
 }
@@ -192,21 +205,25 @@ select {
   line-height: 1.5;
   color: #e3eaff;
   margin: 13px 0;
+  overflow-wrap: anywhere;
 }
 
 .youtube-box {
   width: 320px;
   max-width: 100%;
-  min-height: 200px;
   margin: 20px auto 0;
   border-radius: 10px;
   overflow: hidden;
   background: #050b16;
+  aspect-ratio: 16 / 9;
 }
 
 #ytplayer {
+  display: block;
   width: 100%;
-  height: 200px;
+  height: 100%;
+  min-height: 180px;
+  border: 0;
 }
 
 .note, footer {
@@ -215,16 +232,24 @@ select {
   line-height: 1.5;
 }
 
-footer { margin-top: 14px; }
+footer {
+  text-align: center;
+  margin-top: 14px;
+}
 
 @media (max-width: 420px) {
-  body { padding: 8px 5px; background-attachment: scroll; }
-  .panel { padding: 17px 11px; border-radius: 16px; }
+  body {
+    padding: 8px 5px;
+    background-attachment: scroll;
+  }
+  .panel {
+    padding: 17px 11px;
+    border-radius: 16px;
+  }
   .controls { gap: 7px; }
   button { padding: 11px 10px; }
 }
 </style>
-  <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 
 <body>
@@ -248,9 +273,9 @@ footer { margin-top: 14px; }
   </div>
 
   <div class="controls">
-    <button id="play">▶ Reproducir</button>
-    <button id="pause" class="secondary">Ⅱ Pausar</button>
-    <button id="next" class="secondary">⏭ Siguiente</button>
+    <button id="play" type="button">▶ Reproducir</button>
+    <button id="pause" class="secondary" type="button">Ⅱ Pausar</button>
+    <button id="next" class="secondary" type="button">⏭ Siguiente</button>
   </div>
 
   <div class="progress-row">
@@ -263,11 +288,11 @@ footer { margin-top: 14px; }
   <div class="program">
     <label for="playlist">CAMBIAR PROGRAMACIÓN</label>
     <select id="playlist" disabled>
-      <option>Cargando programaciones...</option>
+      <option value="">Cargando programaciones...</option>
     </select>
   </div>
 
-  <p id="status" role="status">
+  <p id="status" role="status" aria-live="polite">
     Preparando Martina Radio...
   </p>
 
@@ -276,24 +301,27 @@ footer { margin-top: 14px; }
   </div>
 
   <p class="note">
-    La reproducción utiliza YouTube. El video permanece visible
-    en el reproductor oficial.
+    La reproducción utiliza YouTube y muestra su reproductor oficial.
   </p>
 </main>
 
 <footer>Martina Radio · Siempre Para Ti ❤️</footer>
 
 <script>
-let player;
+"use strict";
+
+let player = null;
 let ready = false;
 let programs = [];
 let currentIndex = 0;
 let dragging = false;
+let progressTimer = null;
 
 const selector = document.getElementById("playlist");
 const status = document.getElementById("status");
 const vinyl = document.getElementById("vinyl");
 const progress = document.getElementById("progress");
+const trackTitle = document.getElementById("trackTitle");
 
 function say(message) {
   status.textContent = message;
@@ -306,7 +334,7 @@ function validId(id) {
 }
 
 function clock(seconds) {
-  if (!Number.isFinite(seconds)) return "0:00";
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
   const s = Math.floor(seconds);
   return Math.floor(s / 60) + ":" +
     String(s % 60).padStart(2, "0");
@@ -314,60 +342,91 @@ function clock(seconds) {
 
 async function loadConfig() {
   try {
-    const response = await fetch("playlist.json?cache=" + Date.now());
-    if (!response.ok) throw new Error();
+    const response = await fetch(
+      "playlist.json?cache=" + Date.now(),
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("No se pudo leer playlist.json");
+    }
 
     const config = await response.json();
-    programs = Array.isArray(config.programaciones)
-      ? config.programaciones : [];
 
-    selector.innerHTML = "";
+    programs = Array.isArray(config.programaciones)
+      ? config.programaciones
+      : [];
+
+    selector.replaceChildren();
 
     programs.forEach((item, index) => {
       const option = document.createElement("option");
-      option.value = index;
-      option.textContent = item.nombre;
+      option.value = String(index);
+      option.textContent = item.nombre || "Programación " + (index + 1);
       selector.appendChild(option);
     });
 
-    if (!programs.some(p => validId(p.playlistId))) {
+    const firstValid = programs.findIndex(
+      item => validId(item.playlistId)
+    );
+
+    if (firstValid === -1) {
       selector.disabled = true;
-      say("Faltan los ID reales de las playlists en playlist.json.");
+      say("Añade al menos un ID válido en playlist.json.");
       return;
     }
 
-    currentIndex = Math.max(0, Math.min(
-      Number(config.programacionInicial) || 0,
-      programs.length - 1
-    ));
+    const requestedIndex = Number(config.programacionInicial);
+    currentIndex =
+      Number.isInteger(requestedIndex) &&
+      requestedIndex >= 0 &&
+      requestedIndex < programs.length &&
+      validId(programs[requestedIndex]?.playlistId)
+        ? requestedIndex
+        : firstValid;
 
-    selector.value = currentIndex;
+    selector.value = String(currentIndex);
     selector.disabled = false;
 
-    if (ready) choosePlaylist(false);
+    if (ready) {
+      choosePlaylist(false);
+    }
   } catch (error) {
-    say("No se pudo leer playlist.json. Comprueba que esté junto a radio.html.");
+    console.error(error);
+    say("No se pudo cargar playlist.json. Comprueba que esté junto a radio.html.");
   }
 }
 
 function choosePlaylist(autoplay) {
   const item = programs[currentIndex];
 
-  if (!ready || !item || !validId(item.playlistId)) {
-    say("Esta sección todavía no tiene una playlist válida.");
+  if (!ready || !player) {
+    say("YouTube todavía está cargando.");
     return;
   }
 
-  player.loadPlaylist({
-    listType: "playlist",
-    list: item.playlistId,
-    index: 0
-  });
+  if (!item || !validId(item.playlistId)) {
+    say("Esta sección todavía no tiene un ID real en playlist.json.");
+    return;
+  }
 
-  document.getElementById("trackTitle").textContent = item.nombre;
-  say("Programación: " + item.nombre);
+  trackTitle.textContent = item.nombre || "Martina Radio";
+  say("Cargando programación: " + item.nombre);
 
-  if (autoplay) player.playVideo();
+  try {
+    player.loadPlaylist({
+      listType: "playlist",
+      list: item.playlistId,
+      index: 0
+    });
+
+    if (autoplay) {
+      player.playVideo();
+    }
+  } catch (error) {
+    console.error(error);
+    say("No se pudo solicitar la playlist. Inténtalo de nuevo.");
+  }
 }
 
 window.onYouTubeIframeAPIReady = function() {
@@ -377,14 +436,28 @@ window.onYouTubeIframeAPIReady = function() {
     playerVars: {
       playsinline: 1,
       controls: 1,
-      rel: 0
+      rel: 0,
+      origin: window.location.origin
     },
     events: {
-      onReady: function() {
+      onReady: function(event) {
         ready = true;
-        if (programs.length) choosePlaylist(false);
-        else say("Reproductor listo. Configura tus playlists.");
+
+        // Mantiene una política de referencia explícita en el iframe.
+        try {
+          event.target.getIframe().referrerPolicy =
+            "strict-origin-when-cross-origin";
+        } catch (error) {
+          console.warn("No se pudo ajustar referrerPolicy.", error);
+        }
+
+        if (programs.length) {
+          choosePlaylist(false);
+        } else {
+          say("Reproductor listo. Esperando las programaciones.");
+        }
       },
+
       onStateChange: function(event) {
         if (event.data === YT.PlayerState.PLAYING) {
           vinyl.classList.add("playing");
@@ -393,78 +466,139 @@ window.onYouTubeIframeAPIReady = function() {
         } else {
           vinyl.classList.remove("playing");
         }
+
+        if (event.data === YT.PlayerState.CUED ||
+            event.data === YT.PlayerState.PAUSED ||
+            event.data === YT.PlayerState.ENDED) {
+          refreshTrackTitle();
+        }
       },
+
       onError: function(event) {
         vinyl.classList.remove("playing");
-        say("YouTube no pudo reproducir esta playlist. Revisa el ID o los permisos. Código: " + event.data);
+
+        const messages = {
+          2: "YouTube recibió un parámetro no válido. Revisa el ID de la playlist.",
+          5: "YouTube no pudo reproducir el video en este reproductor.",
+          100: "El video no está disponible o es privado.",
+          101: "El propietario no permite reproducir este video incrustado.",
+          150: "El propietario no permite reproducir este video incrustado.",
+          153: "YouTube no recibió la información de referencia del reproductor."
+        };
+
+        say((messages[event.data] ||
+          "YouTube no pudo reproducir el contenido.") +
+          " Código: " + event.data);
       }
     }
   });
 };
+
+function refreshTrackTitle() {
+  if (!ready || !player) return;
+
+  try {
+    const data = player.getVideoData();
+    if (data && data.title) {
+      trackTitle.textContent = data.title;
+    }
+  } catch (error) {
+    // El título se actualizará cuando YouTube tenga los datos.
+  }
+}
 
 selector.addEventListener("change", function() {
   currentIndex = Number(this.value);
   choosePlaylist(false);
 });
 
-document.getElementById("play").onclick = function() {
-  if (!ready) return say("YouTube todavía está cargando.");
+document.getElementById("play").addEventListener("click", function() {
+  if (!ready || !player) {
+    say("YouTube todavía está cargando.");
+    return;
+  }
 
   const item = programs[currentIndex];
+
   if (!item || !validId(item.playlistId)) {
-    return say("Configura un ID real en playlist.json.");
+    say("Selecciona una programación que tenga un ID real.");
+    return;
   }
 
-  const current = player.getPlaylist();
-  if (current && current.length) {
-    player.playVideo();
-  } else {
+  try {
+    const currentPlaylist = player.getPlaylist();
+
+    if (currentPlaylist && currentPlaylist.length > 0) {
+      player.playVideo();
+    } else {
+      choosePlaylist(true);
+    }
+  } catch (error) {
+    console.error(error);
     choosePlaylist(true);
   }
-};
+});
 
-document.getElementById("pause").onclick = function() {
-  if (ready) player.pauseVideo();
-};
+document.getElementById("pause").addEventListener("click", function() {
+  if (ready && player) player.pauseVideo();
+});
 
-document.getElementById("next").onclick = function() {
-  if (ready) player.nextVideo();
-};
+document.getElementById("next").addEventListener("click", function() {
+  if (ready && player) {
+    player.nextVideo();
+  }
+});
 
 progress.addEventListener("input", function() {
   dragging = true;
 });
 
 progress.addEventListener("change", function() {
-  if (ready && player.getDuration() > 0) {
-    player.seekTo((Number(this.value) / 1000) * player.getDuration(), true);
+  if (ready && player && player.getDuration() > 0) {
+    const target = (Number(progress.value) / 1000) *
+      player.getDuration();
+    player.seekTo(target, true);
   }
+
   dragging = false;
 });
 
 function updateProgress() {
-  if (!ready) return;
-
-  const state = player.getPlayerState();
-  if (state === YT.PlayerState.PLAYING) {
-    const duration = player.getDuration();
-    const elapsed = player.getCurrentTime();
-
-    if (!dragging && duration > 0) {
-      progress.value = Math.round(elapsed / duration * 1000);
-    }
-
-    document.getElementById("elapsed").textContent = clock(elapsed);
-    document.getElementById("duration").textContent = clock(duration);
+  if (progressTimer !== null) {
+    clearTimeout(progressTimer);
   }
 
-  window.setTimeout(updateProgress, 1000);
+  if (!ready || !player) return;
+
+  try {
+    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
+      const duration = player.getDuration();
+      const elapsed = player.getCurrentTime();
+
+      if (!dragging && duration > 0) {
+        progress.value = String(
+          Math.round((elapsed / duration) * 1000)
+        );
+      }
+
+      document.getElementById("elapsed").textContent = clock(elapsed);
+      document.getElementById("duration").textContent = clock(duration);
+      refreshTrackTitle();
+    }
+  } catch (error) {
+    console.warn("No se pudo actualizar el progreso.", error);
+  }
+
+  progressTimer = setTimeout(updateProgress, 1000);
 }
 
 loadConfig();
 
 const script = document.createElement("script");
 script.src = "https://www.youtube.com/iframe_api";
+script.onerror = function() {
+  say("No se pudo cargar el reproductor de YouTube. Comprueba tu conexión.");
+};
 document.head.appendChild(script);
 </script>
 </body>

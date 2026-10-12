@@ -2,605 +2,380 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123f83">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-<title>Martina Radio — Siempre Para Ti</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123c75">
 
-<style>
-:root {
-  --blue: #123f83;
-  --pink: #ff78b7;
-}
-* { box-sizing: border-box; }
+  <title>Martina Radio — Siempre Para Ti</title>
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 18px 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, sans-serif;
-  color: white;
-  background:
-    linear-gradient(#061b3db8, #061b3db8),
-    url("BANNER.png") center / cover fixed no-repeat,
-    #102d56;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.panel {
-  width: min(620px, 100%);
-  text-align: center;
-  padding: 24px clamp(14px, 4vw, 30px);
-  border-radius: 22px;
-  border: 1px solid #ffffff45;
-  background: linear-gradient(145deg, #164b96f5, #092654f5);
-  box-shadow: 0 16px 42px #0007;
-}
+    html {
+      min-height: 100%;
+      background: #102b50;
+    }
 
-.logo {
-  width: 100px;
-  height: 100px;
-  object-fit: contain;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 24px 14px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      background:
+        linear-gradient(
+          rgba(5, 20, 43, 0.42),
+          rgba(5, 20, 43, 0.76)
+        ),
+        url("BANNER.png") center center / cover fixed;
+    }
 
-h1 {
-  font-size: clamp(28px, 6vw, 38px);
-  margin: 7px 0 3px;
-}
+    .page {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto;
+    }
 
-.tagline {
-  color: #ffd3e8;
-  font-weight: bold;
-  letter-spacing: 2px;
-  margin: 0 0 20px;
-}
+    .radio {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 24px;
+      background: rgba(12, 39, 77, 0.92);
+      box-shadow:
+        0 18px 50px rgba(0,0,0,0.45),
+        inset 0 1px 0 rgba(255,255,255,0.12);
+    }
 
-.vinyl-area {
-  display: flex;
-  justify-content: center;
-  margin: 15px 0 20px;
-}
+    .header {
+      padding: 25px 18px 18px;
+      text-align: center;
+      background: linear-gradient(
+        135deg,
+        rgba(18, 70, 129, 0.98),
+        rgba(19, 38, 83, 0.98)
+      );
+      border-bottom: 3px solid #ec80bd;
+    }
 
-.vinyl {
-  width: clamp(155px, 43vw, 220px);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background:
-    repeating-radial-gradient(
-      circle at center,
-      #17191e 0px,
-      #252830 2px,
-      #101115 4px,
-      #30323a 5px,
-      #101115 7px
-    );
-  border: 5px solid #08090d;
-  box-shadow: 0 8px 18px #0008;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+    .logo {
+      display: block;
+      width: 124px;
+      height: 124px;
+      max-width: 42vw;
+      object-fit: contain;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      filter: drop-shadow(0 5px 12px rgba(0,0,0,0.35));
+    }
 
-.vinyl::after {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  border: 1px solid #ffffff16;
-  pointer-events: none;
-}
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(30px, 7vw, 45px);
+      font-weight: normal;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    }
 
-.vinyl.playing {
-  animation: spin 3.5s linear infinite;
-}
+    .slogan {
+      margin: 9px 0 0;
+      color: #ffb7dc;
+      font-size: 15px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
+    .intro {
+      padding: 18px 18px 4px;
+      text-align: center;
+    }
 
-.record-label {
-  width: 39%;
-  height: 39%;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #f4b8d4;
-  border: 4px solid #e8d5e0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-}
+    .intro p {
+      margin: 0;
+      color: #e6edf8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-.record-label img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
+    .radio-body {
+      padding: 20px;
+    }
 
-.track-title {
-  font-weight: bold;
-  margin: 8px 0 14px;
-  overflow-wrap: anywhere;
-}
+    .deck {
+      position: relative;
+      padding: 20px 16px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 18px;
+      background: linear-gradient(
+        145deg,
+        #244c78,
+        #102b4c 55%,
+        #091b32
+      );
+      box-shadow:
+        inset 0 2px 9px rgba(0,0,0,0.38),
+        0 6px 16px rgba(0,0,0,0.25);
+    }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 9px;
-  margin: 14px 0;
-}
+    .deck-title {
+      margin: 0 0 16px;
+      text-align: center;
+      color: #f4b8dc;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      font-weight: normal;
+    }
 
-button {
-  border: 0;
-  border-radius: 25px;
-  padding: 12px 17px;
-  min-height: 43px;
-  color: #17233b;
-  background: var(--pink);
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .record-area {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 0 20px;
+    }
 
-button.secondary {
-  background: #ffffff20;
-  color: white;
-  border: 1px solid #ffffff45;
-}
+    .record {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 154px;
+      height: 154px;
+      max-width: 42vw;
+      max-height: 42vw;
+      border: 5px solid #17191e;
+      border-radius: 50%;
+      background: repeating-radial-gradient(
+        circle,
+        #24262b 0,
+        #24262b 3px,
+        #111318 4px,
+        #111318 6px
+      );
+      box-shadow:
+        0 0 0 2px rgba(255,255,255,0.12),
+        0 8px 18px rgba(0,0,0,0.42);
+      animation: spin 7s linear infinite;
+      animation-play-state: paused;
+    }
 
-button:focus-visible, select:focus-visible,
-input:focus-visible {
-  outline: 2px solid white;
-  outline-offset: 3px;
-}
+    .record-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 62px;
+      height: 62px;
+      overflow: hidden;
+      border: 2px solid #f1b2d6;
+      border-radius: 50%;
+      background: #fff;
+    }
 
-.progress-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 15px 0;
-  font-size: 12px;
-  color: #e2eaff;
-}
+    .record-label img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
-input[type="range"] {
-  width: 100%;
-  min-width: 0;
-  accent-color: var(--pink);
-  cursor: pointer;
-}
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-.program {
-  text-align: left;
-  margin-top: 22px;
-}
+    .live-label {
+      margin: 0 0 12px;
+      text-align: center;
+      color: #dfeafa;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
 
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: bold;
-  margin-bottom: 8px;
-}
+    .player-panel {
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
+      padding: 14px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 14px;
+      background: #fff;
+      color: #18304d;
+    }
 
-select {
-  width: 100%;
-  padding: 13px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  color: #17345e;
-  background: white;
-}
+    .player-panel .cc_player {
+      width: 100%;
+      min-height: 55px;
+      text-align: center;
+    }
 
-#status {
-  min-height: 2.8em;
-  font-size: 13px;
-  line-height: 1.5;
-  color: #e3eaff;
-  margin: 13px 0;
-  overflow-wrap: anywhere;
-}
+    .player-help {
+      margin: 12px 0 0;
+      color: #d5e1f1;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
 
-.youtube-box {
-  width: 320px;
-  max-width: 100%;
-  margin: 20px auto 0;
-  border-radius: 10px;
-  overflow: hidden;
-  background: #050b16;
-  aspect-ratio: 16 / 9;
-}
+    .web-button {
+      display: block;
+      width: 100%;
+      margin: 20px auto 0;
+      padding: 15px 18px;
+      border: 2px solid #f5b3d9;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #e88cbd, #d86ca8);
+      color: #172d4d;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 5px 14px rgba(0,0,0,0.2);
+      transition: transform 0.2s, filter 0.2s;
+    }
 
-#ytplayer {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 180px;
-  border: 0;
-}
+    .web-button:hover {
+      filter: brightness(1.08);
+      transform: translateY(-2px);
+    }
 
-.note, footer {
-  color: #d4e0f9;
-  font-size: 11px;
-  line-height: 1.5;
-}
+    .footer {
+      padding: 17px 12px 20px;
+      text-align: center;
+      color: #d7e2f0;
+      font-size: 12px;
+      line-height: 1.7;
+    }
 
-footer {
-  text-align: center;
-  margin-top: 14px;
-}
+    .footer strong {
+      color: #ffb7dc;
+      font-weight: normal;
+    }
 
-@media (max-width: 420px) {
-  body {
-    padding: 8px 5px;
-    background-attachment: scroll;
-  }
-  .panel {
-    padding: 17px 11px;
-    border-radius: 16px;
-  }
-  .controls { gap: 7px; }
-  button { padding: 11px 10px; }
-}
-</style>
+    @media (max-width: 480px) {
+      body {
+        padding: 12px 9px;
+        background-attachment: scroll;
+      }
+
+      .radio {
+        border-radius: 18px;
+      }
+
+      .header {
+        padding: 21px 12px 16px;
+      }
+
+      .logo {
+        width: 100px;
+        height: 100px;
+      }
+
+      .slogan {
+        font-size: 12px;
+        letter-spacing: 1.5px;
+      }
+
+      .radio-body {
+        padding: 12px;
+      }
+
+      .deck {
+        padding: 16px 10px;
+      }
+
+      .record {
+        width: 132px;
+        height: 132px;
+      }
+
+      .record-label {
+        width: 54px;
+        height: 54px;
+      }
+
+      .player-panel {
+        padding: 9px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-<main class="panel">
-  <img class="logo" src="descarga.jpg" alt="Martina Radio"
-       onerror="this.style.display='none'">
+  <main class="page">
+    <section class="radio">
 
-  <h1>Martina Radio</h1>
-  <p class="tagline">SIEMPRE PARA TI ❤️</p>
+      <header class="header">
+        <img
+          class="logo"
+          src="descarga.jpg"
+          alt="Logo de Martina Radio"
+        >
 
-  <div class="vinyl-area">
-    <div class="vinyl" id="vinyl">
-      <div class="record-label">
-        <img src="descarga.jpg" alt="Etiqueta Martina Radio">
+        <h1>Martina Radio</h1>
+        <p class="slogan">SIEMPRE PARA TI ❤️</p>
+      </header>
+
+      <div class="intro">
+        <p>
+          La música que vive en tus recuerdos.<br>
+          Grandes canciones para acompañarte siempre.
+        </p>
       </div>
-    </div>
-  </div>
 
-  <div class="track-title" id="trackTitle">
-    Siempre Para Ti
-  </div>
+      <div class="radio-body">
+        <section class="deck">
 
-  <div class="controls">
-    <button id="play" type="button">▶ Reproducir</button>
-    <button id="pause" class="secondary" type="button">Ⅱ Pausar</button>
-    <button id="next" class="secondary" type="button">⏭ Siguiente</button>
-  </div>
+          <h2 class="deck-title">Nuestra música, tus recuerdos</h2>
 
-  <div class="progress-row">
-    <span id="elapsed">0:00</span>
-    <input id="progress" type="range" min="0" max="1000"
-           value="0" aria-label="Progreso de la canción">
-    <span id="duration">0:00</span>
-  </div>
+          <div class="record-area">
+            <div class="record" id="record">
+              <div class="record-label">
+                <img src="descarga.jpg" alt="Martina Radio">
+              </div>
+            </div>
+          </div>
 
-  <div class="program">
-    <label for="playlist">CAMBIAR PROGRAMACIÓN</label>
-    <select id="playlist" disabled>
-      <option value="">Cargando programaciones...</option>
-    </select>
-  </div>
+          <p class="live-label">Escucha Martina Radio</p>
 
-  <p id="status" role="status" aria-live="polite">
-    Preparando Martina Radio...
-  </p>
+          <!-- Reproductor oficial de FastCast4u -->
+          <div class="player-panel">
+            <div
+              class="cc_player"
+              data-username="martinaradio2026"
+            >
+              Cargando Martina Radio...
+            </div>
+          </div>
 
-  <div class="youtube-box">
-    <div id="ytplayer"></div>
-  </div>
+          <p class="player-help">
+            Pulsa reproducir en el reproductor para escuchar la radio.
+          </p>
 
-  <p class="note">
-    La reproducción utiliza YouTube y muestra su reproductor oficial.
-  </p>
-</main>
+          <a
+            class="web-button"
+            href="https://sites.google.com/view/martinaradio/inicio"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ENTRAR A LA WEB
+          </a>
 
-<footer>Martina Radio · Siempre Para Ti ❤️</footer>
+        </section>
+      </div>
 
-<script>
-"use strict";
+      <footer class="footer">
+        <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
+        Puerto Montt, Chile<br>
+        La compañía de la música de ayer y de siempre.
+      </footer>
 
-let player = null;
-let ready = false;
-let programs = [];
-let currentIndex = 0;
-let dragging = false;
-let progressTimer = null;
+    </section>
+  </main>
 
-const selector = document.getElementById("playlist");
-const status = document.getElementById("status");
-const vinyl = document.getElementById("vinyl");
-const progress = document.getElementById("progress");
-const trackTitle = document.getElementById("trackTitle");
-
-function say(message) {
-  status.textContent = message;
-}
-
-function validId(id) {
-  return typeof id === "string" &&
-    /^[A-Za-z0-9_-]{10,}$/.test(id) &&
-    !/PON_AQUI|REEMPLAZAR|EJEMPLO/i.test(id);
-}
-
-function clock(seconds) {
-  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
-  const s = Math.floor(seconds);
-  return Math.floor(s / 60) + ":" +
-    String(s % 60).padStart(2, "0");
-}
-
-async function loadConfig() {
-  try {
-    const response = await fetch(
-      "playlist.json?cache=" + Date.now(),
-      { cache: "no-store" }
-    );
-
-    if (!response.ok) {
-      throw new Error("No se pudo leer playlist.json");
-    }
-
-    const config = await response.json();
-
-    programs = Array.isArray(config.programaciones)
-      ? config.programaciones
-      : [];
-
-    selector.replaceChildren();
-
-    programs.forEach((item, index) => {
-      const option = document.createElement("option");
-      option.value = String(index);
-      option.textContent = item.nombre || "Programación " + (index + 1);
-      selector.appendChild(option);
-    });
-
-    const firstValid = programs.findIndex(
-      item => validId(item.playlistId)
-    );
-
-    if (firstValid === -1) {
-      selector.disabled = true;
-      say("Añade al menos un ID válido en playlist.json.");
-      return;
-    }
-
-    const requestedIndex = Number(config.programacionInicial);
-    currentIndex =
-      Number.isInteger(requestedIndex) &&
-      requestedIndex >= 0 &&
-      requestedIndex < programs.length &&
-      validId(programs[requestedIndex]?.playlistId)
-        ? requestedIndex
-        : firstValid;
-
-    selector.value = String(currentIndex);
-    selector.disabled = false;
-
-    if (ready) {
-      choosePlaylist(false);
-    }
-  } catch (error) {
-    console.error(error);
-    say("No se pudo cargar playlist.json. Comprueba que esté junto a radio.html.");
-  }
-}
-
-function choosePlaylist(autoplay) {
-  const item = programs[currentIndex];
-
-  if (!ready || !player) {
-    say("YouTube todavía está cargando.");
-    return;
-  }
-
-  if (!item || !validId(item.playlistId)) {
-    say("Esta sección todavía no tiene un ID real en playlist.json.");
-    return;
-  }
-
-  trackTitle.textContent = item.nombre || "Martina Radio";
-  say("Cargando programación: " + item.nombre);
-
-  try {
-    player.loadPlaylist({
-      listType: "playlist",
-      list: item.playlistId,
-      index: 0
-    });
-
-    if (autoplay) {
-      player.playVideo();
-    }
-  } catch (error) {
-    console.error(error);
-    say("No se pudo solicitar la playlist. Inténtalo de nuevo.");
-  }
-}
-
-window.onYouTubeIframeAPIReady = function() {
-  player = new YT.Player("ytplayer", {
-    width: "320",
-    height: "200",
-    playerVars: {
-      playsinline: 1,
-      controls: 1,
-      rel: 0,
-      origin: window.location.origin
-    },
-    events: {
-      onReady: function(event) {
-        ready = true;
-
-        // Mantiene una política de referencia explícita en el iframe.
-        try {
-          event.target.getIframe().referrerPolicy =
-            "strict-origin-when-cross-origin";
-        } catch (error) {
-          console.warn("No se pudo ajustar referrerPolicy.", error);
-        }
-
-        if (programs.length) {
-          choosePlaylist(false);
-        } else {
-          say("Reproductor listo. Esperando las programaciones.");
-        }
-      },
-
-      onStateChange: function(event) {
-        if (event.data === YT.PlayerState.PLAYING) {
-          vinyl.classList.add("playing");
-          say("Sonando en Martina Radio");
-          updateProgress();
-        } else {
-          vinyl.classList.remove("playing");
-        }
-
-        if (event.data === YT.PlayerState.CUED ||
-            event.data === YT.PlayerState.PAUSED ||
-            event.data === YT.PlayerState.ENDED) {
-          refreshTrackTitle();
-        }
-      },
-
-      onError: function(event) {
-        vinyl.classList.remove("playing");
-
-        const messages = {
-          2: "YouTube recibió un parámetro no válido. Revisa el ID de la playlist.",
-          5: "YouTube no pudo reproducir el video en este reproductor.",
-          100: "El video no está disponible o es privado.",
-          101: "El propietario no permite reproducir este video incrustado.",
-          150: "El propietario no permite reproducir este video incrustado.",
-          153: "YouTube no recibió la información de referencia del reproductor."
-        };
-
-        say((messages[event.data] ||
-          "YouTube no pudo reproducir el contenido.") +
-          " Código: " + event.data);
-      }
-    }
-  });
-};
-
-function refreshTrackTitle() {
-  if (!ready || !player) return;
-
-  try {
-    const data = player.getVideoData();
-    if (data && data.title) {
-      trackTitle.textContent = data.title;
-    }
-  } catch (error) {
-    // El título se actualizará cuando YouTube tenga los datos.
-  }
-}
-
-selector.addEventListener("change", function() {
-  currentIndex = Number(this.value);
-  choosePlaylist(false);
-});
-
-document.getElementById("play").addEventListener("click", function() {
-  if (!ready || !player) {
-    say("YouTube todavía está cargando.");
-    return;
-  }
-
-  const item = programs[currentIndex];
-
-  if (!item || !validId(item.playlistId)) {
-    say("Selecciona una programación que tenga un ID real.");
-    return;
-  }
-
-  try {
-    const currentPlaylist = player.getPlaylist();
-
-    if (currentPlaylist && currentPlaylist.length > 0) {
-      player.playVideo();
-    } else {
-      choosePlaylist(true);
-    }
-  } catch (error) {
-    console.error(error);
-    choosePlaylist(true);
-  }
-});
-
-document.getElementById("pause").addEventListener("click", function() {
-  if (ready && player) player.pauseVideo();
-});
-
-document.getElementById("next").addEventListener("click", function() {
-  if (ready && player) {
-    player.nextVideo();
-  }
-});
-
-progress.addEventListener("input", function() {
-  dragging = true;
-});
-
-progress.addEventListener("change", function() {
-  if (ready && player && player.getDuration() > 0) {
-    const target = (Number(progress.value) / 1000) *
-      player.getDuration();
-    player.seekTo(target, true);
-  }
-
-  dragging = false;
-});
-
-function updateProgress() {
-  if (progressTimer !== null) {
-    clearTimeout(progressTimer);
-  }
-
-  if (!ready || !player) return;
-
-  try {
-    if (player.getPlayerState() === YT.PlayerState.PLAYING) {
-      const duration = player.getDuration();
-      const elapsed = player.getCurrentTime();
-
-      if (!dragging && duration > 0) {
-        progress.value = String(
-          Math.round((elapsed / duration) * 1000)
-        );
-      }
-
-      document.getElementById("elapsed").textContent = clock(elapsed);
-      document.getElementById("duration").textContent = clock(duration);
-      refreshTrackTitle();
-    }
-  } catch (error) {
-    console.warn("No se pudo actualizar el progreso.", error);
-  }
-
-  progressTimer = setTimeout(updateProgress, 1000);
-}
-
-loadConfig();
-
-const script = document.createElement("script");
-script.src = "https://www.youtube.com/iframe_api";
-script.onerror = function() {
-  say("No se pudo cargar el reproductor de YouTube. Comprueba tu conexión.");
-};
-document.head.appendChild(script);
-</script>
+  <script
+    src="https://usa3.fastcast4u.com/system/player.js"
+  ></script>
 </body>
 </html>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=GjjRwLVT_ZCsdbxz&amp;list=PL0xxFhOF9Vh8SFFTGPqvqk7jFBAMGAmYQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

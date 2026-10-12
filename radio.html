@@ -1,31 +1,294 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#123f83">
   <title>Martina Radio — Siempre Para Ti</title>
+
+  <style>
+    :root {
+      --blue: #123f83;
+      --pink: #ff78b7;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 22px 12px 32px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      text-align: center;
+      background:
+        linear-gradient(rgba(6, 27, 61, 0.72), rgba(6, 27, 61, 0.82)),
+        url("BANNER.png") center center / cover fixed no-repeat;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 24px 16px 26px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      background: linear-gradient(
+        155deg,
+        rgba(18, 63, 131, 0.96),
+        rgba(5, 24, 58, 0.97)
+      );
+      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.38);
+      overflow: visible;
+    }
+
+    .logo {
+      display: block;
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      margin: 0 auto 10px;
+      border-radius: 50%;
+      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
+    }
+
+    h1 {
+      margin: 8px 0 5px;
+      font-size: clamp(27px, 6vw, 39px);
+      line-height: 1.15;
+      letter-spacing: 0.5px;
+    }
+
+    .slogan {
+      margin: 0 0 22px;
+      color: var(--pink);
+      font-weight: bold;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+    }
+
+    .vinyl {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      margin: 0 auto 12px;
+      border-radius: 50%;
+      background:
+        repeating-radial-gradient(
+          circle at center,
+          #171717 0,
+          #252525 2px,
+          #101010 4px,
+          #303030 5px,
+          #111111 7px
+        );
+      border: 4px solid #090909;
+      box-shadow:
+        0 0 0 2px rgba(255, 120, 183, 0.75),
+        0 5px 18px rgba(0, 0, 0, 0.5);
+      animation: spin 7s linear infinite;
+    }
+
+    .vinyl::before {
+      content: "";
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      background: var(--pink);
+      border: 3px solid #f6d6e6;
+      box-shadow: inset 0 0 0 3px rgba(18, 63, 131, 0.5);
+      background-image: url("descarga.jpg");
+      background-position: center;
+      background-size: cover;
+    }
+
+    .vinyl::after {
+      content: "";
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #ffffff;
+      border: 1px solid #555;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .now-playing {
+      margin: 12px 0 7px;
+      color: var(--pink);
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .player-heading {
+      margin: 0 0 12px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /*
+      Zona ampliada para el reproductor FastCast4u.
+      No fijar una altura ni ocultar el contenido.
+    */
+    .player-area {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      min-height: 340px;
+      height: auto;
+      margin: 0 auto 18px;
+      padding: 12px 0 20px;
+      overflow: visible;
+    }
+
+    .player-inner {
+      display: block;
+      width: 180px;
+      min-height: 300px;
+      height: auto;
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    .cc_player {
+      display: block;
+      width: 180px;
+      min-height: 300px;
+      height: auto;
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    .web-button {
+      display: inline-block;
+      max-width: 100%;
+      margin-top: 8px;
+      padding: 13px 20px;
+      color: #ffffff;
+      background: var(--pink);
+      border: 2px solid rgba(255, 255, 255, 0.65);
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 0.4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .web-button:hover {
+      background: #f45da5;
+      transform: translateY(-2px);
+    }
+
+    .footer {
+      margin-top: 22px;
+      color: rgba(255, 255, 255, 0.76);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .footer strong {
+      color: var(--pink);
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 12px 8px 24px;
+        background-attachment: scroll;
+      }
+
+      .panel {
+        padding: 20px 10px 23px;
+        border-radius: 19px;
+      }
+
+      .logo {
+        width: 82px;
+        height: 82px;
+      }
+
+      .slogan {
+        font-size: 14px;
+        letter-spacing: 1px;
+      }
+
+      .player-area {
+        min-height: 340px;
+        padding-top: 8px;
+      }
+
+      .web-button {
+        padding: 12px 15px;
+      }
+    }
+  </style>
 </head>
 
-<body style="margin:0; padding:30px; font-family:Arial,sans-serif; text-align:center;">
+<body>
+  <main class="panel">
 
-  <h1>Martina Radio</h1>
-  <p>SIEMPRE PARA TI ❤️</p>
+    <img
+      class="logo"
+      src="descarga.jpg"
+      alt="Logo de Martina Radio"
+    >
 
-  <div
-    class="cc_player"
-    data-skin="mcclean"
-    data-width="180"
-    data-height="60"
-    data-username="martinaradio2026">
-    Cargando...
-  </div>
+    <h1>Martina Radio</h1>
+    <p class="slogan">SIEMPRE PARA TI ❤️</p>
+
+    <div class="vinyl" aria-label="Disco de vinilo decorativo"></div>
+
+    <p class="now-playing">EN VIVO</p>
+    <h2 class="player-heading">Escucha nuestra radio</h2>
+
+    <section class="player-area" aria-label="Reproductor de Martina Radio">
+      <div class="player-inner">
+        <div
+          class="cc_player"
+          data-skin="mcclean"
+          data-width="180"
+          data-height="90"
+          data-username="martinaradio2026"
+        >Cargando reproductor...</div>
+      </div>
+    </section>
+
+    <a
+      class="web-button"
+      href="https://sites.google.com/view/martinaradio/inicio"
+      target="_blank"
+      rel="noopener noreferrer"
+    >ENTRAR A LA WEB DE MARTINA RADIO</a>
+
+    <div class="footer">
+      <strong>Martina Radio — Siempre Para Ti ❤️</strong>
+      <br>
+      La música y los recuerdos de siempre.
+    </div>
+
+  </main>
 
   <script
-    language="javascript"
     type="text/javascript"
-    src="https://usa3.fastcast4u.com/system/player.js">
-  </script>
-
+    src="https://usa3.fastcast4u.com/system/player.js"
+  ></script>
 </body>
 </html>

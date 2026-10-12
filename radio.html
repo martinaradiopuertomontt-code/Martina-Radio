@@ -1,123 +1,31 @@
-```html
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Martina Radio — Siempre Para Ti</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #eaf3ff;
-      color: #173c70;
-      padding: 24px 12px 40px;
-    }
-
-    h1 {
-      margin: 8px 0 4px;
-      font-size: 30px;
-    }
-
-    .slogan {
-      margin: 0 0 24px;
-      color: #d65a8a;
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .radio-icon {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .player-container {
-      width: 100%;
-      max-width: 420px;
-      min-height: 180px;
-      margin: 0 auto;
-      padding: 16px 10px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 14px;
-      box-shadow: 0 4px 16px rgba(23, 60, 112, 0.12);
-      overflow: visible;
-    }
-
-    .cc_player {
-      margin: 0 auto;
-      max-width: 100%;
-    }
-
-    .web-link {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 22px;
-      border-radius: 24px;
-      background: #245aa5;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 18px 8px 32px;
-      }
-
-      h1 {
-        font-size: 26px;
-      }
-
-      .player-container {
-        padding: 12px 6px;
-      }
-    }
-  </style>
 </head>
 
-<body>
-
-  <div class="radio-icon">📻 💿</div>
+<body style="margin:0; padding:30px; font-family:Arial,sans-serif; text-align:center;">
 
   <h1>Martina Radio</h1>
-  <p class="slogan">SIEMPRE PARA TI ❤️</p>
+  <p>SIEMPRE PARA TI ❤️</p>
 
-  <div class="player-container">
-    <div
-      class="cc_player"
-      data-skin="mcclean"
-      data-width="180"
-      data-height="90"
-      data-username="martinaradio2026">
-      Cargando...
-    </div>
+  <div
+    class="cc_player"
+    data-skin="mcclean"
+    data-width="180"
+    data-height="60"
+    data-username="martinaradio2026">
+    Cargando...
   </div>
 
-  <a
-    class="web-link"
-    href="https://sites.google.com/view/martinaradio/inicio"
-    target="_blank"
-    rel="noopener noreferrer">
-    ENTRAR A LA WEB
-  </a>
-
   <script
+    language="javascript"
     type="text/javascript"
     src="https://usa3.fastcast4u.com/system/player.js">
   </script>
 
 </body>
 </html>
-```

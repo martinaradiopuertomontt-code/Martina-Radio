@@ -2,380 +2,248 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#123c75">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123c75">
+<title>Martina Radio — Siempre Para Ti</title>
 
-  <title>Martina Radio — Siempre Para Ti</title>
+<style>
+* { box-sizing: border-box; }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px 12px;
+  font-family: Arial, sans-serif;
+  color: white;
+  background:
+    linear-gradient(#071b3980, #071b39bb),
+    url("BANNER.png") center center / cover fixed;
+}
 
-    html {
-      min-height: 100%;
-      background: #102b50;
-    }
+.radio {
+  max-width: 700px;
+  margin: auto;
+  overflow: hidden;
+  border: 1px solid #ffffff55;
+  border-radius: 22px;
+  background: rgba(12, 39, 77, .95);
+  box-shadow: 0 15px 45px #0008;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 24px 14px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #fff;
-      background:
-        linear-gradient(
-          rgba(5, 20, 43, 0.42),
-          rgba(5, 20, 43, 0.76)
-        ),
-        url("BANNER.png") center center / cover fixed;
-    }
+header {
+  padding: 24px 15px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #174e85, #12274f);
+  border-bottom: 3px solid #ec80bd;
+}
 
-    .page {
-      width: 100%;
-      max-width: 720px;
-      margin: 0 auto;
-    }
+.logo {
+  display: block;
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+}
 
-    .radio {
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.28);
-      border-radius: 24px;
-      background: rgba(12, 39, 77, 0.92);
-      box-shadow:
-        0 18px 50px rgba(0,0,0,0.45),
-        inset 0 1px 0 rgba(255,255,255,0.12);
-    }
+h1 {
+  margin: 0;
+  font: normal clamp(30px, 7vw, 44px) Georgia, serif;
+}
 
-    .header {
-      padding: 25px 18px 18px;
-      text-align: center;
-      background: linear-gradient(
-        135deg,
-        rgba(18, 70, 129, 0.98),
-        rgba(19, 38, 83, 0.98)
-      );
-      border-bottom: 3px solid #ec80bd;
-    }
+.slogan {
+  margin: 9px 0 0;
+  color: #ffb7dc;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
 
-    .logo {
-      display: block;
-      width: 124px;
-      height: 124px;
-      max-width: 42vw;
-      object-fit: contain;
-      margin: 0 auto 12px;
-      border-radius: 50%;
-      filter: drop-shadow(0 5px 12px rgba(0,0,0,0.35));
-    }
+.intro {
+  padding: 18px 12px 0;
+  text-align: center;
+  line-height: 1.6;
+  font-size: 14px;
+}
 
-    h1 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(30px, 7vw, 45px);
-      font-weight: normal;
-      letter-spacing: 1px;
-      text-shadow: 0 3px 8px rgba(0,0,0,0.35);
-    }
+.deck {
+  margin: 18px;
+  padding: 20px 14px;
+  border: 1px solid #ffffff33;
+  border-radius: 17px;
+  background: linear-gradient(145deg, #244c78, #091b32);
+}
 
-    .slogan {
-      margin: 9px 0 0;
-      color: #ffb7dc;
-      font-size: 15px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+h2 {
+  margin: 0 0 20px;
+  text-align: center;
+  font: normal 22px Georgia, serif;
+  color: #f4b8dc;
+}
 
-    .intro {
-      padding: 18px 18px 4px;
-      text-align: center;
-    }
+.record-area {
+  display: flex;
+  justify-content: center;
+  padding: 4px 0 22px;
+}
 
-    .intro p {
-      margin: 0;
-      color: #e6edf8;
-      font-size: 14px;
-      line-height: 1.6;
-    }
+.record {
+  width: 145px;
+  height: 145px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px solid #17191e;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    circle, #282a30 0 3px, #111318 4px 6px
+  );
+  box-shadow: 0 7px 20px #0008;
+  animation: spin 7s linear infinite;
+  animation-play-state: paused;
+}
 
-    .radio-body {
-      padding: 20px;
-    }
+.record-label {
+  width: 62px;
+  height: 62px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #f1b2d6;
+}
 
-    .deck {
-      position: relative;
-      padding: 20px 16px;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 18px;
-      background: linear-gradient(
-        145deg,
-        #244c78,
-        #102b4c 55%,
-        #091b32
-      );
-      box-shadow:
-        inset 0 2px 9px rgba(0,0,0,0.38),
-        0 6px 16px rgba(0,0,0,0.25);
-    }
+.record-label img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
-    .deck-title {
-      margin: 0 0 16px;
-      text-align: center;
-      color: #f4b8dc;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 22px;
-      font-weight: normal;
-    }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
-    .record-area {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 8px 0 20px;
-    }
+.live {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
 
-    .record {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 154px;
-      height: 154px;
-      max-width: 42vw;
-      max-height: 42vw;
-      border: 5px solid #17191e;
-      border-radius: 50%;
-      background: repeating-radial-gradient(
-        circle,
-        #24262b 0,
-        #24262b 3px,
-        #111318 4px,
-        #111318 6px
-      );
-      box-shadow:
-        0 0 0 2px rgba(255,255,255,0.12),
-        0 8px 18px rgba(0,0,0,0.42);
-      animation: spin 7s linear infinite;
-      animation-play-state: paused;
-    }
+.player-frame {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: white;
+}
 
-    .record-label {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 62px;
-      height: 62px;
-      overflow: hidden;
-      border: 2px solid #f1b2d6;
-      border-radius: 50%;
-      background: #fff;
-    }
+.player-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: white;
+}
 
-    .record-label img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
+.note {
+  margin: 12px 0 0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #d5e1f1;
+}
 
-    @keyframes spin {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
+.web-button {
+  display: block;
+  margin-top: 20px;
+  padding: 15px 10px;
+  border: 2px solid #f5b3d9;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #e88cbd, #d86ca8);
+  color: #172d4d;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
 
-    .live-label {
-      margin: 0 0 12px;
-      text-align: center;
-      color: #dfeafa;
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
+footer {
+  padding: 0 12px 20px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #d7e2f0;
+}
 
-    .player-panel {
-      width: 100%;
-      min-width: 0;
-      overflow: hidden;
-      padding: 14px;
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 14px;
-      background: #fff;
-      color: #18304d;
-    }
+footer strong { color: #ffb7dc; }
 
-    .player-panel .cc_player {
-      width: 100%;
-      min-height: 55px;
-      text-align: center;
-    }
+@media (max-width: 480px) {
+  body {
+    padding: 10px 7px;
+    background-attachment: scroll;
+  }
 
-    .player-help {
-      margin: 12px 0 0;
-      color: #d5e1f1;
-      font-size: 12px;
-      line-height: 1.5;
-      text-align: center;
-    }
-
-    .web-button {
-      display: block;
-      width: 100%;
-      margin: 20px auto 0;
-      padding: 15px 18px;
-      border: 2px solid #f5b3d9;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #e88cbd, #d86ca8);
-      color: #172d4d;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      text-align: center;
-      text-decoration: none;
-      box-shadow: 0 5px 14px rgba(0,0,0,0.2);
-      transition: transform 0.2s, filter 0.2s;
-    }
-
-    .web-button:hover {
-      filter: brightness(1.08);
-      transform: translateY(-2px);
-    }
-
-    .footer {
-      padding: 17px 12px 20px;
-      text-align: center;
-      color: #d7e2f0;
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .footer strong {
-      color: #ffb7dc;
-      font-weight: normal;
-    }
-
-    @media (max-width: 480px) {
-      body {
-        padding: 12px 9px;
-        background-attachment: scroll;
-      }
-
-      .radio {
-        border-radius: 18px;
-      }
-
-      .header {
-        padding: 21px 12px 16px;
-      }
-
-      .logo {
-        width: 100px;
-        height: 100px;
-      }
-
-      .slogan {
-        font-size: 12px;
-        letter-spacing: 1.5px;
-      }
-
-      .radio-body {
-        padding: 12px;
-      }
-
-      .deck {
-        padding: 16px 10px;
-      }
-
-      .record {
-        width: 132px;
-        height: 132px;
-      }
-
-      .record-label {
-        width: 54px;
-        height: 54px;
-      }
-
-      .player-panel {
-        padding: 9px;
-      }
-    }
-  </style>
+  .deck { margin: 12px; padding: 16px 9px; }
+  .record { width: 125px; height: 125px; }
+  .player-frame { height: 180px; }
+}
+</style>
 </head>
 
 <body>
-  <main class="page">
-    <section class="radio">
+<main class="radio">
 
-      <header class="header">
-        <img
-          class="logo"
-          src="descarga.jpg"
-          alt="Logo de Martina Radio"
-        >
+  <header>
+    <img class="logo" src="descarga.jpg" alt="Martina Radio">
+    <h1>Martina Radio</h1>
+    <p class="slogan">SIEMPRE PARA TI ❤️</p>
+  </header>
 
-        <h1>Martina Radio</h1>
-        <p class="slogan">SIEMPRE PARA TI ❤️</p>
-      </header>
+  <div class="intro">
+    La música que vive en tus recuerdos.<br>
+    Grandes canciones para acompañarte siempre.
+  </div>
 
-      <div class="intro">
-        <p>
-          La música que vive en tus recuerdos.<br>
-          Grandes canciones para acompañarte siempre.
-        </p>
+  <section class="deck">
+    <h2>Nuestra música, tus recuerdos</h2>
+
+    <div class="record-area">
+      <div class="record">
+        <div class="record-label">
+          <img src="descarga.jpg" alt="Martina Radio">
+        </div>
       </div>
+    </div>
 
-      <div class="radio-body">
-        <section class="deck">
+    <p class="live">ESCUCHA MARTINA RADIO</p>
 
-          <h2 class="deck-title">Nuestra música, tus recuerdos</h2>
+    <div class="player-frame">
+      <iframe
+        src="https://webplayer.fastcast4u.com/martinaradio2026/"
+        title="Reproductor de Martina Radio"
+        allow="autoplay"
+        loading="eager">
+      </iframe>
+    </div>
 
-          <div class="record-area">
-            <div class="record" id="record">
-              <div class="record-label">
-                <img src="descarga.jpg" alt="Martina Radio">
-              </div>
-            </div>
-          </div>
+    <p class="note">
+      Pulsa reproducir en el reproductor para escuchar la radio.
+    </p>
 
-          <p class="live-label">Escucha Martina Radio</p>
+    <a
+      class="web-button"
+      href="https://sites.google.com/view/martinaradio/inicio"
+      target="_blank"
+      rel="noopener noreferrer">
+      ENTRAR A LA WEB
+    </a>
+  </section>
 
-          <!-- Reproductor oficial de FastCast4u -->
-          <div class="player-panel">
-            <div
-              class="cc_player"
-              data-username="martinaradio2026"
-            >
-              Cargando Martina Radio...
-            </div>
-          </div>
+  <footer>
+    <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
+    Puerto Montt, Chile<br>
+    La compañía de la música de ayer y de siempre.
+  </footer>
 
-          <p class="player-help">
-            Pulsa reproducir en el reproductor para escuchar la radio.
-          </p>
-
-          <a
-            class="web-button"
-            href="https://sites.google.com/view/martinaradio/inicio"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            ENTRAR A LA WEB
-          </a>
-
-        </section>
-      </div>
-
-      <footer class="footer">
-        <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
-        Puerto Montt, Chile<br>
-        La compañía de la música de ayer y de siempre.
-      </footer>
-
-    </section>
-  </main>
-
-  <script
-    src="https://usa3.fastcast4u.com/system/player.js"
-  ></script>
+</main>
 </body>
 </html>

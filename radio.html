@@ -2,248 +2,30 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#123c75">
-<title>Martina Radio — Siempre Para Ti</title>
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  padding: 20px 12px;
-  font-family: Arial, sans-serif;
-  color: white;
-  background:
-    linear-gradient(#071b3980, #071b39bb),
-    url("BANNER.png") center center / cover fixed;
-}
-
-.radio {
-  max-width: 700px;
-  margin: auto;
-  overflow: hidden;
-  border: 1px solid #ffffff55;
-  border-radius: 22px;
-  background: rgba(12, 39, 77, .95);
-  box-shadow: 0 15px 45px #0008;
-}
-
-header {
-  padding: 24px 15px 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #174e85, #12274f);
-  border-bottom: 3px solid #ec80bd;
-}
-
-.logo {
-  display: block;
-  width: 115px;
-  height: 115px;
-  object-fit: contain;
-  margin: 0 auto 10px;
-}
-
-h1 {
-  margin: 0;
-  font: normal clamp(30px, 7vw, 44px) Georgia, serif;
-}
-
-.slogan {
-  margin: 9px 0 0;
-  color: #ffb7dc;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-
-.intro {
-  padding: 18px 12px 0;
-  text-align: center;
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-.deck {
-  margin: 18px;
-  padding: 20px 14px;
-  border: 1px solid #ffffff33;
-  border-radius: 17px;
-  background: linear-gradient(145deg, #244c78, #091b32);
-}
-
-h2 {
-  margin: 0 0 20px;
-  text-align: center;
-  font: normal 22px Georgia, serif;
-  color: #f4b8dc;
-}
-
-.record-area {
-  display: flex;
-  justify-content: center;
-  padding: 4px 0 22px;
-}
-
-.record {
-  width: 145px;
-  height: 145px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 5px solid #17191e;
-  border-radius: 50%;
-  background: repeating-radial-gradient(
-    circle, #282a30 0 3px, #111318 4px 6px
-  );
-  box-shadow: 0 7px 20px #0008;
-  animation: spin 7s linear infinite;
-  animation-play-state: paused;
-}
-
-.record-label {
-  width: 62px;
-  height: 62px;
-  overflow: hidden;
-  border-radius: 50%;
-  background: white;
-  border: 2px solid #f1b2d6;
-}
-
-.record-label img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.live {
-  margin: 0 0 12px;
-  text-align: center;
-  font-size: 12px;
-  letter-spacing: 2px;
-}
-
-.player-frame {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-  border-radius: 12px;
-  background: white;
-}
-
-.player-frame iframe {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  background: white;
-}
-
-.note {
-  margin: 12px 0 0;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.5;
-  color: #d5e1f1;
-}
-
-.web-button {
-  display: block;
-  margin-top: 20px;
-  padding: 15px 10px;
-  border: 2px solid #f5b3d9;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #e88cbd, #d86ca8);
-  color: #172d4d;
-  text-align: center;
-  text-decoration: none;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-footer {
-  padding: 0 12px 20px;
-  text-align: center;
-  font-size: 12px;
-  line-height: 1.8;
-  color: #d7e2f0;
-}
-
-footer strong { color: #ffb7dc; }
-
-@media (max-width: 480px) {
-  body {
-    padding: 10px 7px;
-    background-attachment: scroll;
-  }
-
-  .deck { margin: 12px; padding: 16px 9px; }
-  .record { width: 125px; height: 125px; }
-  .player-frame { height: 180px; }
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Martina Radio — Siempre Para Ti</title>
 </head>
 
-<body>
-<main class="radio">
+<body style="margin:0; padding:30px; font-family:Arial,sans-serif; text-align:center;">
 
-  <header>
-    <img class="logo" src="descarga.jpg" alt="Martina Radio">
-    <h1>Martina Radio</h1>
-    <p class="slogan">SIEMPRE PARA TI ❤️</p>
-  </header>
+  <h1>Martina Radio</h1>
+  <p>SIEMPRE PARA TI ❤️</p>
 
-  <div class="intro">
-    La música que vive en tus recuerdos.<br>
-    Grandes canciones para acompañarte siempre.
+  <div
+    class="cc_player"
+    data-skin="mcclean"
+    data-width="180"
+    data-height="60"
+    data-username="martinaradio2026">
+    Cargando...
   </div>
 
-  <section class="deck">
-    <h2>Nuestra música, tus recuerdos</h2>
+  <script
+    language="javascript"
+    type="text/javascript"
+    src="https://usa3.fastcast4u.com/system/player.js">
+  </script>
 
-    <div class="record-area">
-      <div class="record">
-        <div class="record-label">
-          <img src="descarga.jpg" alt="Martina Radio">
-        </div>
-      </div>
-    </div>
-
-    <p class="live">ESCUCHA MARTINA RADIO</p>
-
-    <div class="player-frame">
-      <iframe
-        src="https://webplayer.fastcast4u.com/martinaradio2026/"
-        title="Reproductor de Martina Radio"
-        allow="autoplay"
-        loading="eager">
-      </iframe>
-    </div>
-
-    <p class="note">
-      Pulsa reproducir en el reproductor para escuchar la radio.
-    </p>
-
-    <a
-      class="web-button"
-      href="https://sites.google.com/view/martinaradio/inicio"
-      target="_blank"
-      rel="noopener noreferrer">
-      ENTRAR A LA WEB
-    </a>
-  </section>
-
-  <footer>
-    <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
-    Puerto Montt, Chile<br>
-    La compañía de la música de ayer y de siempre.
-  </footer>
-
-</main>
 </body>
 </html>

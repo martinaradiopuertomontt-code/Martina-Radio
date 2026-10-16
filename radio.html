@@ -2,348 +2,427 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#123f83">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#123f83">
+<title>Martina Radio — Siempre Para Ti</title>
 
-  <title>Martina Radio — Siempre Para Ti</title>
+<style>
+:root {
+  --blue: #123f83;
+  --deep: #061b3d;
+  --pink: #ff78b7;
+  --white: #fff;
+}
 
-  <style>
-    :root {
-      --blue: #123f83;
-      --pink: #ff78b7;
-      --white: #ffffff;
-    }
+* { box-sizing: border-box; }
 
-    * {
-      box-sizing: border-box;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 28px 14px;
+  display: grid;
+  place-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--white);
+  text-align: center;
+  background:
+    linear-gradient(rgba(4,20,47,.55), rgba(4,20,47,.78)),
+    url("BANNER.png") center / cover fixed no-repeat;
+}
 
-    html {
-      min-height: 100%;
-    }
+.panel {
+  width: min(100%, 480px);
+  padding: 28px 22px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 26px;
+  background: linear-gradient(
+    155deg,
+    rgba(18,63,131,.96),
+    rgba(5,24,58,.97)
+  );
+  box-shadow: 0 18px 55px rgba(0,0,0,.42);
+  backdrop-filter: blur(8px);
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 24px 12px 32px;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--white);
-      text-align: center;
+.logo {
+  display: block;
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 12px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,.65);
+  box-shadow: 0 5px 18px rgba(0,0,0,.3);
+}
 
-      background:
-        linear-gradient(
-          rgba(6, 27, 61, 0.68),
-          rgba(6, 27, 61, 0.82)
-        ),
-        url("BANNER.png") center center / cover fixed no-repeat;
-    }
+h1 {
+  margin: 8px 0 5px;
+  font-size: clamp(29px, 7vw, 38px);
+}
 
-    /* PANEL PRINCIPAL */
+.slogan {
+  margin: 0 0 24px;
+  color: #ffc0dc;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
 
-    .panel {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+.vinyl-wrap {
+  display: grid;
+  place-items: center;
+  padding: 4px 0 24px;
+}
 
-      width: 100%;
-      max-width: 620px;
-      margin: 0 auto;
-      padding: 24px 18px 26px;
+.vinyl {
+  position: relative;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  border: 5px solid #090909;
+  background:
+    radial-gradient(circle, transparent 0 16%, #242424 17% 18%,
+      transparent 19% 27%, #292929 28% 29%,
+      transparent 30% 38%, #252525 39% 40%,
+      transparent 41% 49%, #282828 50% 51%,
+      transparent 52% 60%, #252525 61% 62%,
+      transparent 63% 70%, #252525 71% 72%,
+      transparent 73%),
+    repeating-radial-gradient(
+      circle,
+      #171717 0px,
+      #303030 2px,
+      #101010 4px,
+      #242424 5px,
+      #111 7px
+    );
+  box-shadow:
+    0 0 0 3px rgba(255,120,183,.8),
+    0 12px 28px rgba(0,0,0,.5);
+}
 
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      border-radius: 24px;
+.vinyl.spinning {
+  animation: spin 4s linear infinite;
+}
 
-      background: linear-gradient(
-        155deg,
-        rgba(18, 63, 131, 0.96),
-        rgba(5, 24, 58, 0.97)
-      );
+.record-label {
+  position: absolute;
+  inset: 50%;
+  width: 76px;
+  height: 76px;
+  transform: translate(-50%, -50%);
+  border: 3px solid #f6d6e6;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--pink);
+}
 
-      box-shadow: 0 12px 38px rgba(0, 0, 0, 0.38);
-      overflow: visible;
-    }
+.record-label img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
-    /* LOGO */
+.spindle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 7px;
+  height: 7px;
+  transform: translate(-50%, -50%);
+  border: 1px solid #777;
+  border-radius: 50%;
+  background: #fff;
+}
 
-    .logo {
-      display: block;
-      width: 100px;
-      height: 100px;
-      max-width: 100%;
-      object-fit: contain;
-      margin: 0 auto 10px;
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
-      border-radius: 50%;
-      filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.35));
-    }
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  color: #ffd0e3;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  font-weight: bold;
+}
 
-    /* TITULO Y ESLOGAN */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5369;
+  box-shadow: 0 0 10px rgba(255,83,105,.7);
+}
 
-    h1 {
-      margin: 6px 0;
-      font-size: clamp(28px, 6vw, 40px);
-      line-height: 1.2;
-      letter-spacing: 0.5px;
-    }
+.status-dot.playing {
+  background: #57f5b0;
+  box-shadow: 0 0 10px rgba(87,245,176,.7);
+}
 
-    .slogan {
-      margin: 4px 0 20px;
-      color: var(--pink);
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 1.5px;
-    }
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  background: rgba(2,15,37,.48);
+}
 
-    /* DISCO DE VINILO */
+.play {
+  flex: 0 0 54px;
+  width: 54px;
+  height: 54px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--pink);
+  color: white;
+  font-size: 23px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,.24);
+  transition: transform .2s, background .2s;
+}
 
-    .vinyl {
-      position: relative;
-      flex-shrink: 0;
+.play:hover {
+  transform: scale(1.06);
+  background: #f45da5;
+}
 
-      width: 112px;
-      height: 112px;
-      margin: 4px auto 16px;
+.play:focus-visible,
+.volume:focus-visible,
+.mute:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 4px;
+}
 
-      border: 4px solid #090909;
-      border-radius: 50%;
+.sound {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
 
-      background:
-        repeating-radial-gradient(
-          circle at center,
-          #171717 0,
-          #252525 2px,
-          #101010 4px,
-          #303030 5px,
-          #111111 7px
-        );
+.sound-title {
+  font-size: 14px;
+  font-weight: bold;
+}
 
-      box-shadow:
-        0 0 0 2px rgba(255, 120, 183, 0.75),
-        0 5px 18px rgba(0, 0, 0, 0.5);
+.sound-subtitle {
+  margin-top: 5px;
+  color: #cbd9f4;
+  font-size: 11px;
+}
 
-      animation: girar-vinilo 7s linear infinite;
-    }
+.volume-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 13px;
+}
 
-    .vinyl::before {
-      content: "";
-      position: absolute;
-      inset: 29px;
+.mute {
+  padding: 2px;
+  border: 0;
+  color: white;
+  background: transparent;
+  cursor: pointer;
+}
 
-      border: 3px solid #f6d6e6;
-      border-radius: 50%;
+.volume {
+  width: 100%;
+  min-width: 50px;
+  accent-color: var(--pink);
+  cursor: pointer;
+}
 
-      background-color: var(--pink);
-      background-image: url("descarga.jpg");
-      background-position: center;
-      background-size: cover;
-    }
+.web-button {
+  display: inline-block;
+  margin-top: 22px;
+  padding: 14px 20px;
+  border: 1px solid rgba(255,255,255,.55);
+  border-radius: 30px;
+  background: var(--pink);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: .4px;
+  text-decoration: none;
+  transition: transform .2s;
+}
 
-    .vinyl::after {
-      content: "";
-      position: absolute;
-      z-index: 2;
+.web-button:hover {
+  transform: translateY(-2px);
+}
 
-      top: 50%;
-      left: 50%;
+.footer {
+  margin-top: 22px;
+  color: rgba(255,255,255,.78);
+  font-size: 12px;
+  line-height: 1.7;
+}
 
-      width: 7px;
-      height: 7px;
+.footer strong { color: #ffc0dc; }
 
-      transform: translate(-50%, -50%);
-      border: 1px solid #555;
-      border-radius: 50%;
-      background: #fff;
-    }
+@media (max-width: 380px) {
+  body { padding: 14px 8px; }
+  .panel { padding: 22px 13px; }
+  .vinyl { width: 165px; height: 165px; }
+  .record-label { width: 68px; height: 68px; }
+  .controls { gap: 9px; padding: 11px; }
+  .play { flex-basis: 46px; width: 46px; height: 46px; }
+}
 
-    @keyframes girar-vinilo {
-      from {
-        transform: rotate(0deg);
-      }
-
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    /* ESPACIO RESERVADO PARA EL REPRODUCTOR */
-
-    .player-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-
-      width: 100%;
-      min-height: 350px;
-      height: auto;
-      margin: 8px auto 20px;
-      padding: 16px 10px;
-
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 16px;
-
-      background: rgba(3, 18, 43, 0.48);
-
-      overflow: visible;
-    }
-
-    #nuevo-reproductor {
-      display: block;
-
-      width: 100%;
-      max-width: 560px;
-      min-height: 300px;
-      height: auto;
-
-      margin: 0 auto;
-      overflow: visible;
-    }
-
-    /* BOTON PARA ENTRAR A LA WEB */
-
-    .web-button {
-      display: inline-block;
-      max-width: 100%;
-      margin: 4px auto 0;
-      padding: 13px 20px;
-
-      color: #ffffff;
-      background: var(--pink);
-
-      border: 2px solid rgba(255, 255, 255, 0.65);
-      border-radius: 30px;
-
-      font-size: 13px;
-      font-weight: bold;
-      text-decoration: none;
-      letter-spacing: 0.4px;
-
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      transition: background 0.2s, transform 0.2s;
-    }
-
-    .web-button:hover {
-      background: #f45da5;
-      transform: translateY(-2px);
-    }
-
-    /* PIE DE PAGINA */
-
-    .footer {
-      margin-top: 22px;
-      color: rgba(255, 255, 255, 0.78);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    .footer strong {
-      color: var(--pink);
-    }
-
-    /* ADAPTACION A TELEFONOS */
-
-    @media (max-width: 480px) {
-      body {
-        padding: 12px 8px 24px;
-        background-attachment: scroll;
-      }
-
-      .panel {
-        padding: 20px 12px 23px;
-        border-radius: 19px;
-      }
-
-      .logo {
-        width: 86px;
-        height: 86px;
-      }
-
-      .slogan {
-        font-size: 14px;
-        letter-spacing: 1px;
-      }
-
-      .vinyl {
-        width: 100px;
-        height: 100px;
-      }
-
-      .vinyl::before {
-        inset: 25px;
-      }
-
-      .player-area {
-        min-height: 350px;
-        padding: 12px 6px;
-      }
-
-      #nuevo-reproductor {
-        min-height: 300px;
-      }
-
-      .web-button {
-        padding: 12px 15px;
-      }
-    }
-  </style>
+@media (prefers-reduced-motion: reduce) {
+  .vinyl.spinning { animation-duration: 20s; }
+}
+</style>
 </head>
 
 <body>
+<main class="panel">
 
-  <main class="panel">
+  <img class="logo" src="descarga.jpg"
+       alt="Logo de Martina Radio">
 
-    <img
-      class="logo"
-      src="descarga.jpg"
-      alt="Logo de Martina Radio"
-    >
+  <h1>Martina Radio</h1>
+  <p class="slogan">SIEMPRE PARA TI ❤️</p>
 
-    <h1>Martina Radio</h1>
+  <div class="vinyl-wrap">
+    <div class="vinyl" id="vinyl">
+      <div class="record-label">
+        <img src="descarga.jpg" alt="">
+      </div>
+      <div class="spindle"></div>
+    </div>
+  </div>
 
-    <p class="slogan">
-      SIEMPRE PARA TI ❤️
-    </p>
+  <div class="status" aria-live="polite">
+    <span class="status-dot" id="statusDot"></span>
+    <span id="statusText">LISTA PARA SONAR</span>
+  </div>
 
-    <div
-      class="vinyl"
-      role="img"
-      aria-label="Disco de vinilo girando"
-    ></div>
+  <div class="controls">
+    <button class="play" id="playButton"
+            type="button" aria-label="Reproducir">
+      ▶
+    </button>
 
-    <!--
-      AQUI SE INCORPORARA EL NUEVO REPRODUCTOR.
-      EL ESPACIO ESTA VACIO INTENCIONALMENTE.
-    -->
+    <div class="sound">
+      <div class="sound-title">En vivo desde Martina</div>
+      <div class="sound-subtitle">Música y recuerdos de siempre</div>
 
-    <section
-      class="player-area"
-      aria-label="Espacio reservado para el reproductor de radio"
-    >
-     <div id="nuevo-reproductor">
-<div class="cc_player" data-skin="arvyskin" data-width="560" data-height="30" data-username="martinaradio2026">Cargando ...</div>
-       <script language="javascript" type="text/javascript" src="https://usa3.fastcast4u.com/system/player.js"></script>
-    </section>
+      <div class="volume-row">
+        <button class="mute" id="muteButton"
+                type="button" aria-label="Silenciar">🔊</button>
+        <input class="volume" id="volume"
+               type="range" min="0" max="1" step="0.01"
+               value="0.8" aria-label="Volumen">
+      </div>
+    </div>
+  </div>
 
-    <a
-      class="web-button"
-      href="https://sites.google.com/view/martinaradio/inicio"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      ENTRAR A LA WEB DE MARTINA RADIO
-    </a>
+  <a class="web-button"
+     href="https://sites.google.com/view/martinaradio/inicio"
+     target="_blank" rel="noopener noreferrer">
+    ENTRAR A LA WEB DE MARTINA RADIO
+  </a>
 
-    <footer class="footer">
-      <strong>Martina Radio — Siempre Para Ti ❤️</strong>
-      <br>
-      La música y los recuerdos de siempre.
-    </footer>
+  <footer class="footer">
+    <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
+    La música y los recuerdos de siempre.
+  </footer>
 
-  </main>
-<script
-  type="text/javascript"
-  src="https://usa3.fastcast4u.com/system/player.js">
+  <audio id="audio" preload="none"
+         src="https://radio.hazteunsitio.net/streams/martina_115f06">
+  </audio>
+
+</main>
+
+<script>
+(() => {
+  const audio = document.getElementById("audio");
+  const button = document.getElementById("playButton");
+  const vinyl = document.getElementById("vinyl");
+  const volume = document.getElementById("volume");
+  const mute = document.getElementById("muteButton");
+  const status = document.getElementById("statusText");
+  const dot = document.getElementById("statusDot");
+
+  audio.volume = 0.8;
+
+  function setStatus(message, playing = false) {
+    status.textContent = message;
+    dot.classList.toggle("playing", playing);
+  }
+
+  function setPlaying(playing) {
+    button.textContent = playing ? "Ⅱ" : "▶";
+    button.setAttribute(
+      "aria-label",
+      playing ? "Pausar" : "Reproducir"
+    );
+    vinyl.classList.toggle("spinning", playing);
+
+    if (playing) setStatus("EN VIVO", true);
+  }
+
+  button.addEventListener("click", async () => {
+    if (!audio.paused) {
+      audio.pause();
+      return;
+    }
+
+    setStatus("CONECTANDO...");
+
+    try {
+      await audio.play();
+    } catch (error) {
+      setPlaying(false);
+      setStatus("NO SE PUDO CONECTAR");
+      console.error("Martina Radio:", error);
+    }
+  });
+
+  volume.addEventListener("input", () => {
+    audio.volume = Number(volume.value);
+    audio.muted = false;
+    mute.textContent = audio.volume === 0 ? "🔇" : "🔊";
+  });
+
+  mute.addEventListener("click", () => {
+    audio.muted = !audio.muted;
+    mute.textContent = audio.muted ? "🔇" : "🔊";
+  });
+
+  audio.addEventListener("playing", () => setPlaying(true));
+  audio.addEventListener("pause", () => {
+    setPlaying(false);
+    setStatus("EN PAUSA");
+  });
+
+  audio.addEventListener("waiting", () =>
+    setStatus("CARGANDO AUDIO...")
+  );
+
+  audio.addEventListener("error", () => {
+    setPlaying(false);
+    setStatus("ERROR DE TRANSMISIÓN");
+  });
+
+  audio.addEventListener("ended", () => {
+    setPlaying(false);
+    setStatus("TRANSMISIÓN FINALIZADA");
+  });
+})();
 </script>
 </body>
 </html>
+

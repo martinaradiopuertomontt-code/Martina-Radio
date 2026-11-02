@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -39,6 +38,8 @@ h1{margin:7px 0 4px;font-size:clamp(29px,7vw,38px);letter-spacing:.5px}
 .volume-row{display:flex;align-items:center;gap:6px;margin-top:13px}
 .mute{padding:2px;border:0;color:white;background:transparent;cursor:pointer}
 .volume{width:100%;min-width:50px;accent-color:var(--pink);cursor:pointer}
+.youtube-frame{width:100%;aspect-ratio:16/9;margin-top:16px;overflow:hidden;border-radius:14px;background:#000;border:1px solid rgba(255,255,255,.18)}
+.youtube-frame iframe{display:block;width:100%;height:100%;border:0}
 .web-button{display:inline-block;margin-top:22px;padding:14px 20px;border:1px solid rgba(255,255,255,.55);border-radius:30px;background:var(--pink);color:white;font-size:12px;font-weight:bold;letter-spacing:.4px;text-decoration:none;transition:transform .2s}
 .web-button:hover{transform:translateY(-2px)}
 .footer{margin-top:22px;color:rgba(255,255,255,.78);font-size:12px;line-height:1.7}
@@ -75,13 +76,12 @@ body{padding:14px 8px}
   <h1>MARTINA RADIO</h1>
   <p class="slogan">SIEMPRE PARA TI ❤️</p>
 
-  <section class="track-card" aria-live="polite" aria-label="Canción actual">
-    <img class="track-art" id="trackArt" alt="Carátula de la canción actual">
-    <div class="track-kicker">AHORA SUENA EN MARTINA</div>
-    <div class="track-title" id="trackTitle">Estás escuchando Martina Radio</div>
-    <div class="track-artist" id="trackArtist">Música y recuerdos de siempre</div>
-    <div class="track-note" id="trackNote">Información musical en actualización</div>
-  </section>
+  <section class="track-card" aria-live="polite" aria-label="Selección musical">
+     <div class="track-kicker">MARTINA RADIO PRESENTA</div>
+     <div class="track-title" id="trackTitle">Éxitos de los 80 y 90</div>
+     <div class="track-artist" id="trackArtist">Una selección musical para recordar</div>
+     <div class="track-note" id="trackNote">Pulsa reproducir para comenzar la transmisión</div>
+   </section>
 
   <div class="status" aria-live="polite">
     <span class="status-dot" id="statusDot"></span>
@@ -89,190 +89,97 @@ body{padding:14px 8px}
   </div>
 
   <div class="controls">
-    <button class="play" id="playButton" type="button" aria-label="Reproducir">▶</button>
-    <div class="sound">
-      <div class="sound-title">En vivo desde Martina</div>
-      <div class="sound-subtitle">Música y recuerdos de siempre</div>
-      <div class="volume-row">
-        <button class="mute" id="muteButton" type="button" aria-label="Silenciar">🔊</button>
-        <input class="volume" id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen">
-      </div>
-    </div>
-  </div>
+     <button class="play" id="playButton" type="button" aria-label="Reproducir">▶</button>
+     <div class="sound">
+       <div class="sound-title">La música de Martina</div>
+       <div class="sound-subtitle">Lista continua · Años 80 y 90</div>
+     </div>
+   </div>
 
-  <a class="web-button" href="https://sites.google.com/view/martinaradio/inicio" target="_blank" rel="noopener noreferrer">ENTRAR A LA WEB DE MARTINA RADIO</a>
+   <div class="youtube-frame"><div id="youtubePlayer"></div></div>
+
+   <a class="web-button" href="https://sites.google.com/view/martinaradio/inicio" target="_blank" rel="noopener noreferrer">ENTRAR A LA WEB DE MARTINA RADIO</a>
 
   <footer class="footer">
     <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
     La música y los recuerdos de siempre.
   </footer>
-
-  <audio id="audio" preload="none" src="https://radio.hazteunsitio.net/streams/martina_115f06"></audio>
 </main>
 
 <script>
 (() => {
   'use strict';
-
-  const STREAM_URL = 'https://radio.hazteunsitio.net/streams/martina_115f06';
-  const NOWPLAYING_URL = 'https://stream.hazteunsitio.net/nowplaying/545fe47012d5b5727fc1e97efe1ba5e9a589a45a4ce64726';
-
-  const audio = document.getElementById('audio');
+  const PLAYLIST_ID = 'PLPQxdO44Qqjc';
+  const FIRST_VIDEO_ID = 'avsJtQPuXHI';
   const button = document.getElementById('playButton');
   const vinyl = document.getElementById('vinyl');
-  const volume = document.getElementById('volume');
-  const mute = document.getElementById('muteButton');
-  const status = document.getElementById('statusText');
-  const dot = document.getElementById('statusDot');
+  const statusText = document.getElementById('statusText');
+  const statusDot = document.getElementById('statusDot');
   const trackTitle = document.getElementById('trackTitle');
-  const trackArtist = document.getElementById('trackArtist');
   const trackNote = document.getElementById('trackNote');
-  const trackArt = document.getElementById('trackArt');
+  let player = null;
+  let playerReady = false;
+  let isPlaying = false;
 
-  audio.src = STREAM_URL;
-  audio.volume = 0.8;
-
-  function setStatus(message, playing = false) {
-    status.textContent = message;
-    dot.classList.toggle('playing', playing);
+  function setStatus(message, playing) {
+    statusText.textContent = message;
+    statusDot.classList.toggle('playing', Boolean(playing));
   }
-
   function setPlaying(playing) {
-    button.textContent = playing ? 'Ⅱ' : '▶';
-    button.setAttribute('aria-label', playing ? 'Pausar' : 'Reproducir');
-    vinyl.classList.toggle('spinning', playing);
-    if (playing) setStatus('EN VIVO', true);
+    isPlaying = Boolean(playing);
+    button.textContent = isPlaying ? 'Ⅱ' : '▶';
+    button.setAttribute('aria-label', isPlaying ? 'Pausar' : 'Reproducir');
+    vinyl.classList.toggle('spinning', isPlaying);
+    if (isPlaying) setStatus('SONANDO', true);
   }
 
-  button.addEventListener('click', async () => {
-    if (!audio.paused) {
-      audio.pause();
-      return;
-    }
-
-    setStatus('CONECTANDO...');
-
-    try {
-      await audio.play();
-    } catch (error) {
-      setPlaying(false);
-      setStatus('NO SE PUDO CONECTAR');
-      console.error('Martina Radio: error de reproducción', error);
-    }
-  });
-
-  volume.addEventListener('input', () => {
-    audio.volume = Number(volume.value);
-    audio.muted = false;
-    mute.textContent = audio.volume === 0 ? '🔇' : '🔊';
-    mute.setAttribute('aria-label', audio.volume === 0 ? 'Activar sonido' : 'Silenciar');
-  });
-
-  mute.addEventListener('click', () => {
-    audio.muted = !audio.muted;
-    mute.textContent = audio.muted ? '🔇' : '🔊';
-    mute.setAttribute('aria-label', audio.muted ? 'Activar sonido' : 'Silenciar');
-  });
-
-  audio.addEventListener('playing', () => setPlaying(true));
-  audio.addEventListener('pause', () => {
-    setPlaying(false);
-    setStatus('EN PAUSA');
-  });
-  audio.addEventListener('waiting', () => setStatus('CARGANDO AUDIO...'));
-  audio.addEventListener('error', () => {
-    setPlaying(false);
-    setStatus('ERROR DE TRANSMISIÓN');
-  });
-  audio.addEventListener('ended', () => {
-    setPlaying(false);
-    setStatus('TRANSMISIÓN FINALIZADA');
-  });
-
-  function firstValue(objects, keys) {
-    for (const obj of objects) {
-      if (!obj || typeof obj !== 'object') continue;
-
-      for (const key of keys) {
-        const value = obj[key];
-        if (typeof value === 'string' && value.trim() &&
-            value !== 'null' && value !== 'undefined') {
-          return value.trim();
+  window.onYouTubeIframeAPIReady = function () {
+    player = new YT.Player('youtubePlayer', {
+      width: '100%', height: '100%', videoId: FIRST_VIDEO_ID,
+      playerVars: {
+        autoplay: 0, controls: 1, playsinline: 1, rel: 0,
+        listType: 'playlist', list: PLAYLIST_ID, loop: 1
+      },
+      events: {
+        onReady: function () {
+          playerReady = true;
+          player.setVolume(80);
+          player.cuePlaylist({list: PLAYLIST_ID, listType: 'playlist', index: 0});
+          setStatus('LISTA PARA SONAR', false);
+        },
+        onStateChange: function (event) {
+          if (event.data === YT.PlayerState.PLAYING) {
+            setPlaying(true);
+            trackNote.textContent = 'Reproducción en curso';
+            const data = player.getVideoData();
+            if (data && data.title) trackTitle.textContent = data.title;
+          } else if (event.data === YT.PlayerState.PAUSED) {
+            setPlaying(false); setStatus('EN PAUSA', false);
+          } else if (event.data === YT.PlayerState.ENDED) {
+            setPlaying(false); setStatus('CAMBIANDO DE VIDEO', false);
+          } else if (event.data === YT.PlayerState.BUFFERING) {
+            setStatus('CARGANDO MÚSICA...', false);
+          } else if (event.data === YT.PlayerState.CUED) {
+            setPlaying(false); setStatus('LISTA PARA SONAR', false);
+          }
+        },
+        onError: function (event) {
+          setPlaying(false); setStatus('VIDEO NO DISPONIBLE', false);
+          trackNote.textContent = 'YouTube informó un error (' + event.data + '). Revisa la lista.';
         }
       }
-    }
-    return '';
-  }
+    });
+  };
 
-  function imageUrl(value) {
-    if (typeof value !== 'string' || !value.trim()) return '';
+  button.addEventListener('click', function () {
+    if (!playerReady || !player) { setStatus('PREPARANDO REPRODUCTOR...', false); return; }
+    if (isPlaying) player.pauseVideo(); else player.playVideo();
+  });
 
-    try {
-      const url = new URL(value.trim(), NOWPLAYING_URL);
-      return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
-    } catch (_) {
-      return '';
-    }
-  }
-
-  function updateTrack(data) {
-    const now = data && (data.now_playing || data.nowPlaying || data.current || data);
-    const song = now && (now.song || now.track || now);
-    const objects = [song, now, data];
-
-    const title = firstValue(objects, ['title', 'song', 'track', 'name', 'track_title']);
-    const artist = firstValue(objects, ['artist', 'artist_name', 'creator', 'performer']);
-    const art = imageUrl(firstValue(objects, ['art', 'artwork', 'art_url', 'cover', 'cover_url', 'image', 'thumbnail']));
-
-    trackTitle.textContent = title || 'Estás escuchando Martina Radio';
-    trackArtist.textContent = artist || (title ? 'En vivo desde Martina Radio' : 'Música y recuerdos de siempre');
-    trackNote.textContent = title || artist
-      ? 'Información de la transmisión en directo'
-      : 'Información musical no disponible por ahora';
-
-    if (art) {
-      trackArt.onload = () => { trackArt.style.display = 'block'; };
-      trackArt.onerror = () => {
-        trackArt.removeAttribute('src');
-        trackArt.style.display = 'none';
-      };
-      trackArt.src = art;
-    } else {
-      trackArt.removeAttribute('src');
-      trackArt.style.display = 'none';
-    }
-  }
-
-  let metadataRequestInProgress = false;
-
-  async function fetchNowPlaying() {
-    if (metadataRequestInProgress) return;
-    metadataRequestInProgress = true;
-
-    try {
-      const response = await fetch(NOWPLAYING_URL, { cache: 'no-store' });
-      if (!response.ok) throw new Error('HTTP ' + response.status);
-
-      const data = await response.json();
-      if (!data || typeof data !== 'object') {
-        throw new Error('Respuesta de metadatos inválida');
-      }
-
-      updateTrack(data);
-    } catch (error) {
-      trackTitle.textContent = 'Estás escuchando Martina Radio';
-      trackArtist.textContent = 'Música y recuerdos de siempre';
-      trackNote.textContent = 'Información musical no disponible por ahora';
-      trackArt.removeAttribute('src');
-      trackArt.style.display = 'none';
-      console.warn('Martina Radio: no se pudieron actualizar los metadatos.', error);
-    } finally {
-      metadataRequestInProgress = false;
-    }
-  }
-
-  fetchNowPlaying();
-  window.setInterval(fetchNowPlaying, 15000);
+  const apiScript = document.createElement('script');
+  apiScript.src = 'https://www.youtube.com/iframe_api';
+  apiScript.async = true;
+  document.head.appendChild(apiScript);
 })();
 </script>
 </body>

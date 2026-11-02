@@ -29,7 +29,10 @@ h1{font-size:clamp(27px,5vw,43px);font-weight:400;letter-spacing:3px;margin:13px
 .track{min-width:0}
 #progress{display:block;width:100%;height:36px;margin:0;accent-color:var(--gold);cursor:pointer;touch-action:pan-y}
 .times{display:flex;justify-content:space-between;color:#a99d8b;font:11px Arial,sans-serif;font-variant-numeric:tabular-nums}
-#status{font:11px Arial,sans-serif;color:#b5a88f;margin-top:13px;min-height:14px}
+#status{display:flex;align-items:center;justify-content:center;gap:9px;font:11px Arial,sans-serif;color:#b5a88f;margin-top:13px;min-height:18px}
+.spinner{width:13px;height:13px;flex:0 0 13px;border:2px solid #c8ad7b45;border-top-color:var(--gold2);border-radius:50%;animation:spin .8s linear infinite}
+.spinner[hidden]{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
 .section-head{display:flex;align-items:center;gap:18px;margin:38px 0 8px}
 .section-head:before,.section-head:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--line))}
 .section-head:after{transform:scaleX(-1)}
@@ -75,7 +78,7 @@ footer{text-align:center;margin:38px 0 0;color:#8f806c;font:italic 13px Georgia,
 </div>
 <span class="duration">♫</span>
 </div>
-<div id="status" role="status">Selecciona un álbum y disfruta la música.</div>
+<div id="status" role="status" aria-live="polite"><span id="loader" class="spinner" hidden aria-hidden="true"></span><span id="statusText">Selecciona un álbum y disfruta la música.</span></div>
 <audio id="albumAudio" preload="metadata" playsinline></audio>
 </section>
 
@@ -110,10 +113,14 @@ const playBtn=document.getElementById("playBtn");
 const progress=document.getElementById("progress");
 const currentTime=document.getElementById("currentTime");
 const totalTime=document.getElementById("totalTime");
-const status=document.getElementById("status");
+const status=document.getElementById("statusText");
+const loader=document.getElementById("loader");
 const library=document.getElementById("library");
-let selectedIndex=0,dragging=false;
+let selectedIndex=0,dragging=false,wantsPlayback=false,retryCount=0,retryTimer=null,stallTimer=null,lastKnownTime=0;
+const MAX_RETRIES=8;
 
+function setStatus(message,loading=false){status.textContent=message;loader.hidden=!loading;}
+function clearRetryTimers(){clearTimeout(retryTimer);clearTimeout(stallTimer);retryTimer=null;stallTimer=null;}
 function timeLabel(seconds){
  if(!Number.isFinite(seconds)||seconds<0)return "0:00";
  const h=Math.floor(seconds/3600),m=Math.floor(seconds%3600/60),s=Math.floor(seconds%60);
@@ -136,7 +143,61 @@ function renderLibrary(){
   library.append(card);
  });
 }
+function updateMediaSession(){
+ if(!("mediaSession" in navigator)||!("MediaMetadata" in window))return;
+ try{
+  navigator.mediaSession.metadata=new MediaMetadata({
+   title:albums[selectedIndex].title,
+   artist:"El Diván de Mike",
+   album:"El Diván de Mike",
+   artwork:[{src:albums[selectedIndex].image,sizes:"512x512",type:"image/png"}]
+  });
+ }catch(e){}
+}
+function updatePositionState(){
+ if(!("mediaSession" in navigator)||!navigator.mediaSession.setPositionState||!Number.isFinite(audio.duration)||audio.duration<=0)return;
+ try{navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate,position:Math.min(audio.currentTime,audio.duration)});}catch(e){}
+}
+function startPlayback(){
+ if(!wantsPlayback)return;
+ setStatus("Cargando álbum… espere un momento, por favor",true);
+ audio.play().then(()=>{
+  retryCount=0;
+  setStatus(`Reproduciendo: ${albums[selectedIndex].title}`,false);
+ }).catch(error=>{
+  if(error&&error.name==="NotAllowedError"){
+   wantsPlayback=false;
+   setStatus("Toca reproducir para iniciar el álbum.",false);
+  }else scheduleRetry();
+ });
+}
+function scheduleRetry(immediate=false){
+ if(!wantsPlayback)return;
+ clearTimeout(retryTimer);
+ if(!navigator.onLine){setStatus("Sin conexión. Esperando señal para recuperar el álbum…",true);return;}
+ if(retryCount>=MAX_RETRIES){setStatus("No se pudo recuperar la conexión. Pulsa reproducir para volver a intentarlo.",false);return;}
+ const delay=immediate?0:Math.min(2000*Math.pow(2,retryCount),30000);
+ retryCount++;
+ setStatus(`Conexión interrumpida. Reintentando en ${Math.max(1,Math.ceil(delay/1000))} s…`,true);
+ retryTimer=setTimeout(()=>{
+  if(!wantsPlayback)return;
+  const resumeAt=Math.max(lastKnownTime,audio.currentTime||0);
+  audio.pause();
+  audio.src=albums[selectedIndex].audio;
+  audio.load();
+  const restoreAndPlay=()=>{
+   if(resumeAt>0&&Number.isFinite(audio.duration)&&audio.duration>0){
+    try{audio.currentTime=Math.min(resumeAt,Math.max(0,audio.duration-1));}catch(e){}
+   }
+   startPlayback();
+  };
+  audio.addEventListener("loadedmetadata",restoreAndPlay,{once:true});
+ },delay);
+}
 function selectAlbum(index,autoplay){
+ clearRetryTimers();
+ wantsPlayback=autoplay;
+ retryCount=0;lastKnownTime=0;
  selectedIndex=index;
  const album=albums[index];
  audio.pause();
@@ -147,41 +208,62 @@ function selectAlbum(index,autoplay){
  audio.load();
  progress.value=0;currentTime.textContent="0:00";totalTime.textContent="0:00";
  playBtn.textContent="▶";playBtn.setAttribute("aria-label","Reproducir");
- status.textContent=`Álbum seleccionado: ${album.title}`;
+ updateMediaSession();
+ if(autoplay){setStatus("Cargando álbum… espere un momento, por favor",true);startPlayback();}
+ else setStatus(`Álbum seleccionado: ${album.title}`,false);
  renderLibrary();
- if(autoplay){
-  audio.play().then(()=>{status.textContent=`Reproduciendo: ${album.title}`;})
-  .catch(()=>{status.textContent="Toca reproducir para iniciar el álbum.";});
- }
 }
 playBtn.addEventListener("click",()=>{
- if(audio.paused){
-  audio.play().then(()=>{status.textContent=`Reproduciendo: ${albums[selectedIndex].title}`;})
-  .catch(()=>{status.textContent="No se pudo iniciar. Comprueba tu conexión.";});
- }else audio.pause();
+ if(audio.paused){wantsPlayback=true;retryCount=0;startPlayback();}
+ else{wantsPlayback=false;clearRetryTimers();audio.pause();setStatus("Reproducción pausada",false);}
 });
 audio.addEventListener("play",()=>{playBtn.textContent="Ⅱ";playBtn.setAttribute("aria-label","Pausar");});
 audio.addEventListener("pause",()=>{playBtn.textContent="▶";playBtn.setAttribute("aria-label","Reproducir");});
-audio.addEventListener("loadedmetadata",()=>{totalTime.textContent=timeLabel(audio.duration);});
+audio.addEventListener("loadedmetadata",()=>{totalTime.textContent=timeLabel(audio.duration);updatePositionState();});
 audio.addEventListener("timeupdate",()=>{
  currentTime.textContent=timeLabel(audio.currentTime);
- if(!dragging&&Number.isFinite(audio.duration)&&audio.duration>0)
-  progress.value=Math.round(audio.currentTime/audio.duration*1000);
+ lastKnownTime=audio.currentTime;
+ if(!dragging&&Number.isFinite(audio.duration)&&audio.duration>0)progress.value=Math.round(audio.currentTime/audio.duration*1000);
+ updatePositionState();
 });
 progress.addEventListener("input",()=>{
  dragging=true;
- if(Number.isFinite(audio.duration)&&audio.duration>0)
-  currentTime.textContent=timeLabel(Number(progress.value)/1000*audio.duration);
+ if(Number.isFinite(audio.duration)&&audio.duration>0)currentTime.textContent=timeLabel(Number(progress.value)/1000*audio.duration);
 });
 progress.addEventListener("change",()=>{
- if(Number.isFinite(audio.duration)&&audio.duration>0)
-  audio.currentTime=Number(progress.value)/1000*audio.duration;
+ if(Number.isFinite(audio.duration)&&audio.duration>0){audio.currentTime=Number(progress.value)/1000*audio.duration;lastKnownTime=audio.currentTime;updatePositionState();}
  dragging=false;
 });
-audio.addEventListener("waiting",()=>{status.textContent="Cargando audio…";});
-audio.addEventListener("canplay",()=>{if(!audio.paused)status.textContent=`Reproduciendo: ${albums[selectedIndex].title}`;});
-audio.addEventListener("ended",()=>{status.textContent="Álbum finalizado.";});
-audio.addEventListener("error",()=>{status.textContent="No se pudo cargar este audio. Inténtalo más tarde.";});
+function bufferingNotice(){
+ if(!wantsPlayback)return;
+ setStatus("Cargando álbum… espere un momento, por favor",true);
+ clearTimeout(stallTimer);
+ stallTimer=setTimeout(()=>{if(wantsPlayback&&audio.paused===false)scheduleRetry();},12000);
+}
+audio.addEventListener("waiting",bufferingNotice);
+audio.addEventListener("stalled",bufferingNotice);
+audio.addEventListener("canplay",()=>{
+ clearTimeout(stallTimer);
+ if(!audio.paused){setStatus(`Reproduciendo: ${albums[selectedIndex].title}`,false);}
+});
+audio.addEventListener("playing",()=>{clearTimeout(stallTimer);retryCount=0;setStatus(`Reproduciendo: ${albums[selectedIndex].title}`,false);});
+audio.addEventListener("ended",()=>{wantsPlayback=false;clearRetryTimers();setStatus("Álbum finalizado.",false);});
+audio.addEventListener("error",()=>{
+ if(!wantsPlayback)return;
+ if(!navigator.onLine||(audio.error&&audio.error.code===2))scheduleRetry();
+ else setStatus("No se pudo cargar este audio. Comprueba la conexión e inténtalo nuevamente.",false);
+});
+window.addEventListener("offline",()=>{if(wantsPlayback)setStatus("Sin conexión. Esperando señal para recuperar el álbum…",true);});
+window.addEventListener("online",()=>{if(wantsPlayback){retryCount=0;scheduleRetry(true);}});
+if("mediaSession" in navigator){
+ try{
+  navigator.mediaSession.setActionHandler("play",()=>{wantsPlayback=true;startPlayback();});
+  navigator.mediaSession.setActionHandler("pause",()=>{wantsPlayback=false;clearRetryTimers();audio.pause();});
+  navigator.mediaSession.setActionHandler("seekbackward",details=>{audio.currentTime=Math.max(0,audio.currentTime-(details.seekOffset||10));});
+  navigator.mediaSession.setActionHandler("seekforward",details=>{audio.currentTime=Math.min(audio.duration||Infinity,audio.currentTime+(details.seekOffset||10));});
+  navigator.mediaSession.setActionHandler("seekto",details=>{if(details.seekTime!==undefined)audio.currentTime=details.seekTime;});
+ }catch(e){}
+}
 renderLibrary();
 selectAlbum(0,false);
 </script>

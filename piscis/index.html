@@ -7,20 +7,13 @@
 <title>Piscis — El Diván de Mike</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
   color: #eee9df;
   font-family: Arial, sans-serif;
-  background: radial-gradient(
-    ellipse at 50% 0%,
-    #34434a,
-    #191e22 55%,
-    #101214
-  );
+  background: radial-gradient(ellipse at 50% 0%, #34434a, #191e22 55%, #101214);
   min-height: 100vh;
 }
 
@@ -59,24 +52,15 @@ header p {
 .cover {
   display: block;
   width: min(76vw, 330px);
-  height: auto;
   aspect-ratio: 1;
   object-fit: cover;
   margin: auto;
   border-radius: 9px;
-  cursor: pointer;
   box-shadow: 0 12px 30px #0006;
-  transition: transform .25s, box-shadow .25s;
+  transition: transform .25s;
 }
 
-.cover:hover {
-  transform: scale(1.025);
-  box-shadow: 0 15px 38px #0009;
-}
-
-.cover:active {
-  transform: scale(.97);
-}
+.cover:hover { transform: scale(1.025); }
 
 h2 {
   font: normal 28px Georgia, serif;
@@ -89,46 +73,26 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* REPRODUCTOR PERSONALIZADO: MISMAS DIMENSIONES */
-
-.custom-player {
+/* Reproductor personalizado */
+.player {
   width: 100%;
   height: 180px;
-  box-sizing: border-box;
-  padding: 17px 22px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #292d30, #171a1c);
-  border: 1px solid #b99a62;
-  box-shadow: inset 0 1px 0 #ffffff12, 0 5px 16px #0005;
-  color: #eee9df;
+  padding: 18px 20px;
+  border: 1px solid #c6aa7355;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #252b2e, #111619);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  font-family: Arial, sans-serif;
+  justify-content: center;
+  gap: 13px;
+  box-shadow: inset 0 1px 8px #ffffff08, 0 8px 20px #0004;
 }
 
 .player-top {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.player-label {
-  color: #c8ad7b;
-  font-size: 10px;
-  letter-spacing: 3px;
-}
-
-.player-status {
-  color: #aaa69e;
-  font-size: 10px;
-}
-
-.player-center {
-  display: flex;
-  align-items: center;
-  gap: 17px;
+  justify-content: center;
+  gap: 14px;
 }
 
 .play-button {
@@ -137,93 +101,89 @@ h2 {
   flex-shrink: 0;
   border: 1px solid #c8ad7b;
   border-radius: 50%;
-  background: linear-gradient(145deg, #c8ad7b, #987849);
-  color: #191b1d;
+  background: #c8ad7b;
+  color: #171a1b;
   font-size: 21px;
   cursor: pointer;
-  box-shadow: 0 3px 12px #0006;
-  transition: transform .2s;
+  transition: transform .2s, background .2s;
 }
 
-.play-button:hover {
-  transform: scale(1.06);
-}
+.play-button:hover { transform: scale(1.08); }
+.play-button:active { transform: scale(.94); }
 
 .track-info {
-  flex: 1;
-  min-width: 0;
   text-align: left;
+  flex: 1;
 }
 
-.track-name {
-  font: normal 19px Georgia, serif;
-  color: #f0e6d3;
+.track-title {
+  color: #e5d3ae;
+  font: normal 17px Georgia, serif;
 }
 
-.track-description {
-  font-size: 11px;
+.track-subtitle {
   color: #aaa69e;
-  margin-top: 5px;
+  font-size: 11px;
+  margin-top: 4px;
 }
 
 .equalizer {
   display: flex;
   align-items: center;
   gap: 3px;
-  height: 25px;
+  height: 30px;
 }
 
 .equalizer span {
+  display: block;
   width: 3px;
   height: 5px;
-  background: #c8ad7b;
   border-radius: 3px;
+  background: #c8ad7b;
 }
 
 .equalizer.playing span {
-  animation: equalize .65s ease-in-out infinite alternate;
+  animation: wave .65s ease-in-out infinite alternate;
 }
 
-.equalizer.playing span:nth-child(2n) {
-  animation-delay: .2s;
-}
+.equalizer span:nth-child(2) { animation-delay: .15s; }
+.equalizer span:nth-child(3) { animation-delay: .3s; }
+.equalizer span:nth-child(4) { animation-delay: .1s; }
+.equalizer span:nth-child(5) { animation-delay: .25s; }
 
-.equalizer.playing span:nth-child(3n) {
-  animation-delay: .4s;
-}
-
-.equalizer.playing span:nth-child(4n) {
-  animation-delay: .1s;
-}
-
-@keyframes equalize {
+@keyframes wave {
   from { height: 5px; }
-  to { height: 23px; }
+  to { height: 25px; }
 }
 
-.player-progress {
+.progress-area {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.player-progress input {
-  flex: 1;
-  min-width: 0;
+#progress {
+  width: 100%;
   accent-color: #c8ad7b;
   cursor: pointer;
 }
 
-.player-time {
+.times {
+  display: flex;
+  justify-content: space-between;
   color: #aaa69e;
   font-size: 10px;
   font-variant-numeric: tabular-nums;
-  white-space: nowrap;
 }
 
-.library {
-  margin-top: 34px;
+.status {
+  color: #c8ad7b;
+  font-size: 10px;
+  text-align: center;
+  min-height: 12px;
 }
+
+.library { margin-top: 34px; }
 
 .library h3 {
   text-align: center;
@@ -250,11 +210,6 @@ h2 {
   object-fit: cover;
   border-radius: 8px;
   display: block;
-  transition: transform .25s;
-}
-
-.album-card img:hover {
-  transform: scale(1.025);
 }
 
 .album-card strong {
@@ -272,35 +227,9 @@ footer {
 }
 
 @media (min-width: 650px) {
-  main {
-    padding-top: 45px;
-  }
-
-  .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .album {
-    padding: 30px;
-  }
-}
-
-@media (max-width: 420px) {
-  .custom-player {
-    padding: 16px 13px;
-  }
-
-  .player-center {
-    gap: 12px;
-  }
-
-  .player-label {
-    letter-spacing: 2px;
-  }
-
-  .track-name {
-    font-size: 17px;
-  }
+  main { padding-top: 45px; }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .album { padding: 30px; }
 }
 </style>
 </head>
@@ -324,47 +253,39 @@ footer {
   <h2>Piscis</h2>
   <div class="subtitle">Álbum completo</div>
 
-  <div class="custom-player">
+  <div class="player">
 
     <div class="player-top">
-      <span class="player-label">EL DIVÁN DE MIKE</span>
-      <span class="player-status" id="playerStatus">LISTO PARA ESCUCHAR</span>
-    </div>
-
-    <div class="player-center">
-
-      <button class="play-button" id="playButton"
-        type="button" aria-label="Reproducir">▶</button>
+      <button class="play-button" id="playButton" aria-label="Reproducir">▶</button>
 
       <div class="track-info">
-        <div class="track-name">Piscis</div>
-        <div class="track-description">
-          Álbum completo · Reproducción continua
-        </div>
+        <div class="track-title">Piscis</div>
+        <div class="track-subtitle">Mike (Leo Martinez)</div>
       </div>
 
       <div class="equalizer" id="equalizer">
-        <span></span><span></span><span></span>
-        <span></span><span></span><span></span>
-        <span></span>
+        <span></span><span></span><span></span><span></span><span></span>
       </div>
-
     </div>
 
-    <div class="player-progress">
-      <span class="player-time" id="currentTime">0:00</span>
-      <input type="range" id="progressBar"
-        min="0" max="1000" value="0">
-      <span class="player-time" id="duration">0:00</span>
+    <div class="progress-area">
+      <input type="range" id="progress" min="0" max="100" value="0">
+      <div class="times">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
     </div>
 
-    <audio id="albumAudio" preload="metadata">
-      <source
-        src="https://drive.google.com/uc?export=download&id=1EAAFaqAkaKW_KiUizEOv2vEddsYGZ5tY"
-        type="audio/mpeg">
-    </audio>
+    <div class="status" id="status">Preparado para reproducir</div>
 
   </div>
+
+  <audio id="albumAudio" preload="metadata">
+    <source
+      src="https://archive.org/download/album-piscis/Album%20PISCIS.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
 
 </section>
 
@@ -389,18 +310,16 @@ footer {
 <script>
 const audio = document.getElementById("albumAudio");
 const playButton = document.getElementById("playButton");
-const progressBar = document.getElementById("progressBar");
+const progress = document.getElementById("progress");
 const currentTime = document.getElementById("currentTime");
 const duration = document.getElementById("duration");
-const statusText = document.getElementById("playerStatus");
+const status = document.getElementById("status");
 const equalizer = document.getElementById("equalizer");
 
 function formatTime(seconds) {
   if (!Number.isFinite(seconds)) return "0:00";
-
   const min = Math.floor(seconds / 60);
   const sec = Math.floor(seconds % 60);
-
   return min + ":" + String(sec).padStart(2, "0");
 }
 
@@ -409,7 +328,7 @@ playButton.addEventListener("click", async () => {
     try {
       await audio.play();
     } catch (error) {
-      statusText.textContent = "NO SE PUDO CARGAR EL AUDIO";
+      status.textContent = "No se pudo iniciar el audio. Intenta nuevamente.";
     }
   } else {
     audio.pause();
@@ -418,48 +337,54 @@ playButton.addEventListener("click", async () => {
 
 audio.addEventListener("play", () => {
   playButton.textContent = "Ⅱ";
-  playButton.setAttribute("aria-label", "Pausar");
-  statusText.textContent = "REPRODUCIENDO";
   equalizer.classList.add("playing");
+  status.textContent = "Reproduciendo ahora";
 });
 
 audio.addEventListener("pause", () => {
   playButton.textContent = "▶";
-  playButton.setAttribute("aria-label", "Reproducir");
-  statusText.textContent = "EN PAUSA";
   equalizer.classList.remove("playing");
+  if (!audio.ended) status.textContent = "Reproducción pausada";
 });
 
 audio.addEventListener("loadedmetadata", () => {
   duration.textContent = formatTime(audio.duration);
+  status.textContent = "Álbum listo para escuchar";
 });
 
 audio.addEventListener("timeupdate", () => {
   currentTime.textContent = formatTime(audio.currentTime);
-
   if (Number.isFinite(audio.duration) && audio.duration > 0) {
-    progressBar.value =
-      (audio.currentTime / audio.duration) * 1000;
+    progress.value = (audio.currentTime / audio.duration) * 100;
   }
 });
 
-progressBar.addEventListener("input", () => {
+progress.addEventListener("input", () => {
   if (Number.isFinite(audio.duration)) {
-    audio.currentTime =
-      (progressBar.value / 1000) * audio.duration;
+    audio.currentTime = (progress.value / 100) * audio.duration;
   }
+});
+
+audio.addEventListener("waiting", () => {
+  status.textContent = "Cargando audio...";
+});
+
+audio.addEventListener("canplay", () => {
+  if (!audio.paused) status.textContent = "Reproduciendo ahora";
 });
 
 audio.addEventListener("ended", () => {
-  statusText.textContent = "ÁLBUM FINALIZADO";
   playButton.textContent = "▶";
   equalizer.classList.remove("playing");
+  progress.value = 0;
+  status.textContent = "Álbum finalizado";
 });
 
 audio.addEventListener("error", () => {
-  statusText.textContent = "ERROR AL CARGAR EL AUDIO";
+  status.textContent = "No se pudo cargar el audio. Revisaremos el enlace.";
 });
 </script>
 
 </body>
 </html>
+

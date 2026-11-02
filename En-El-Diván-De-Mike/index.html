@@ -4,387 +4,186 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Piscis — El Diván de Mike</title>
-
+<meta name="theme-color" content="#100e0c">
+<title>El Diván de Mike — Álbumes</title>
 <style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  color: #eee9df;
-  font-family: Arial, sans-serif;
-  background: radial-gradient(ellipse at 50% 0%, #34434a, #191e22 55%, #101214);
-  min-height: 100vh;
-}
-
-main {
-  width: min(100% - 28px, 850px);
-  margin: auto;
-  padding: 30px 0 45px;
-}
-
-header {
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-header h1 {
-  font: normal clamp(29px, 6vw, 43px) Georgia, serif;
-  letter-spacing: 1px;
-  margin: 0;
-}
-
-header p {
-  font-size: 10px;
-  letter-spacing: 4px;
-  color: #c8ad7b;
-}
-
-.album {
-  text-align: center;
-  padding: 20px 14px;
-  background: #ffffff08;
-  border: 1px solid #c6aa7333;
-  border-radius: 18px;
-  box-shadow: 0 18px 45px #0005;
-}
-
-.cover {
-  display: block;
-  width: min(76vw, 330px);
-  aspect-ratio: 1;
-  object-fit: cover;
-  margin: auto;
-  border-radius: 9px;
-  box-shadow: 0 12px 30px #0006;
-  transition: transform .25s;
-}
-
-.cover:hover { transform: scale(1.025); }
-
-h2 {
-  font: normal 28px Georgia, serif;
-  margin: 20px 0 6px;
-}
-
-.subtitle {
-  font-size: 13px;
-  color: #aaa69e;
-  margin-bottom: 20px;
-}
-
-/* Reproductor personalizado */
-.player {
-  width: 100%;
-  height: 180px;
-  padding: 18px 20px;
-  border: 1px solid #c6aa7355;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #252b2e, #111619);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 13px;
-  box-shadow: inset 0 1px 8px #ffffff08, 0 8px 20px #0004;
-}
-
-.player-top {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.play-button {
-  width: 48px;
-  height: 48px;
-  flex-shrink: 0;
-  border: 1px solid #c8ad7b;
-  border-radius: 50%;
-  background: #c8ad7b;
-  color: #171a1b;
-  font-size: 21px;
-  cursor: pointer;
-  transition: transform .2s, background .2s;
-}
-
-.play-button:hover { transform: scale(1.08); }
-.play-button:active { transform: scale(.94); }
-
-.track-info {
-  text-align: left;
-  flex: 1;
-}
-
-.track-title {
-  color: #e5d3ae;
-  font: normal 17px Georgia, serif;
-}
-
-.track-subtitle {
-  color: #aaa69e;
-  font-size: 11px;
-  margin-top: 4px;
-}
-
-.equalizer {
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  height: 30px;
-}
-
-.equalizer span {
-  display: block;
-  width: 3px;
-  height: 5px;
-  border-radius: 3px;
-  background: #c8ad7b;
-}
-
-.equalizer.playing span {
-  animation: wave .65s ease-in-out infinite alternate;
-}
-
-.equalizer span:nth-child(2) { animation-delay: .15s; }
-.equalizer span:nth-child(3) { animation-delay: .3s; }
-.equalizer span:nth-child(4) { animation-delay: .1s; }
-.equalizer span:nth-child(5) { animation-delay: .25s; }
-
-@keyframes wave {
-  from { height: 5px; }
-  to { height: 25px; }
-}
-
-.progress-area {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-#progress {
-  width: 100%;
-  accent-color: #c8ad7b;
-  cursor: pointer;
-}
-
-.times {
-  display: flex;
-  justify-content: space-between;
-  color: #aaa69e;
-  font-size: 10px;
-  font-variant-numeric: tabular-nums;
-}
-
-.status {
-  color: #c8ad7b;
-  font-size: 10px;
-  text-align: center;
-  min-height: 12px;
-}
-
-.library { margin-top: 34px; }
-
-.library h3 {
-  text-align: center;
-  font: normal 23px Georgia, serif;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-}
-
-.album-card {
-  padding: 9px;
-  background: #ffffff08;
-  border: 1px solid #ffffff12;
-  border-radius: 12px;
-  text-align: center;
-}
-
-.album-card img {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: 8px;
-  display: block;
-}
-
-.album-card strong {
-  display: block;
-  padding: 10px 2px 3px;
-  font-size: 13px;
-  font-weight: normal;
-}
-
-footer {
-  text-align: center;
-  color: #777a79;
-  font-size: 11px;
-  margin-top: 32px;
-}
-
-@media (min-width: 650px) {
-  main { padding-top: 45px; }
-  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-  .album { padding: 30px; }
-}
+:root{--bg:#100e0c;--gold:#c8ad7b;--gold2:#ead7ad;--cream:#f0e7d7;--muted:#a99d8b;--line:rgba(200,173,123,.22)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--cream);font-family:Georgia,"Times New Roman",serif;background:radial-gradient(ellipse at 50% 0%,#33271c 0%,#17130f 42%,var(--bg) 78%);padding:34px 18px 48px}
+main{width:min(1060px,100%);margin:auto}
+header{text-align:center;margin:4px 0 30px}
+.eyebrow{display:flex;align-items:center;justify-content:center;gap:15px;color:var(--gold);font:10px Arial,sans-serif;letter-spacing:4px}
+.eyebrow:before,.eyebrow:after{content:"";width:min(90px,14vw);height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.eyebrow:after{transform:scaleX(-1)}
+h1{font-size:clamp(27px,5vw,43px);font-weight:400;letter-spacing:3px;margin:13px 0 8px;color:var(--gold2)}
+.tagline{font:italic 15px Georgia,serif;color:#c5b7a2}
+.feature{width:min(760px,100%);margin:auto;padding:25px 22px 22px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(145deg,#2b2219f0,#14110ef7);box-shadow:0 18px 55px #0008;text-align:center}
+.cover-wrap{width:min(330px,78vw);aspect-ratio:1;margin:0 auto 20px;position:relative}
+.cover-wrap:after{content:"";position:absolute;inset:-8px;border-radius:17px;border:1px solid #c8ad7b40;pointer-events:none}
+#mainCover{display:block;width:100%;height:100%;object-fit:cover;border-radius:12px;box-shadow:0 12px 32px #0009}
+#albumTitle{font-size:clamp(22px,4vw,30px);font-weight:400;letter-spacing:2px;color:var(--gold2);margin:7px 0}
+.artist{font:11px Arial,sans-serif;letter-spacing:3px;color:var(--muted)}
+.album-note{font:12px Arial,sans-serif;color:#9e9281;margin:12px 0 19px}
+.controls{display:grid;grid-template-columns:54px 1fr auto;gap:15px;align-items:center;text-align:left;background:#0e0d0b;border:1px solid #ffffff12;border-radius:17px;padding:13px 16px}
+#playBtn{width:48px;height:48px;border:0;border-radius:50%;background:linear-gradient(145deg,#e5d1a5,#b8955e);color:#21180e;font-size:20px;cursor:pointer}
+.track{min-width:0}
+#progress{display:block;width:100%;height:36px;margin:0;accent-color:var(--gold);cursor:pointer;touch-action:pan-y}
+.times{display:flex;justify-content:space-between;color:#a99d8b;font:11px Arial,sans-serif;font-variant-numeric:tabular-nums}
+#status{font:11px Arial,sans-serif;color:#b5a88f;margin-top:13px;min-height:14px}
+.section-head{display:flex;align-items:center;gap:18px;margin:38px 0 8px}
+.section-head:before,.section-head:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--line))}
+.section-head:after{transform:scaleX(-1)}
+h2{font-size:14px;font-weight:400;letter-spacing:4px;color:var(--gold);white-space:nowrap;margin:0}
+.hint{text-align:center;color:#9e9281;font:12px Arial,sans-serif;margin:0 0 22px}
+.library{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.album-card{border:1px solid transparent;background:linear-gradient(150deg,#211b15,#17130f);border-radius:13px;padding:10px 10px 13px;text-align:center;cursor:pointer;transition:.25s;min-width:0;color:inherit}
+.album-card:hover{transform:translateY(-4px);border-color:#c8ad7b66;background:#292116}
+.album-card.selected{border-color:var(--gold);background:linear-gradient(145deg,#302719,#1b1713);box-shadow:0 0 22px #c8ad7b20}
+.album-card img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:8px;box-shadow:0 6px 16px #0008;animation:floaty 4.5s ease-in-out infinite;animation-delay:var(--delay,0s)}
+.album-card:nth-child(even) img{animation-name:floaty2}
+.album-card.selected img{animation:none}
+.album-card strong{display:block;font:12px/1.35 Arial,sans-serif;letter-spacing:.8px;color:#e6d9c3;margin:11px 2px 4px}
+.album-card small{display:block;font:10px Arial,sans-serif;color:#938675}
+@keyframes floaty{0%,100%{transform:translateY(0) rotate(-.35deg)}50%{transform:translateY(-4px) rotate(.35deg)}}
+@keyframes floaty2{0%,100%{transform:translateY(-2px) rotate(.3deg)}50%{transform:translateY(3px) rotate(-.3deg)}}
+footer{text-align:center;margin:38px 0 0;color:#8f806c;font:italic 13px Georgia,serif}
+@media(max-width:700px){body{padding:24px 13px 35px}.feature{padding:19px 14px}.library{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.album-card{padding:7px 7px 11px}.album-card strong{font-size:10px}.controls{grid-template-columns:48px 1fr;gap:11px;padding:10px}.controls .duration{display:none}#playBtn{width:44px;height:44px}}
+@media(max-width:420px){.library{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.cover-wrap{width:min(290px,78vw)}h1{letter-spacing:2px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
-
 <body>
 <main>
-
 <header>
-  <h1>El Diván de Mike</h1>
-  <p>MÚSICA PARA SENTIR</p>
+<div class="eyebrow">MÚSICA · IDEAS · EMOCIONES</div>
+<h1>EL DIVÁN DE MIKE</h1>
+<div class="tagline">La música también es una forma de pensar...</div>
 </header>
 
-<section class="album">
-
-  <img
-    class="cover"
-    src="https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png"
-    alt="Carátula original del álbum Piscis"
-  >
-
-  <h2>Piscis</h2>
-  <div class="subtitle">Álbum completo</div>
-
-  <div class="player">
-
-    <div class="player-top">
-      <button class="play-button" id="playButton" aria-label="Reproducir">▶</button>
-
-      <div class="track-info">
-        <div class="track-title">Piscis</div>
-        <div class="track-subtitle">Mike (Leo Martinez)</div>
-      </div>
-
-      <div class="equalizer" id="equalizer">
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </div>
-
-    <div class="progress-area">
-      <input type="range" id="progress" min="0" max="100" value="0">
-      <div class="times">
-        <span id="currentTime">0:00</span>
-        <span id="duration">0:00</span>
-      </div>
-    </div>
-
-    <div class="status" id="status">Preparado para reproducir</div>
-
-  </div>
-
-  <audio id="albumAudio" preload="metadata">
-    <source
-      src="https://archive.org/download/album-piscis/Album%20PISCIS.mp3"
-      type="audio/mpeg"
-    >
-  </audio>
-
+<section class="feature">
+<div class="cover-wrap">
+<img id="mainCover" src="https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png" alt="Carátula Piscis">
+</div>
+<h2 id="albumTitle">PISCIS</h2>
+<div class="artist">EL DIVÁN DE MIKE</div>
+<div class="album-note">Álbum completo · Reproducción continua</div>
+<div class="controls">
+<button id="playBtn" type="button" aria-label="Reproducir">▶</button>
+<div class="track">
+<input id="progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Posición de reproducción">
+<div class="times"><span id="currentTime">0:00</span><span id="totalTime">0:00</span></div>
+</div>
+<span class="duration">♫</span>
+</div>
+<div id="status" role="status">Selecciona un álbum y disfruta la música.</div>
+<audio id="albumAudio" preload="metadata" playsinline></audio>
 </section>
 
-<section class="library">
-  <h3>Mis álbumes</h3>
-
-  <div class="grid">
-    <div class="album-card">
-      <img
-        src="https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png"
-        alt="Piscis"
-      >
-      <strong>Piscis</strong>
-    </div>
-  </div>
-</section>
-
-<footer>© El Diván de Mike</footer>
-
+<div class="section-head"><h2>MIS ÁLBUMES</h2></div>
+<p class="hint">Elige una carátula para escuchar el álbum completo</p>
+<section class="library" id="library"></section>
+<footer>Gracias por estar aquí · Mike</footer>
 </main>
 
 <script>
-const audio = document.getElementById("albumAudio");
-const playButton = document.getElementById("playButton");
-const progress = document.getElementById("progress");
-const currentTime = document.getElementById("currentTime");
-const duration = document.getElementById("duration");
-const status = document.getElementById("status");
-const equalizer = document.getElementById("equalizer");
+const albums = [
+{title:"Piscis",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png",audio:"https://archive.org/download/album-piscis/Album%20PISCIS.mp3"},
+{title:"La Terminal Vol. I",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/la-terminal-1/terminal%201.png",audio:"https://archive.org/download/la-terminal-vol-i-el-album/La%20Terminal%20Vol%20%20I%20%28El%20Album%29.mp3"},
+{title:"Terminal Vol. 2",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/la-terminal-2/terminal%202.png",audio:"https://archive.org/download/terminal-vol.-2-el-album/Terminal%20Vol.%202%20%28El%20Album%29.mp3"},
+{title:"Terminal 3",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/la-terminal-3/terminal%203.png",audio:"https://archive.org/download/terminal-3-el-album/Terminal%203%20%28El%20Album%29.mp3"},
+{title:"Soneta",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/soneta/soneta.png",audio:"https://archive.org/download/soneta-el-album/Soneta%20%28El%20Album%29.mp3"},
+{title:"Sobrecargo en Bus",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/sobrecargo-en-bus/sobrecargoenbus.png",audio:"https://archive.org/download/sobrecargo-en-bus-el-album/Sobrecargo%20En%20Bus%20%28El%20Album%29.mp3"},
+{title:"Funk Music",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/funk-music/funk%20music%20album.png",audio:"https://archive.org/download/funk-music-the-album/Funk%20Music%20%28The%20Album%29.mp3"},
+{title:"Boleros y Tangos",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/boleros-tangos/Boleros%20y%20Tangos.png",audio:"https://archive.org/download/boleros-y-tangos-el-album/Boleros%20y%20Tangos%20%28El%20Album%29.mp3"},
+{title:"Bossa Nova – Lo Mejor",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/bossa-nova/Bossa%20Nova%201.png",audio:"https://archive.org/download/bossa-nova-lo-mejor-album-completo/Bossa%20Nova%20-%20Lo%20Mejor%20%28Album%20Completo%29.mp3"},
+{title:"Digital Groove Engine",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/digital-groove-engine/DIFGITAL%20GROOVE.png",audio:"https://archive.org/download/digital-groove-engine-electro-funk/Digital%20Groove%20Engine%20%28Electro%20Funk%29.mp3"},
+{title:"Cosmic Transmission",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/cosmic-transmission/COSMICTransmission.png",audio:"https://archive.org/download/cosmic-transmission-el-album/Cosmic%20Transmission%20%28El%20Album%29.mp3"},
+{title:"Cumbias y Boleros",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/cumbias-boleros/Cumbias%20y%20Boleros.png",audio:"https://archive.org/download/cumbias-y-boleros/Cumbias%20y%20Boleros.mp3"},
+{title:"Modo Avión – Grandes Éxitos",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/Modo-Avi%C3%B3n/Modo%20Avi%C3%B3n.png",audio:"https://archive.org/download/modo-avion-grandes-exitos/Modo%20Avi%C3%B3n%20-%20Grandes%20Exitos%20%E2%9C%88%EF%B8%8F.mp3"},
+{title:"Transporte Público (Funk Music)",image:"https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/Transporte-P%C3%BAblico/Transporte%20Publico.png",audio:"https://archive.org/download/transporte-publico-funk-music/Transporte%20Publico%20%28Funk%20Music%29.mp3"}
+];
 
-function formatTime(seconds) {
-  if (!Number.isFinite(seconds)) return "0:00";
-  const min = Math.floor(seconds / 60);
-  const sec = Math.floor(seconds % 60);
-  return min + ":" + String(sec).padStart(2, "0");
+const audio=document.getElementById("albumAudio");
+const mainCover=document.getElementById("mainCover");
+const albumTitle=document.getElementById("albumTitle");
+const playBtn=document.getElementById("playBtn");
+const progress=document.getElementById("progress");
+const currentTime=document.getElementById("currentTime");
+const totalTime=document.getElementById("totalTime");
+const status=document.getElementById("status");
+const library=document.getElementById("library");
+let selectedIndex=0,dragging=false;
+
+function timeLabel(seconds){
+ if(!Number.isFinite(seconds)||seconds<0)return "0:00";
+ const h=Math.floor(seconds/3600),m=Math.floor(seconds%3600/60),s=Math.floor(seconds%60);
+ return h?`${h}:${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`:`${m}:${String(s).padStart(2,"0")}`;
 }
-
-playButton.addEventListener("click", async () => {
-  if (audio.paused) {
-    try {
-      await audio.play();
-    } catch (error) {
-      status.textContent = "No se pudo iniciar el audio. Intenta nuevamente.";
-    }
-  } else {
-    audio.pause();
-  }
+function renderLibrary(){
+ library.innerHTML="";
+ albums.forEach((album,index)=>{
+  const card=document.createElement("button");
+  card.type="button";
+  card.className="album-card"+(index===selectedIndex?" selected":"");
+  card.setAttribute("aria-pressed",index===selectedIndex?"true":"false");
+  card.style.setProperty("--delay",`${index%5*.22}s`);
+  const img=document.createElement("img");
+  img.src=album.image;img.alt=`Carátula ${album.title}`;img.loading="lazy";
+  const title=document.createElement("strong");title.textContent=album.title;
+  const caption=document.createElement("small");caption.textContent="El Diván de Mike";
+  card.append(img,title,caption);
+  card.addEventListener("click",()=>selectAlbum(index,true));
+  library.append(card);
+ });
+}
+function selectAlbum(index,autoplay){
+ selectedIndex=index;
+ const album=albums[index];
+ audio.pause();
+ mainCover.src=album.image;
+ mainCover.alt=`Carátula del álbum ${album.title}`;
+ albumTitle.textContent=album.title.toLocaleUpperCase("es");
+ audio.src=album.audio;
+ audio.load();
+ progress.value=0;currentTime.textContent="0:00";totalTime.textContent="0:00";
+ playBtn.textContent="▶";playBtn.setAttribute("aria-label","Reproducir");
+ status.textContent=`Álbum seleccionado: ${album.title}`;
+ renderLibrary();
+ if(autoplay){
+  audio.play().then(()=>{status.textContent=`Reproduciendo: ${album.title}`;})
+  .catch(()=>{status.textContent="Toca reproducir para iniciar el álbum.";});
+ }
+}
+playBtn.addEventListener("click",()=>{
+ if(audio.paused){
+  audio.play().then(()=>{status.textContent=`Reproduciendo: ${albums[selectedIndex].title}`;})
+  .catch(()=>{status.textContent="No se pudo iniciar. Comprueba tu conexión.";});
+ }else audio.pause();
 });
-
-audio.addEventListener("play", () => {
-  playButton.textContent = "Ⅱ";
-  equalizer.classList.add("playing");
-  status.textContent = "Reproduciendo ahora";
+audio.addEventListener("play",()=>{playBtn.textContent="Ⅱ";playBtn.setAttribute("aria-label","Pausar");});
+audio.addEventListener("pause",()=>{playBtn.textContent="▶";playBtn.setAttribute("aria-label","Reproducir");});
+audio.addEventListener("loadedmetadata",()=>{totalTime.textContent=timeLabel(audio.duration);});
+audio.addEventListener("timeupdate",()=>{
+ currentTime.textContent=timeLabel(audio.currentTime);
+ if(!dragging&&Number.isFinite(audio.duration)&&audio.duration>0)
+  progress.value=Math.round(audio.currentTime/audio.duration*1000);
 });
-
-audio.addEventListener("pause", () => {
-  playButton.textContent = "▶";
-  equalizer.classList.remove("playing");
-  if (!audio.ended) status.textContent = "Reproducción pausada";
+progress.addEventListener("input",()=>{
+ dragging=true;
+ if(Number.isFinite(audio.duration)&&audio.duration>0)
+  currentTime.textContent=timeLabel(Number(progress.value)/1000*audio.duration);
 });
-
-audio.addEventListener("loadedmetadata", () => {
-  duration.textContent = formatTime(audio.duration);
-  status.textContent = "Álbum listo para escuchar";
+progress.addEventListener("change",()=>{
+ if(Number.isFinite(audio.duration)&&audio.duration>0)
+  audio.currentTime=Number(progress.value)/1000*audio.duration;
+ dragging=false;
 });
-
-audio.addEventListener("timeupdate", () => {
-  currentTime.textContent = formatTime(audio.currentTime);
-  if (Number.isFinite(audio.duration) && audio.duration > 0) {
-    progress.value = (audio.currentTime / audio.duration) * 100;
-  }
-});
-
-progress.addEventListener("input", () => {
-  if (Number.isFinite(audio.duration)) {
-    audio.currentTime = (progress.value / 100) * audio.duration;
-  }
-});
-
-audio.addEventListener("waiting", () => {
-  status.textContent = "Cargando audio...";
-});
-
-audio.addEventListener("canplay", () => {
-  if (!audio.paused) status.textContent = "Reproduciendo ahora";
-});
-
-audio.addEventListener("ended", () => {
-  playButton.textContent = "▶";
-  equalizer.classList.remove("playing");
-  progress.value = 0;
-  status.textContent = "Álbum finalizado";
-});
-
-audio.addEventListener("error", () => {
-  status.textContent = "No se pudo cargar el audio. Revisaremos el enlace.";
-});
+audio.addEventListener("waiting",()=>{status.textContent="Cargando audio…";});
+audio.addEventListener("canplay",()=>{if(!audio.paused)status.textContent=`Reproduciendo: ${albums[selectedIndex].title}`;});
+audio.addEventListener("ended",()=>{status.textContent="Álbum finalizado.";});
+audio.addEventListener("error",()=>{status.textContent="No se pudo cargar este audio. Inténtalo más tarde.";});
+renderLibrary();
+selectAlbum(0,false);
 </script>
-
 </body>
 </html>
-

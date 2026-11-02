@@ -5,12 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#123f83">
 <title>Martina Radio — Siempre Para Ti</title>
+<meta name="description" content="Martina Radio — Siempre Para Ti">
+
 <style>
 :root{--blue:#123f83;--deep:#061b3d;--pink:#ff78b7;--white:#fff}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;padding:28px 14px;display:grid;place-items:center;font-family:Arial,Helvetica,sans-serif;color:var(--white);text-align:center;background:linear-gradient(rgba(4,20,47,.55),rgba(4,20,47,.78)),url("BANNER.png") center/cover fixed no-repeat}
-.panel{width:min(100%,480px);padding:28px 22px;border:1px solid rgba(255,255,255,.22);border-radius:26px;background:linear-gradient(155deg,rgba(18,63,131,.96),rgba(5,24,58,.97));box-shadow:0 18px 55px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
-.vinyl-wrap{display:grid;place-items:center;padding:0 0 14px}
+body{margin:0;height:100svh;min-height:100svh;overflow:hidden;padding:8px 10px;display:flex;align-items:center;justify-content:center;font-family:Arial,Helvetica,sans-serif;color:var(--white);text-align:center;background:linear-gradient(rgba(4,20,47,.55),rgba(4,20,47,.78)),url("BANNER.png") center/cover fixed no-repeat}
+.panel{position:relative;width:min(100%,480px);height:calc(100svh - 16px);max-height:900px;overflow:hidden;padding:14px 18px;border:1px solid rgba(255,255,255,.22);border-radius:26px;background:linear-gradient(155deg,rgba(18,63,131,.96),rgba(5,24,58,.97));box-shadow:0 18px 55px rgba(0,0,0,.42);backdrop-filter:blur(8px)}
+.vinyl-wrap{display:grid;place-items:center;padding:0 0 8px;flex:0 0 auto}
 .vinyl{position:relative;width:190px;height:190px;border-radius:50%;border:3px solid #090909;background:radial-gradient(circle,transparent 0 16%,#242424 17% 18%,transparent 19% 27%,#292929 28% 29%,transparent 30% 38%,#252525 39% 40%,transparent 41% 49%,#282828 50% 51%,transparent 52% 60%,#252525 61% 62%,transparent 63% 70%,#252525 71% 72%,transparent 73%),repeating-radial-gradient(circle,#171717 0,#303030 2px,#101010 4px,#242424 5px,#111 7px);box-shadow:0 0 0 3px rgba(255,120,183,.8),0 12px 28px rgba(0,0,0,.5)}
 .vinyl.spinning{animation:spin 4s linear infinite}
 .record-label{position:absolute;top:50%;left:50%;width:128px;height:128px;transform:translate(-50%,-50%);border:2px solid #f6d6e6;border-radius:50%;overflow:hidden;background:var(--pink);z-index:3}
@@ -18,17 +20,17 @@ body{margin:0;min-height:100vh;padding:28px 14px;display:grid;place-items:center
 .spindle{pointer-events:none;position:absolute;top:50%;left:50%;z-index:4;width:7px;height:7px;transform:translate(-50%,-50%);border:1px solid #777;border-radius:50%;background:#fff}
 @keyframes spin{to{transform:rotate(360deg)}}
 h1{margin:7px 0 4px;font-size:clamp(29px,7vw,38px);letter-spacing:.5px}
-.slogan{margin:0 0 20px;color:#ffc0dc;font-size:13px;font-weight:bold;letter-spacing:2px}
-.track-card{margin:0 0 18px;padding:14px;border:1px solid rgba(255,255,255,.15);border-radius:18px;background:rgba(2,15,37,.38);min-width:0}
+.slogan{margin:0 0 12px;color:#ffc0dc;font-size:13px;font-weight:bold;letter-spacing:2px}
+.track-card{margin:0 0 12px;padding:11px;border:1px solid rgba(255,255,255,.15);border-radius:18px;background:rgba(2,15,37,.38);min-width:0}
 .track-art{display:none;width:100px;height:100px;margin:0 auto 11px;border-radius:12px;object-fit:cover;box-shadow:0 5px 16px rgba(0,0,0,.28)}
 .track-kicker{margin-bottom:6px;color:#ffc0dc;font-size:11px;font-weight:bold;letter-spacing:1.5px}
 .track-title{font-size:17px;font-weight:bold;line-height:1.35;overflow-wrap:anywhere}
 .track-artist{margin-top:5px;color:#d5e2f8;font-size:14px;line-height:1.4;overflow-wrap:anywhere}
 .track-note{margin-top:8px;color:#cbd9f4;font-size:11px}
-.status{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 14px;color:#ffd0e3;font-size:12px;letter-spacing:1.3px;font-weight:bold}
+.status{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 10px;color:#ffd0e3;font-size:12px;letter-spacing:1.3px;font-weight:bold}
 .status-dot{width:8px;height:8px;flex:0 0 8px;border-radius:50%;background:#ff5369;box-shadow:0 0 10px rgba(255,83,105,.7)}
 .status-dot.playing{background:#57f5b0;box-shadow:0 0 10px rgba(87,245,176,.7)}
-.controls{display:flex;align-items:center;gap:13px;padding:15px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(2,15,37,.48)}
+.controls{display:flex;align-items:center;gap:13px;padding:11px;border:1px solid rgba(255,255,255,.14);border-radius:18px;background:rgba(2,15,37,.48)}
 .play{flex:0 0 54px;width:54px;height:54px;border:0;border-radius:50%;background:var(--pink);color:white;font-size:23px;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,.24);transition:transform .2s,background .2s}
 .play:hover{transform:scale(1.06);background:#f45da5}
 .play:focus-visible,.volume:focus-visible,.mute:focus-visible{outline:2px solid white;outline-offset:4px}
@@ -38,12 +40,13 @@ h1{margin:7px 0 4px;font-size:clamp(29px,7vw,38px);letter-spacing:.5px}
 .volume-row{display:flex;align-items:center;gap:6px;margin-top:13px}
 .mute{padding:2px;border:0;color:white;background:transparent;cursor:pointer}
 .volume{width:100%;min-width:50px;accent-color:var(--pink);cursor:pointer}
-.youtube-frame{width:100%;aspect-ratio:16/9;margin-top:16px;overflow:hidden;border-radius:14px;background:#000;border:1px solid rgba(255,255,255,.18)}
+.youtube-frame{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%);width:320px;height:200px;aspect-ratio:auto;margin:0;overflow:hidden;border-radius:14px;background:#000;border:1px solid rgba(255,255,255,.18)}
 .youtube-frame iframe{display:block;width:100%;height:100%;border:0}
-.web-button{display:inline-block;margin-top:22px;padding:14px 20px;border:1px solid rgba(255,255,255,.55);border-radius:30px;background:var(--pink);color:white;font-size:12px;font-weight:bold;letter-spacing:.4px;text-decoration:none;transition:transform .2s}
+.web-button{display:inline-block;margin-top:14px;padding:14px 20px;border:1px solid rgba(255,255,255,.55);border-radius:30px;background:var(--pink);color:white;font-size:12px;font-weight:bold;letter-spacing:.4px;text-decoration:none;transition:transform .2s}
 .web-button:hover{transform:translateY(-2px)}
-.footer{margin-top:22px;color:rgba(255,255,255,.78);font-size:12px;line-height:1.7}
+.footer{margin-top:12px;color:rgba(255,255,255,.78);font-size:12px;line-height:1.7}
 .footer strong{color:#ffc0dc}
+
 @media(max-width:380px){
 body{padding:14px 8px}
 .panel{padding:22px 13px}
@@ -53,133 +56,230 @@ body{padding:14px 8px}
 .play{flex-basis:46px;width:46px;height:46px}
 .track-title{font-size:16px}
 }
+
+@media(max-height:700px){
+.panel{padding-top:9px;padding-bottom:9px}
+.vinyl{width:155px;height:155px}
+.record-label{width:104px;height:104px}
+h1{font-size:30px;margin:3px 0 2px}
+.slogan{margin-bottom:8px}
+.track-card{padding:8px;margin-bottom:8px}
+.track-note{margin-top:5px}
+.status{margin-bottom:7px}
+.controls{padding:8px}
+.play{width:46px;height:46px;flex-basis:46px}
+.web-button{margin-top:9px;padding:11px 16px}
+.footer{margin-top:7px;font-size:11px}
+}
+
+@media(max-height:560px){
+.vinyl{width:125px;height:125px}
+.record-label{width:84px;height:84px}
+.slogan{font-size:11px;margin-bottom:5px}
+.track-card{padding:6px;margin-bottom:6px}
+.track-title{font-size:15px}
+.track-artist{font-size:12px;margin-top:2px}
+.track-note{display:none}
+.status{margin-bottom:5px}
+.controls{padding:6px}
+.web-button{margin-top:6px;padding:9px 12px}
+.footer{display:none}
+}
+
 @media(prefers-reduced-motion:reduce){
 .vinyl.spinning{animation-duration:20s}
 .play,.web-button{transition:none}
 }
 </style>
 </head>
+
 <body>
 <main class="panel">
 
- <div class="vinyl-wrap" aria-label="Disco de Martina Radio">
+<div class="vinyl-wrap" aria-label="Disco de Martina Radio">
   <div class="vinyl" id="vinyl">
-    <img
-      class="record-label"
-      src="./descarga.jpg"
-      alt="Logotipo de Martina Radio"
-    >
+    <img class="record-label" src="./descarga.jpg" alt="Logotipo de Martina Radio">
     <div class="spindle"></div>
   </div>
 </div>
 
-  <h1>MARTINA RADIO</h1>
-  <p class="slogan">SIEMPRE PARA TI ❤️</p>
+<h1>MARTINA RADIO</h1>
+<p class="slogan">SIEMPRE PARA TI ❤️</p>
 
-  <section class="track-card" aria-live="polite" aria-label="Selección musical">
-     <div class="track-kicker">MARTINA RADIO PRESENTA</div>
-     <div class="track-title" id="trackTitle">Éxitos de los 80 y 90</div>
-     <div class="track-artist" id="trackArtist">Una selección musical para recordar</div>
-     <div class="track-note" id="trackNote">Pulsa reproducir para comenzar la transmisión</div>
-   </section>
+<section class="track-card" aria-live="polite" aria-label="Selección musical">
+  <div class="track-kicker">MARTINA RADIO PRESENTA</div>
+  <div class="track-title" id="trackTitle">Éxitos de los 80 y 90</div>
+  <div class="track-artist" id="trackArtist">Una selección musical para recordar</div>
+  <div class="track-note" id="trackNote">Pulsa reproducir para comenzar la transmisión</div>
+</section>
 
-  <div class="status" aria-live="polite">
-    <span class="status-dot" id="statusDot"></span>
-    <span id="statusText">LISTA PARA SONAR</span>
+<div class="status" aria-live="polite">
+  <span class="status-dot" id="statusDot"></span>
+  <span id="statusText">LISTA PARA SONAR</span>
+</div>
+
+<div class="controls">
+  <button class="play" id="playButton" type="button" aria-label="Reproducir">▶</button>
+  <div class="sound">
+    <div class="sound-title">La música de Martina</div>
+    <div class="sound-subtitle">Lista continua · Años 80 y 90</div>
+    <div class="volume-row">
+      <button class="mute" id="muteButton" type="button" aria-label="Silenciar">🔊</button>
+      <input class="volume" id="volume" type="range" min="0" max="100" value="80" aria-label="Volumen">
+    </div>
   </div>
+</div>
 
-  <div class="controls">
-     <button class="play" id="playButton" type="button" aria-label="Reproducir">▶</button>
-     <div class="sound">
-       <div class="sound-title">La música de Martina</div>
-       <div class="sound-subtitle">Lista continua · Años 80 y 90</div>
-     </div>
-   </div>
+<div class="youtube-frame"><div id="youtubePlayer"></div></div>
 
-   <div class="youtube-frame"><div id="youtubePlayer"></div></div>
+<a class="web-button" href="https://sites.google.com/view/martinaradio/inicio" target="_blank" rel="noopener noreferrer">ENTRAR A LA WEB DE MARTINA RADIO</a>
 
-   <a class="web-button" href="https://sites.google.com/view/martinaradio/inicio" target="_blank" rel="noopener noreferrer">ENTRAR A LA WEB DE MARTINA RADIO</a>
+<footer class="footer">
+  <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
+  La música y los recuerdos de siempre.
+</footer>
 
-  <footer class="footer">
-    <strong>Martina Radio — Siempre Para Ti ❤️</strong><br>
-    La música y los recuerdos de siempre.
-  </footer>
 </main>
 
 <script>
 (() => {
-  'use strict';
-  const PLAYLIST_ID = 'PLPQxdO44Qqjc';
-  const FIRST_VIDEO_ID = 'avsJtQPuXHI';
-  const button = document.getElementById('playButton');
-  const vinyl = document.getElementById('vinyl');
-  const statusText = document.getElementById('statusText');
-  const statusDot = document.getElementById('statusDot');
-  const trackTitle = document.getElementById('trackTitle');
-  const trackNote = document.getElementById('trackNote');
-  let player = null;
-  let playerReady = false;
-  let isPlaying = false;
+'use strict';
 
-  function setStatus(message, playing) {
-    statusText.textContent = message;
-    statusDot.classList.toggle('playing', Boolean(playing));
-  }
-  function setPlaying(playing) {
-    isPlaying = Boolean(playing);
-    button.textContent = isPlaying ? 'Ⅱ' : '▶';
-    button.setAttribute('aria-label', isPlaying ? 'Pausar' : 'Reproducir');
-    vinyl.classList.toggle('spinning', isPlaying);
-    if (isPlaying) setStatus('SONANDO', true);
-  }
+const PLAYLIST_ID = 'PLPQxdO44Qqjc';
+const FIRST_VIDEO_ID = 'avsJtQPuXHI';
+const button = document.getElementById('playButton');
+const vinyl = document.getElementById('vinyl');
+const volume = document.getElementById('volume');
+const muteButton = document.getElementById('muteButton');
+let lastVolume = 80;
 
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('youtubePlayer', {
-      width: '100%', height: '100%', videoId: FIRST_VIDEO_ID,
-      playerVars: {
-        autoplay: 0, controls: 1, playsinline: 1, rel: 0,
-        listType: 'playlist', list: PLAYLIST_ID, loop: 1
+const statusText = document.getElementById('statusText');
+const statusDot = document.getElementById('statusDot');
+const trackTitle = document.getElementById('trackTitle');
+const trackNote = document.getElementById('trackNote');
+
+let player = null;
+let playerReady = false;
+let isPlaying = false;
+
+function setStatus(message, playing) {
+  statusText.textContent = message;
+  statusDot.classList.toggle('playing', Boolean(playing));
+}
+
+function setPlaying(playing) {
+  isPlaying = Boolean(playing);
+  button.textContent = isPlaying ? 'Ⅱ' : '▶';
+  button.setAttribute('aria-label', isPlaying ? 'Pausar' : 'Reproducir');
+  vinyl.classList.toggle('spinning', isPlaying);
+  if (isPlaying) setStatus('SONANDO', true);
+}
+
+window.onYouTubeIframeAPIReady = function () {
+  player = new YT.Player('youtubePlayer', {
+    width: '100%',
+    height: '100%',
+    videoId: FIRST_VIDEO_ID,
+    playerVars: {
+      autoplay: 0,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      playsinline: 1,
+      rel: 0,
+      listType: 'playlist',
+      list: PLAYLIST_ID,
+      loop: 1
+    },
+    events: {
+      onReady: function () {
+        playerReady = true;
+        player.setVolume(80);
+        volume.value = 80;
+        player.cuePlaylist({
+          list: PLAYLIST_ID,
+          listType: 'playlist',
+          index: 0
+        });
+        setStatus('LISTA PARA SONAR', false);
       },
-      events: {
-        onReady: function () {
-          playerReady = true;
-          player.setVolume(80);
-          player.cuePlaylist({list: PLAYLIST_ID, listType: 'playlist', index: 0});
+      onStateChange: function (event) {
+        if (event.data === YT.PlayerState.PLAYING) {
+          setPlaying(true);
+          trackNote.textContent = 'Reproducción en curso';
+          const data = player.getVideoData();
+          if (data && data.title) trackTitle.textContent = data.title;
+        } else if (event.data === YT.PlayerState.PAUSED) {
+          setPlaying(false);
+          setStatus('EN PAUSA', false);
+        } else if (event.data === YT.PlayerState.ENDED) {
+          setPlaying(false);
+          setStatus('CAMBIANDO DE VIDEO', false);
+        } else if (event.data === YT.PlayerState.BUFFERING) {
+          setStatus('CARGANDO MÚSICA...', false);
+        } else if (event.data === YT.PlayerState.CUED) {
+          setPlaying(false);
           setStatus('LISTA PARA SONAR', false);
-        },
-        onStateChange: function (event) {
-          if (event.data === YT.PlayerState.PLAYING) {
-            setPlaying(true);
-            trackNote.textContent = 'Reproducción en curso';
-            const data = player.getVideoData();
-            if (data && data.title) trackTitle.textContent = data.title;
-          } else if (event.data === YT.PlayerState.PAUSED) {
-            setPlaying(false); setStatus('EN PAUSA', false);
-          } else if (event.data === YT.PlayerState.ENDED) {
-            setPlaying(false); setStatus('CAMBIANDO DE VIDEO', false);
-          } else if (event.data === YT.PlayerState.BUFFERING) {
-            setStatus('CARGANDO MÚSICA...', false);
-          } else if (event.data === YT.PlayerState.CUED) {
-            setPlaying(false); setStatus('LISTA PARA SONAR', false);
-          }
-        },
-        onError: function (event) {
-          setPlaying(false); setStatus('VIDEO NO DISPONIBLE', false);
-          trackNote.textContent = 'YouTube informó un error (' + event.data + '). Revisa la lista.';
         }
+      },
+      onError: function (event) {
+        setPlaying(false);
+        setStatus('VIDEO NO DISPONIBLE', false);
+        trackNote.textContent = 'YouTube informó un error (' + event.data + '). Revisa la lista.';
       }
-    });
-  };
-
-  button.addEventListener('click', function () {
-    if (!playerReady || !player) { setStatus('PREPARANDO REPRODUCTOR...', false); return; }
-    if (isPlaying) player.pauseVideo(); else player.playVideo();
+    }
   });
+};
 
-  const apiScript = document.createElement('script');
-  apiScript.src = 'https://www.youtube.com/iframe_api';
-  apiScript.async = true;
-  document.head.appendChild(apiScript);
+button.addEventListener('click', function () {
+  if (!playerReady || !player) {
+    setStatus('PREPARANDO REPRODUCTOR...', false);
+    return;
+  }
+  if (isPlaying) player.pauseVideo();
+  else player.playVideo();
+});
+
+volume.addEventListener('input', function () {
+  if (!playerReady || !player) return;
+  const value = Number(volume.value);
+  player.setVolume(value);
+
+  if (value > 0) {
+    lastVolume = value;
+    if (player.isMuted()) player.unMute();
+    muteButton.textContent = '🔊';
+    muteButton.setAttribute('aria-label', 'Silenciar');
+  } else {
+    muteButton.textContent = '🔇';
+    muteButton.setAttribute('aria-label', 'Activar sonido');
+  }
+});
+
+muteButton.addEventListener('click', function () {
+  if (!playerReady || !player) return;
+
+  if (player.isMuted() || Number(volume.value) === 0) {
+    player.unMute();
+    player.setVolume(lastVolume);
+    volume.value = lastVolume;
+    muteButton.textContent = '🔊';
+    muteButton.setAttribute('aria-label', 'Silenciar');
+  } else {
+    const current = player.getVolume();
+    if (current > 0) lastVolume = current;
+    player.mute();
+    volume.value = 0;
+    muteButton.textContent = '🔇';
+    muteButton.setAttribute('aria-label', 'Activar sonido');
+  }
+});
+
+const apiScript = document.createElement('script');
+apiScript.src = 'https://www.youtube.com/iframe_api';
+apiScript.async = true;
+document.head.appendChild(apiScript);
+
 })();
 </script>
 </body>

@@ -1,1 +1,390 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Piscis — El Diván de Mike</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: #eee9df;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(ellipse at 50% 0%, #34434a, #191e22 55%, #101214);
+  min-height: 100vh;
+}
+
+main {
+  width: min(100% - 28px, 850px);
+  margin: auto;
+  padding: 30px 0 45px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+header h1 {
+  font: normal clamp(29px, 6vw, 43px) Georgia, serif;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+header p {
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: #c8ad7b;
+}
+
+.album {
+  text-align: center;
+  padding: 20px 14px;
+  background: #ffffff08;
+  border: 1px solid #c6aa7333;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px #0005;
+}
+
+.cover {
+  display: block;
+  width: min(76vw, 330px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  margin: auto;
+  border-radius: 9px;
+  box-shadow: 0 12px 30px #0006;
+  transition: transform .25s;
+}
+
+.cover:hover { transform: scale(1.025); }
+
+h2 {
+  font: normal 28px Georgia, serif;
+  margin: 20px 0 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #aaa69e;
+  margin-bottom: 20px;
+}
+
+/* Reproductor personalizado */
+.player {
+  width: 100%;
+  height: 180px;
+  padding: 18px 20px;
+  border: 1px solid #c6aa7355;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #252b2e, #111619);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 13px;
+  box-shadow: inset 0 1px 8px #ffffff08, 0 8px 20px #0004;
+}
+
+.player-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.play-button {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border: 1px solid #c8ad7b;
+  border-radius: 50%;
+  background: #c8ad7b;
+  color: #171a1b;
+  font-size: 21px;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+
+.play-button:hover { transform: scale(1.08); }
+.play-button:active { transform: scale(.94); }
+
+.track-info {
+  text-align: left;
+  flex: 1;
+}
+
+.track-title {
+  color: #e5d3ae;
+  font: normal 17px Georgia, serif;
+}
+
+.track-subtitle {
+  color: #aaa69e;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.equalizer {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 30px;
+}
+
+.equalizer span {
+  display: block;
+  width: 3px;
+  height: 5px;
+  border-radius: 3px;
+  background: #c8ad7b;
+}
+
+.equalizer.playing span {
+  animation: wave .65s ease-in-out infinite alternate;
+}
+
+.equalizer span:nth-child(2) { animation-delay: .15s; }
+.equalizer span:nth-child(3) { animation-delay: .3s; }
+.equalizer span:nth-child(4) { animation-delay: .1s; }
+.equalizer span:nth-child(5) { animation-delay: .25s; }
+
+@keyframes wave {
+  from { height: 5px; }
+  to { height: 25px; }
+}
+
+.progress-area {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#progress {
+  width: 100%;
+  accent-color: #c8ad7b;
+  cursor: pointer;
+}
+
+.times {
+  display: flex;
+  justify-content: space-between;
+  color: #aaa69e;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.status {
+  color: #c8ad7b;
+  font-size: 10px;
+  text-align: center;
+  min-height: 12px;
+}
+
+.library { margin-top: 34px; }
+
+.library h3 {
+  text-align: center;
+  font: normal 23px Georgia, serif;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.album-card {
+  padding: 9px;
+  background: #ffffff08;
+  border: 1px solid #ffffff12;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.album-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.album-card strong {
+  display: block;
+  padding: 10px 2px 3px;
+  font-size: 13px;
+  font-weight: normal;
+}
+
+footer {
+  text-align: center;
+  color: #777a79;
+  font-size: 11px;
+  margin-top: 32px;
+}
+
+@media (min-width: 650px) {
+  main { padding-top: 45px; }
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .album { padding: 30px; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<header>
+  <h1>El Diván de Mike</h1>
+  <p>MÚSICA PARA SENTIR</p>
+</header>
+
+<section class="album">
+
+  <img
+    class="cover"
+    src="https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png"
+    alt="Carátula original del álbum Piscis"
+  >
+
+  <h2>Piscis</h2>
+  <div class="subtitle">Álbum completo</div>
+
+  <div class="player">
+
+    <div class="player-top">
+      <button class="play-button" id="playButton" aria-label="Reproducir">▶</button>
+
+      <div class="track-info">
+        <div class="track-title">Piscis</div>
+        <div class="track-subtitle">Mike (Leo Martinez)</div>
+      </div>
+
+      <div class="equalizer" id="equalizer">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="progress-area">
+      <input type="range" id="progress" min="0" max="100" value="0">
+      <div class="times">
+        <span id="currentTime">0:00</span>
+        <span id="duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="status" id="status">Preparado para reproducir</div>
+
+  </div>
+
+  <audio id="albumAudio" preload="metadata">
+    <source
+      src="https://archive.org/download/album-piscis/Album%20PISCIS.mp3"
+      type="audio/mpeg"
+    >
+  </audio>
+
+</section>
+
+<section class="library">
+  <h3>Mis álbumes</h3>
+
+  <div class="grid">
+    <div class="album-card">
+      <img
+        src="https://raw.githubusercontent.com/martinaradiopuertomontt-code/Martina-Radio/main/piscis/2026-10-19%20142619.png"
+        alt="Piscis"
+      >
+      <strong>Piscis</strong>
+    </div>
+  </div>
+</section>
+
+<footer>© El Diván de Mike</footer>
+
+</main>
+
+<script>
+const audio = document.getElementById("albumAudio");
+const playButton = document.getElementById("playButton");
+const progress = document.getElementById("progress");
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+const status = document.getElementById("status");
+const equalizer = document.getElementById("equalizer");
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return "0:00";
+  const min = Math.floor(seconds / 60);
+  const sec = Math.floor(seconds % 60);
+  return min + ":" + String(sec).padStart(2, "0");
+}
+
+playButton.addEventListener("click", async () => {
+  if (audio.paused) {
+    try {
+      await audio.play();
+    } catch (error) {
+      status.textContent = "No se pudo iniciar el audio. Intenta nuevamente.";
+    }
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener("play", () => {
+  playButton.textContent = "Ⅱ";
+  equalizer.classList.add("playing");
+  status.textContent = "Reproduciendo ahora";
+});
+
+audio.addEventListener("pause", () => {
+  playButton.textContent = "▶";
+  equalizer.classList.remove("playing");
+  if (!audio.ended) status.textContent = "Reproducción pausada";
+});
+
+audio.addEventListener("loadedmetadata", () => {
+  duration.textContent = formatTime(audio.duration);
+  status.textContent = "Álbum listo para escuchar";
+});
+
+audio.addEventListener("timeupdate", () => {
+  currentTime.textContent = formatTime(audio.currentTime);
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    progress.value = (audio.currentTime / audio.duration) * 100;
+  }
+});
+
+progress.addEventListener("input", () => {
+  if (Number.isFinite(audio.duration)) {
+    audio.currentTime = (progress.value / 100) * audio.duration;
+  }
+});
+
+audio.addEventListener("waiting", () => {
+  status.textContent = "Cargando audio...";
+});
+
+audio.addEventListener("canplay", () => {
+  if (!audio.paused) status.textContent = "Reproduciendo ahora";
+});
+
+audio.addEventListener("ended", () => {
+  playButton.textContent = "▶";
+  equalizer.classList.remove("playing");
+  progress.value = 0;
+  status.textContent = "Álbum finalizado";
+});
+
+audio.addEventListener("error", () => {
+  status.textContent = "No se pudo cargar el audio. Revisaremos el enlace.";
+});
+</script>
+
+</body>
+</html>
+

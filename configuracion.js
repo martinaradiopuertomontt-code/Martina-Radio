@@ -1,1 +1,1 @@
-const PLAYLIST_ID = 'PLbYbt8TtUK8g';
+window.MARTINA_PLAYLIST_ID = 'PLbYbt8TtUK8g';

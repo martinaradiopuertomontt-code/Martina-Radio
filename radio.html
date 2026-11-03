@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -166,6 +165,7 @@ const trackNote = document.getElementById('trackNote');
 let player = null;
 let playerReady = false;
 let playlistReady = false;
+let firstPlay = true;
 let isPlaying = false;
 
 function setStatus(message, playing) {
@@ -247,7 +247,22 @@ button.addEventListener('click', function () {
   if (isPlaying) {
     player.pauseVideo();
   } else {
-    player.playVideo();
+    if (firstPlay) {
+      player.setShuffle(true);
+
+      const playlist = player.getPlaylist();
+
+      if (playlist && playlist.length > 0) {
+        const randomIndex = Math.floor(Math.random() * playlist.length);
+        firstPlay = false;
+        player.playVideoAt(randomIndex);
+      } else {
+        firstPlay = false;
+        player.playVideo();
+      }
+    } else {
+      player.playVideo();
+    }
   }
 });
 
@@ -263,4 +278,35 @@ volume.addEventListener('input', function () {
     muteButton.setAttribute('aria-label', 'Silenciar');
   } else {
     muteButton.textContent = '🔇';
-    mute
+    muteButton.setAttribute('aria-label', 'Activar sonido');
+  }
+});
+
+muteButton.addEventListener('click', function () {
+  if (!playerReady || !player) return;
+
+  if (player.isMuted() || Number(volume.value) === 0) {
+    player.unMute();
+    player.setVolume(lastVolume);
+    volume.value = lastVolume;
+    muteButton.textContent = '🔊';
+    muteButton.setAttribute('aria-label', 'Silenciar');
+  } else {
+    const current = player.getVolume();
+    if (current > 0) lastVolume = current;
+    player.mute();
+    volume.value = 0;
+    muteButton.textContent = '🔇';
+    muteButton.setAttribute('aria-label', 'Activar sonido');
+  }
+});
+
+const apiScript = document.createElement('script');
+apiScript.src = 'https://www.youtube.com/iframe_api';
+apiScript.async = true;
+document.head.appendChild(apiScript);
+
+})();
+</script>
+</body>
+</html>

@@ -1,1 +1,1 @@
-window.MARTINA_PLAYLIST_ID = 'PLLfZt508g8JQ&index=4';
+window.MARTINA_PLAYLIST_ID = 'PLLfZt508g8JQ';

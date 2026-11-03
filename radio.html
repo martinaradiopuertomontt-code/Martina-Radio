@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -160,6 +161,8 @@ const trackNote = document.getElementById('trackNote');
 
 let player = null;
 let playerReady = false;
+let playlistReady = false;
+let firstPlay = true;
 let isPlaying = false;
 
 function setStatus(message, playing) {
@@ -218,6 +221,7 @@ window.onYouTubeIframeAPIReady = function () {
         } else if (event.data === YT.PlayerState.BUFFERING) {
           setStatus('CARGANDO MÚSICA...', false);
         } else if (event.data === YT.PlayerState.CUED) {
+          playlistReady = true;
           setPlaying(false);
           setStatus('LISTA PARA SONAR', false);
         }
@@ -232,12 +236,31 @@ window.onYouTubeIframeAPIReady = function () {
 };
 
 button.addEventListener('click', function () {
-  if (!playerReady || !player) {
+  if (!playerReady || !player || !playlistReady) {
     setStatus('PREPARANDO REPRODUCTOR...', false);
     return;
   }
-  if (isPlaying) player.pauseVideo();
-  else player.playVideo();
+
+  if (isPlaying) {
+    player.pauseVideo();
+  } else {
+    if (firstPlay) {
+      player.setShuffle(true);
+
+      const playlist = player.getPlaylist();
+
+      if (playlist && playlist.length > 0) {
+        const randomIndex = Math.floor(Math.random() * playlist.length);
+        firstPlay = false;
+        player.playVideoAt(randomIndex);
+      } else {
+        firstPlay = false;
+        player.playVideo();
+      }
+    } else {
+      player.playVideo();
+    }
+  }
 });
 
 volume.addEventListener('input', function () {
